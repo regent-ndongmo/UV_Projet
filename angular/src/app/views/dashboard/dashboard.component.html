@@ -1,0 +1,19 @@
+
+<h2 class="title">Voici les differents commentaires au fonctionnement du site</h2>
+<main class="container">
+@for (item of image; track $index){
+  <div class="context">
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+       Veniam, recusandae ipsa? Nobis, aut praesentium voluptatem repellat,
+       labore autem dignissimos mollitia
+       sit cumque totam inventore aliquid commodi accusamus tenetur suscipit asperiores.</div>
+    <div class="card-footer">
+      <span><button class="btn btn-primary">Supprimer <i class="fas fa-trash"></i></button></span>
+    </div>
+  </div>
+
+}@empty {
+  <a>Aucune photo</a>
+}
+</main>
+
