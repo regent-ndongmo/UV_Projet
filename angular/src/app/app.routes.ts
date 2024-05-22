@@ -1,3 +1,5 @@
+import { DashboardClientComponent } from './views/dashboard-client/dashboard-client.component';
+import { DashboardPhotographerComponent } from './views/dashboard-photographer/dashboard-photographer.component';
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
 
@@ -8,6 +10,10 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'photographe',
+    component: DashboardPhotographerComponent
+  },
+  {
     path: '',
     component: DefaultLayoutComponent,
     data: {
@@ -16,7 +22,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
+        component: DashboardClientComponent
       },
       {
         path: 'widgets',
