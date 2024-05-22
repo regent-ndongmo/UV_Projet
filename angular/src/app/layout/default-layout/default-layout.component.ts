@@ -1,10 +1,12 @@
+import { NavService } from './navService/nav.service';
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 
 import { IconDirective } from '@coreui/icons-angular';
 import {
   ContainerComponent,
+  INavData,
   ShadowOnScrollDirective,
   SidebarBrandComponent,
   SidebarComponent,
@@ -17,6 +19,7 @@ import {
 
 import { DefaultFooterComponent, DefaultHeaderComponent } from './';
 import { navItems } from './_nav';
+import { filter } from 'rxjs';
 
 function isOverflown(element: HTMLElement) {
   return (
@@ -49,7 +52,48 @@ function isOverflown(element: HTMLElement) {
   ]
 })
 export class DefaultLayoutComponent {
-  public navItems = navItems;
+  public navItems: INavData[] = [];
+
+  constructor(
+    private router: Router,
+    private menuService: NavService
+  ) { }
+
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updateMenu();
+    });
+
+    this.menuService.getMenuItems().subscribe(items => {
+      this.navItems = items;
+    });
+
+    this.updateMenu();
+  }
+
+  updateMenu() {
+    const route = this.router.url.split('/')[1];
+    let items: INavData[];
+
+    switch (route) {
+      case 'dashboard':
+        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages');
+        break;
+      case 'base':
+        items = navItems.filter(item => item.url === '/base');
+        break;
+      case 'widgets':
+        items = navItems.filter(item => item.url === '/widgets');
+        break;
+      default:
+        items = navItems;
+        break;
+    }
+
+    this.menuService.setMenuItems(items);
+  }
 
   onScrollbarUpdate($event: any) {
     // if ($event.verticalUsed) {
