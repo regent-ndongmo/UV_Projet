@@ -16,8 +16,10 @@ class CategorieFactory extends Factory
      */
     public function definition(): array
     {
+        $categories = ["Evenement", "mariage", "portrait", "dote"];
         return [
-            "categorie" => array_rand(["Evenement", "mariage", "portrait", "dote"], 1)
+            //"categorie" => $categories[array_rand($categories)],
+            //"categorie" => array_rand(["Evenement", "mariage", "portrait", "dote"], 1)
         ];
     }
 }

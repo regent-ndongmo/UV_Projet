@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Categorie;
+use App\Models\Photographe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class AvoirFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'categorie_id' => Categorie::factory(), // Génère une catégorie aléatoire
+            'photographe_id' => Photographe::factory(), // Génère un photographe aléatoire
         ];
     }
 }

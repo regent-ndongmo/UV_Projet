@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Contrat extends Model
 {
     use HasFactory;
+
+    public function rendez_vous(){
+        return $this->hasMany(RendezVous::class);
+    }
 }
