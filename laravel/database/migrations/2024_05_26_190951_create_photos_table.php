@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commentaires', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("categorie_id")->constrained("categories");
             $table->foreignId("photographe_id")->constrained("photographes");
-            $table->string("nom_client");
-            $table->string("ville_client");
-            $table->string("description");
+            $table->string("titre");
+            $table->string("url_image");
+            $table->string("nombre_likes");
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -27,10 +28,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table("commentaires", function(Blueprint $table){
-            $table->dropForeign('photographe_id');
+        Schema::table("photos", function(Blueprint $table){
+            $table->dropForeign(['photographe_id', "categorie_id"]);
+
+            // $table->dropConstrainedForeignId('photographe_id');
+            // $table->dropConstrainedForeignId("categorie_id");
 
         });
-        Schema::dropIfExists('commentaires');
+        Schema::dropIfExists('photos');
     }
 };

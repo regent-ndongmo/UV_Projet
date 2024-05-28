@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Photo;
+use App\Models\Photographe;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,4 +46,12 @@ Route::prefix('etudiant')->name('etudiant.')->group(function(){
     Route::get('/', [EtudiantController::class,'index'])->name('index');
 });
 */
+
+Route::get('/photographes', function(){
+    return Photographe::with("photographe")->paginate(5);
+});
+
+Route::get('/photo', function(){
+    return Photo::with("photo")->paginate(5);
+});
 

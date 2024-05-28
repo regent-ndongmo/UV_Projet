@@ -16,21 +16,34 @@
   <!-- Aside Bar -->
   <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow" pointerEventsMethod="scrollbar" visibility="hover">
     <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact />
-    <li *ngFor="let item of navItems" class="nav-item">
-      <a class="nav-link" [routerLink]="item.url">
-        <i *ngIf="item.iconComponent" [class]="item.iconComponent.name"></i>
-        {{ item.name }}
-        <span *ngIf="item.badge" class="badge badge-{{ item.badge.color }}">{{ item.badge.text }}</span>
-      </a>
-      <ul *ngIf="item.children" class="nav-dropdown-items">
-        <li *ngFor="let child of item.children" class="nav-item">
-          <a class="nav-link" [routerLink]="child.url">
-            <i *ngIf="child.icon" [class]="child.icon"></i>
-            {{ child.name }}
-          </a>
-        </li>
-      </ul>
-    </li>
+    @for (item of navItems; track $index) {
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="item.url">
+          @if (item.iconComponent) {
+            <i [class]="item.iconComponent.name"></i>
+          }
+          {{ item.name }}
+          @if (item.badge) {
+            <span class="badge badge-{{ item.badge.color }}">{{ item.badge.text }}</span>
+          }
+        </a>
+        @if (item.children) {
+          <ul class="nav-dropdown-items">
+            @for (child of item.children; track $index) {
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="child.url">
+                  @if (child.icon) {
+                    <i [class]="child.icon"></i>
+                  }
+                  {{ child.name }}
+                </a>
+              </li>
+            }
+          </ul>
+        }
+
+      </li>
+    }
   </ng-scrollbar>
   @if (!sidebar1.narrow) {
     <c-sidebar-footer cSidebarToggle="sidebar1" class="border-top d-none d-lg-flex" toggle="unfoldable" style="cursor: pointer;">
