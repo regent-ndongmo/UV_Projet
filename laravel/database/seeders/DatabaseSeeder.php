@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(AvoirSeeder::class);
         $this->call(CategorieSeeder::class);
         Photographe::factory(50)->create();
         Photo::factory(50)->create();

@@ -30,11 +30,7 @@ return new class extends Migration
         //Supprimer les deux colonne suivant avant tout
         Schema::table("avoirs", function(Blueprint $table){
             $table->dropForeign(['photographe_id', "categorie_id"]);
-
-            // $table->dropConstrainedForeignId('photographe_id');
-            // $table->dropConstrainedForeignId("categorie_id");
-
         });
-        Schema::dropIfExists('avoirs');
+        Schema::enableForeignKeyConstraints();
     }
 };

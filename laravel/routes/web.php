@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Avoir;
+use App\Models\Categorie;
 use App\Models\Photo;
 use App\Models\Photographe;
 use Illuminate\Foundation\Application;
@@ -47,11 +49,20 @@ Route::prefix('etudiant')->name('etudiant.')->group(function(){
 });
 */
 
-Route::get('/photographes', function(){
-    return Photographe::with("photographe")->paginate(5);
+Route::get('/photographe', function(){
+    return Photographe::with("photo", "commentaire", "disponibilite", "categories")->paginate(5);
 });
 
 Route::get('/photo', function(){
-    return Photo::with("photo")->paginate(5);
+    return Photo::with(["photographe", "categorie"])->paginate(5);
 });
+
+Route::get('/categorie', function(){
+    return Categorie::with(["photographes", "photo"])->paginate(5);
+});
+
+Route::get('/avoir', function(){
+    return Avoir::paginate(10);
+});
+
 

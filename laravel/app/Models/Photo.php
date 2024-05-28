@@ -9,7 +9,11 @@ class Photo extends Model
 {
     use HasFactory;
 
-    public function photo(){
+    public function photographe(){
         return $this->belongsTo(Photographe::class, "photographe_id", "id");
+    }
+
+    public function categorie(){
+        return $this->belongsTo(Categorie::class);
     }
 }
