@@ -15,22 +15,12 @@ class AvoirSeeder extends Seeder
      */
     public function run(): void
     {
-        // Associez chaque catégorie à des photographes de manière aléatoire
-        // Crée des catégories uniques
-        $categories = collect(['Evenement', 'mariage', 'portrait', 'dote']);
-
-        $categories->each(function ($categorie) {
-            Categorie::create(['categorie' => $categorie]);
-        });
-
-        // Génère des photographes
-        $photographes = Photographe::factory()->count(10)->create();
 
         // Associe chaque catégorie à des photographes de manière aléatoire
-        Categorie::all()->each(function ($categorie) use ($photographes) {
-            $categorie->photographes()->attach(
-                $photographes->random(rand(1, 3))->pluck('id')->toArray()
-            );
-        });
+        // Categorie::all()->each(function ($categorie) use ($photographes) {
+        //     $categorie->photographes()->attach(
+        //         $photographes->random(rand(1, 3))->pluck('id')->toArray()
+        //     );
+        // });
     }
 }

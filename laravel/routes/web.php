@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Avoir;
 use App\Models\Categorie;
@@ -53,9 +54,14 @@ Route::get('/photographe', function(){
     return Photographe::with("photo", "commentaire", "disponibilite", "categories")->paginate(5);
 });
 
-Route::get('/photo', function(){
-    return Photo::with(["photographe", "categorie"])->paginate(5);
-});
+// Route::get('/photo', [PhotoController::class, "index"]);
+// Route::get("photo/{id}", [PhotoController::class, "getPhotoById"] );
+// Route::post("photo/", [PhotoController::class, "create"] );
+// Route::put("photo/{id}", [PhotoController::class, "update"] );
+// Route::delete("photo/{id}", [PhotoController::class, "delete"] );
+
+
+
 
 Route::get('/categorie', function(){
     return Categorie::with(["photographes", "photo"])->paginate(5);
@@ -64,5 +70,4 @@ Route::get('/categorie', function(){
 Route::get('/avoir', function(){
     return Avoir::paginate(10);
 });
-
 

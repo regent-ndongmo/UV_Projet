@@ -18,8 +18,7 @@ class CategorieFactory extends Factory
     {
         $categories = ["Evenement", "mariage", "portrait", "dote"];
         return [
-            //"categorie" => $categories[array_rand($categories)],
-            //"categorie" => array_rand(["Evenement", "mariage", "portrait", "dote"], 1)
+            "categorie" => array_rand(["Evenement", "mariage", "portrait", "dote"], 1)
         ];
     }
 }

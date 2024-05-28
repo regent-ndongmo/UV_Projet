@@ -19,7 +19,7 @@ class PhotoFactory extends Factory
         return [
             "titre" => $this->faker->title(),
             "url_image" => $this->faker->imageUrl(),
-            "nombre_likes" => $this->faker->text(),
+            "nombre_likes" => $this->faker->numberBetween(1, 100),
             "photographe_id" => rand(1, 4),
             "categorie_id" => rand(1, 4),
         ];

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId("photographe_id")->constrained("photographes");
             $table->string("titre");
             $table->string("url_image");
-            $table->string("nombre_likes");
+            $table->integer("nombre_likes");
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -30,9 +30,6 @@ return new class extends Migration
     {
         Schema::table("photos", function(Blueprint $table){
             $table->dropForeign(['photographe_id', "categorie_id"]);
-
-            // $table->dropConstrainedForeignId('photographe_id');
-            // $table->dropConstrainedForeignId("categorie_id");
 
         });
         Schema::dropIfExists('photos');
