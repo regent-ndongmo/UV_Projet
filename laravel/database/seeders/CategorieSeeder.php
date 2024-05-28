@@ -13,11 +13,11 @@ class CategorieSeeder extends Seeder
      */
     public function run(): void
     {
-        // DB::table('categories')->insert([
-        //     ["categorie" => "evenement"],
-        //     ["categorie" => "mariage"],
-        //     ["categorie" => "portrait"],
-        //     ["categorie" => "dote"],
-        // ]);
+        DB::table('categories')->insert([
+            ["categorie" => "evenement"],
+            ["categorie" => "mariage"],
+            ["categorie" => "portrait"],
+            ["categorie" => "dote"],
+        ]);
     }
 }

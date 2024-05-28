@@ -9,6 +9,14 @@ class Photo extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'categorie_id',
+        'photographe_id',
+        'titre',
+        'url_image',
+        'nombre_likes',
+    ];
+
     public function photographe(){
         return $this->belongsTo(Photographe::class, "photographe_id", "id");
     }

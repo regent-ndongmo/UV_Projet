@@ -19,9 +19,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(AvoirSeeder::class);
-        $this->call(CategorieSeeder::class);
-        Photographe::factory(50)->create();
+        $categorie = $this->call(CategorieSeeder::class);
+        $photographes = Photographe::factory(50)->create();
         Photo::factory(50)->create();
+
+        Categorie::all()->each(function ($categorie) use ($photographes) {
+            $categorie->photographes()->attach(
+                $photographes->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
 
     }
 }
