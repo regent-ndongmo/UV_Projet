@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('photographes', function (Blueprint $table) {
             $table->id();
+            $table->string("nom");
+            $table->string("ville");
+            $table->string("pays");
+            $table->string("numero");
+            $table->string("photo");
+            $table->string("email")->unique();
+            $table->string("description");
+            $table->string('password');
             $table->timestamps();
         });
     }

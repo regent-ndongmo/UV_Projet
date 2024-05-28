@@ -17,7 +17,16 @@ class PhotographeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "nom" => $this->faker->lastName(),
+            "ville" => $this->faker->city(),
+            "pays" => $this->faker->country(),
+            "numero" => $this->faker->phoneNumber(),
+            "photo" => $this->faker->imageUrl(),
+            "email" => $this->faker->email(),
+            "description" => $this->faker->text(),
+            "password" => $this->faker->password(),
+
+
         ];
     }
 }
