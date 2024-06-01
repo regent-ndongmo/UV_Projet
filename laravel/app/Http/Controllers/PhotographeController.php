@@ -12,7 +12,7 @@ class PhotographeController extends Controller
      */
     public function index()
     {
-        //
+        return Photographe::with(["photo", "commentaire", "disponibilite", "categories"])->get();
     }
 
     /**

@@ -11,6 +11,10 @@
     "Pest\\Plugins\\ProcessIsolation",
     "Pest\\Plugins\\Profile",
     "Pest\\Plugins\\Retry",
+    "Pest\\Plugins\\Snapshot",
+    "Pest\\Plugins\\Verbose",
     "Pest\\Plugins\\Version",
-    "Pest\\Plugins\\Parallel"
+    "Pest\\Plugins\\Parallel",
+    "Pest\\Arch\\Plugin",
+    "Pest\\Laravel\\Plugin"
 ]

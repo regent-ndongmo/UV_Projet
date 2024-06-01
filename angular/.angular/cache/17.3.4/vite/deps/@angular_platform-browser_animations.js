@@ -10,7 +10,8 @@ import {
 import {
   BrowserModule,
   DomRendererFactory2
-} from "./chunk-4BUNGMKY.js";
+} from "./chunk-3JN6HPMB.js";
+import "./chunk-HSRSC2DQ.js";
 import {
   DOCUMENT
 } from "./chunk-CEW2EBYN.js";

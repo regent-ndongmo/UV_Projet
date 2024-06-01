@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,16 +18,14 @@ class PhotographeFactory extends Factory
     public function definition(): array
     {
         return [
-            "nom" => $this->faker->lastName(),
-            "ville" => $this->faker->city(),
-            "pays" => $this->faker->country(),
-            "numero" => $this->faker->phoneNumber(),
-            "photo" => $this->faker->imageUrl(),
-            "email" => $this->faker->email(),
-            "description" => $this->faker->text(),
-            "password" => $this->faker->password(),
-
-
+            'user_id' => User::factory(), // Create a new user for each photographer
+            'nom' => $this->faker->name,
+            'ville' => $this->faker->city,
+            'pays' => $this->faker->country,
+            'numero' => $this->faker->phoneNumber,
+            'photo' => $this->faker->imageUrl(),
+            'signature' => $this->faker->unique()->md5,
+            'description' => $this->faker->text(255),
         ];
     }
 }

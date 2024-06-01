@@ -46,6 +46,27 @@ export const navItems: INavData[] = [
       color: 'info',
       text: 'NEW'
     }
+
+  },
+  {
+    name: 'login',
+    url: '/login',
+    iconComponent: { name: 'cil-settings' },
+    badge: {
+      color: 'info',
+      text: 'NEW'
+    }
+
+  },
+  {
+    name: 'register',
+    url: '/register',
+    iconComponent: { name: 'cil-settings' },
+    badge: {
+      color: 'info',
+      text: 'NEW'
+    }
+
   }
   // {
   //   title: true,
