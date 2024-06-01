@@ -27,7 +27,6 @@ function isOverflown(element: HTMLElement) {
     element.scrollWidth > element.clientWidth
   );
 }
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',
@@ -79,13 +78,19 @@ export class DefaultLayoutComponent {
 
     switch (route) {
       case 'dashboard':
-        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages');
+        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
         break;
-      case 'base':
-        items = navItems.filter(item => item.url === '/base');
+      case 'messages':
+        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
         break;
       case 'widgets':
-        items = navItems.filter(item => item.url === '/widgets');
+        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
+        break;
+      case 'login':
+        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
+        break;
+      case 'register':
+        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
         break;
       default:
         items = navItems;

@@ -7,6 +7,7 @@ use App\Models\Avoir;
 use App\Models\Categorie;
 use App\Models\Photo;
 use App\Models\Photographe;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,6 +53,10 @@ Route::prefix('etudiant')->name('etudiant.')->group(function(){
 
 Route::get('/photographe', function(){
     return Photographe::with("photo", "commentaire", "disponibilite", "categories")->paginate(5);
+});
+
+Route::get('/user', function(){
+    return User::all();
 });
 
 // Route::get('/photo', [PhotoController::class, "index"]);

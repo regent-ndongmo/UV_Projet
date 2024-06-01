@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthentificationController;
+use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PhotographeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -27,3 +30,11 @@ Route::put("photo/{id}", [PhotoController::class, "updatePut"] );
 Route::patch("photo/{id}", [PhotoController::class, "updatePatch"] );
 Route::delete("photo/{id}", [PhotoController::class, "delete"] );
 
+Route::get('/photographe', [PhotographeController::class, "index"]);
+
+
+Route::group(["ramespace"=>"Api\Auth"], function(){
+    Route::post("/login", [AuthentificationController::class, "login"]);
+    Route::post("/logout", [AuthentificationController::class, "logout"])->middleware('auth:api');
+    Route::post("/register", [RegisterController::class, "register"]);
+});

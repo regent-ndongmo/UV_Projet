@@ -1,3 +1,6 @@
+import { authGuardGuard } from './Auth/Guard/auth-guard.guard';
+import { LoginComponent } from './Auth/login/login.component';
+import { RegisterComponent } from './Auth/register/register.component';
 import { DashboardClientComponent } from './views/dashboard-client/dashboard-client.component';
 import { DashboardPhotographerComponent } from './views/dashboard-photographer/dashboard-photographer.component';
 import { Routes } from '@angular/router';
@@ -11,7 +14,8 @@ export const routes: Routes = [
   },
   {
     path: 'photographe',
-    component: DashboardPhotographerComponent
+    component: DashboardPhotographerComponent,
+    canActivate: [authGuardGuard]
   },
   {
     path: '',
@@ -31,7 +35,16 @@ export const routes: Routes = [
       {
         path: 'messages',
         loadChildren: () => import('./views/charts/routes').then((m) => m.routes)
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
       }
+
       // {
       //   path: 'pages',
       //   loadChildren: () => import('./views/pages/routes').then((m) => m.routes)

@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Categorie;
 use App\Models\Photo;
 use App\Models\Photographe;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 use function Pest\Laravel\call;
@@ -28,6 +29,19 @@ class DatabaseSeeder extends Seeder
                 $photographes->random(rand(1, 3))->pluck('id')->toArray()
             );
         });
+
+        User::factory(10)->create()->each(function ($user) {
+            $user->role = 'photographe';
+            $user->save();
+
+            Photographe::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        });
+
+        $this->call([
+            UserSeeder::class,
+        ]);
 
     }
 }

@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('photographes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("user_id")->constrained("users");
             $table->string("nom");
             $table->string("ville");
             $table->string("pays");
             $table->string("numero");
             $table->string("photo");
-            $table->string("email")->unique();
+            $table->string("signature")->unique();
             $table->string("description");
-            $table->string('password');
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -30,6 +32,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table("rendez_vous", function(Blueprint $table){
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('photographes');
     }
 };
