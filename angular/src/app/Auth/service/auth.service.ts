@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/interface/api-response';
 import { Login } from 'src/app/model/login';
 import { Register } from 'src/app/model/register';
@@ -11,9 +11,15 @@ import { Register } from 'src/app/model/register';
 })
 export class AuthService {
 
+  private buttonClicked = new BehaviorSubject<boolean>(false);
+  buttonClicked$ = this.buttonClicked.asObservable();
 
   constructor( private httpClient: HttpClient, private router: Router) {}
 
+
+  clickButton(): void {
+    this.buttonClicked.next(true);
+  }
 
   login(data: Login): Observable<ApiResponse>  {
     return this.httpClient.post<ApiResponse>('http://127.0.0.1:8000/api/login', data);
@@ -29,14 +35,20 @@ export class AuthService {
   }
 
   // Méthode pour obtenir le rôle de l'utilisateur
-  getRole(): string | null {
+  getRole(): string{
     const user = localStorage.getItem('user');
-    return user ? JSON.parse(user).role : null;
+    return user ? JSON.parse(user).role : "client";
   }
 
   // Méthode pour se déconnecter
   logout() {
     localStorage.removeItem('user');
+    localStorage.removeItem('user_id');
     this.router.navigate(['/dasboard']);
+  }
+
+  //Profile
+  registerProfile(data : any){
+    return this.httpClient.post("http://127.0.0.1:8000/api/registerPhotographe", data);
   }
 }

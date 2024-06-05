@@ -4,4 +4,6 @@ export interface ApiResponse {
   email: string;
   role: any;
   token?: string;
+  success: any;
+  data: any;
 }

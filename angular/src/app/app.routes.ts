@@ -1,3 +1,7 @@
+import { routeGuard } from './Auth/Guard/route.guard';
+import { adminGuardGuard } from './Auth/Guard/admin-guard.guard';
+import { DashboardComponent } from './views/dashboard-admin/dashboard.component';
+import { ProfileComponent } from './Photographe/profile/profile.component';
 import { authGuardGuard } from './Auth/Guard/auth-guard.guard';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
@@ -13,11 +17,6 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'photographe',
-    component: DashboardPhotographerComponent,
-    canActivate: [authGuardGuard]
-  },
-  {
     path: '',
     component: DefaultLayoutComponent,
     data: {
@@ -27,6 +26,11 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardClientComponent
+      },
+      {
+        path: 'photographe',
+        component: DashboardPhotographerComponent,
+        canActivate: [authGuardGuard]
       },
       {
         path: 'widgets',
@@ -43,6 +47,21 @@ export const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent
+      },
+      // {
+      //   path: 'creeProfile',
+      //   component: CreeProfileComponent,
+      //   canActivate: [routeGuard]
+      // },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [authGuardGuard]
+      },
+      {
+        path: 'admin',
+        component: DashboardComponent,
+        canActivate: [adminGuardGuard],
       }
 
       // {

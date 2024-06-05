@@ -87,3 +87,63 @@
     </div>
   </div>
 </section>
+
+
+
+<!-- Profile -->
+<div class="container-xl px-4 mt-4" hidden>
+  <hr class="mt-0 mb-4">
+  <div class="row">
+    <div class="col-xl-4">
+      <div class="card mb-4 mb-xl-0">
+        <div class="card-header">Profile Picture</div>
+        <div class="card-body text-center">
+          <img class="img-account-profile rounded-circle mb-2" [src]="imgURL" alt="" *ngIf="imgURL">
+          <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+          <button class="btn btn-primary" (click)="triggerFileInput()">Upload new image</button>
+          <input type="file" #fileInput accept="image/*" name="photo" (change)="onSelectFile($event)" style="display: none;">
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8">
+      <div class="card mb-4">
+        <div class="card-header">Account Details</div>
+        <div class="card-body">
+          <form>
+            <input type="text" name="photographe" [(ngModel)]="photographe.user_id">
+            <div class="mb-3">
+              <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
+              <input class="form-control" name="nom" [(ngModel)]="photographe.nom" id="inputUsername" type="text" placeholder="Enter your username">
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputFirstName">Ville</label>
+                <input class="form-control" name="ville" [(ngModel)]="photographe.ville" id="inputFirstName" type="text" placeholder="Enter your City">
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLastName">Pays</label>
+                <input class="form-control" name="pays" [(ngModel)]="photographe.pays" id="inputLastName" type="text" placeholder="Enter your country">
+              </div>
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputPhone">Phone number</label>
+                <input class="form-control" name="numero" [(ngModel)]="photographe.numero" id="inputPhone" type="tel" placeholder="Enter your phone number">
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation">Signature (Present sur toutes vos photos)</label>
+                <input class="form-control" name="signature" [(ngModel)]="photographe.signature" id="inputLocation" type="text" placeholder="Enter your location">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="small mb-1" for="inputEmailAddress">Description</label>
+              <input class="form-control" name="description" [(ngModel)]="photographe.description" id="inputEmailAddress" type="text" placeholder="Enter your description message">
+            </div>
+            <!-- <button class="btn btn-primary" type="button" (click)="changeProfile()">Save changes</button> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
