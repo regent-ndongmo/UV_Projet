@@ -192,7 +192,7 @@ class PhotographeController extends Controller
             $photoPath = null;
             if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                 $file = $request->file('photo');
-                $uploadPath = 'images/profile';
+                $uploadPath = 'storage/images/profile';
                 $originalName = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path($uploadPath), $originalName);
                 $photoPath = $originalName;

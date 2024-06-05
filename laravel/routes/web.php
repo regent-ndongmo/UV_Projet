@@ -9,6 +9,7 @@ use App\Models\Photo;
 use App\Models\Photographe;
 use App\Models\User;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -57,6 +58,11 @@ Route::get('/photographe', function(){
 
 Route::get('/user', function(){
     return User::all();
+});
+
+Route::get('/create-symlink', function () {
+    Artisan::call('storage:link');
+    echo "Symlink Created. Thanks";
 });
 
 // Route::get('/photo', [PhotoController::class, "index"]);
