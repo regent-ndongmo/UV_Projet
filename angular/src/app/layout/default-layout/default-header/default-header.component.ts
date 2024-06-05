@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import { Component, computed, DestroyRef, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import {
   AvatarComponent,
   BadgeComponent,
@@ -29,6 +29,9 @@ import { IconDirective } from '@coreui/icons-angular';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay, filter, map, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/Auth/service/auth.service';
+import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
+import { Photographe } from 'src/app/model/photographe/photographe';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-default-header',
@@ -59,7 +62,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   isAuthenticated: boolean = false;
 
   // roles: string | null = this.service.getRole();
-  constructor(private service: AuthService) {
+  constructor(private service: AuthService, private route: ActivatedRoute, private service1: PhotographeService) {
     super();
 
     this.#colorModeService.localStorageItemName.set('coreui-free-angular-admin-template-theme-default');
@@ -77,10 +80,55 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
       )
       .subscribe();
   }
+
+  photographe = new Photographe
+
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
+  userFile: File | null = null;
+  imgURL: any;
+  message: string = '';
+
+
+  id: any;
+  data:any;
+  public imgPath: any;
+
+  
+
   ngOnInit(): void {
+    // Any initialization logic can go here
+    this.id = localStorage.getItem('user_id');
+    console.log(this.id);
+    this.getData();
     this.isAuthenticated = this.service.isAuthenticated();
 
   }
+  //Recuperation des information sur les photographe
+  getData() {
+    this.service1.getPhotographeById(this.id).subscribe(res => {
+        this.data = res;
+        this.photographe = this.data;
+
+        // Construire l'URL de l'image
+        if (this.photographe.photo) {
+            // Utiliser une URL relative en supposant que les images sont dans le dossier 'assets'
+            this.imgURL = `${environment.baseUrl}/${this.photographe.photo}`;
+
+            // this.imgURL = 'assets/account.png';
+            console.log('la photo du photographe est : ', this.photographe.photo)
+        } else {
+            this.imgURL = 'assets/account.png'; // Chemin de l'image par défaut
+        }
+    });
+  }
+
+
+
+
+
+
 
   @Input() sidebarId: string = 'sidebar1';
 

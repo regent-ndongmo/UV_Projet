@@ -38,129 +38,64 @@ class PhotographeController extends Controller
         return response()->json($photographe, 201);
     }
 
-    // PUT function to update an existing photographe
+    // PATCH function to update an existing photographe
+
     public function update(Request $request, $id)
     {
-        $photographe = Photographe::findOrFail($id);
-
-        $validated = $request->validate([
-            'user_id' => 'sometimes|exists:users,id',
-            'nom' => 'sometimes|string|max:255',
-            'ville' => 'sometimes|string|max:255',
-            'pays' => 'sometimes|string|max:255',
-            'numero' => 'sometimes|string|max:255',
-            'photo' => 'sometimes|string|max:255',
-            'signature' => 'sometimes|string|max:255|unique:photographes,signature,'.$id,
-            'description' => 'sometimes|string',
-        ]);
-
-        $photographe = Photographe::findOrFail($id);
-        $data = $request->all();
-
-        if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
-            $fileName = $file->getClientOriginalName(); // Récupérer le nom du fichier
-            $file->storeAs('photographes', $fileName, 'public'); // Stocker le fichier dans le répertoire public/photographes
-            $data['photo'] = $fileName; // Stocker le nom du fichier dans la base de données
-        }
-
-        $photographe->update($data);
-
-        return response()->json($photographe, 200);
-    }
-
-    // PATCH function to partially update an existing photographe
-    // public function patch(Request $request, $id)
-    // {
-    //     $photographe = Photographe::findOrFail($id);
-
-    //     $validated = $request->validate([
-    //         'user_id' => 'sometimes|exists:users,id',
-    //         'nom' => 'sometimes|string|max:255',
-    //         'ville' => 'sometimes|string|max:255',
-    //         'pays' => 'sometimes|string|max:255',
-    //         'numero' => 'sometimes|string|max:255',
-    //         'photo' => 'sometimes|string|max:255',
-    //         'signature' => 'sometimes|string|max:255|unique:photographes,signature,'.$id,
-    //         'description' => 'sometimes|string',
-    //     ]);
-
-
-    //     $data = $request->all();
-
-    //     if ($request->hasFile('photo')) {
-    //         $file = $request->file('photo');
-    //         $fileName = $file->getClientOriginalName(); // Récupérer le nom du fichier
-    //         $file->storeAs('photographes', $fileName, 'public'); // Stocker le fichier dans le répertoire public/photographes
-    //         $data['photo'] = $fileName; // Stocker le nom du fichier dans la base de données
-    //     }
-
-    //     try {
-    //         $photographe->update($data);
-    //         return response()->json($photographe, 200);
-    //     } catch (\Exception $e) {
-    //         // Handle exception (log error, return error response, etc.)
-    //         return response()->json(['error' => 'An error occurred while updating the photographe'], 500);
-    //     }
-    // }
-    public function patch(Request $request, $id)
-    {
-        $photographe = Photographe::findOrFail($id);
-        $data = $request->all();
-
-        $validated = Validator::make($data, [
-            'user_id' => 'sometimes|exists:users,id',
-            'nom' => 'sometimes|string|max:255',
-            'ville' => 'sometimes|string|max:255',
-            'pays' => 'sometimes|string|max:255',
-            'numero' => 'sometimes|string|max:255',
-            'signature' => 'sometimes|string|max:255|unique:photographes,signature,'.$id,
-            'description' => 'sometimes|string',
-        ]);
-
-
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $fileName = $file->getClientOriginalName(); // Récupérer le nom du fichier
-            $uploadPath = "images/profile";
-            $file->storeAs('photographes', $fileName, 'public'); // Stocker le fichier dans le répertoire public/photographes
-            $data['file'] = $fileName; // Stocker le nom du fichier dans la base de données
-            $file->move($uploadPath, $fileName);
-        }
-
         try {
-            $photographe->update($data);
-            return response()->json($photographe, 200);
-        } catch (\Exception $e) {
-            // Handle exception (log error, return error response, etc.)
-            return response()->json(['error' => 'An error occurred while updating the photographe'], 500);
+            // Trouver le photographe par son ID
+            $photographe = Photographe::findOrFail($id);
+
+            // Récupérer uniquement les données nécessaires
+            $data = $request->only('user_id', 'nom', 'ville', 'pays', 'numero', 'photo', 'signature', 'description');
+
+            // Valider les données
+            $validator = Validator::make($data, [
+                'user_id' => 'required|integer',
+                'nom' => 'required|string',
+                'ville' => 'required|string',
+                'pays' => 'required|string',
+                'numero' => 'required|string',
+                'signature' => 'required|string',
+                'description' => 'required|string',
+            ]);
+
+            // Retourner les erreurs de validation
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            // Traiter le téléchargement de la photo
+            $photoPath = $photographe->photo; // Valeur par défaut, garder l'ancienne photo
+            if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+                $file = $request->file('photo');
+                $uploadPath = 'storage/images/profile';
+                $originalName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path($uploadPath), $originalName);
+                $photoPath = $originalName;
+            } else if (!$photographe->photo) {
+                // Utilisation d'une photo par défaut si aucune photo n'existait auparavant
+                $photoPath = 'account.png'; // Remplacez par le chemin de votre photo par défaut
+            }
+
+            // Mettre à jour les données du photographe
+            $photographe->fill([
+                'user_id' => $data['user_id'],
+                'nom' => $data['nom'],
+                'ville' => $data['ville'],
+                'pays' => $data['pays'],
+                'numero' => $data['numero'],
+                'photo' => $photoPath,
+                'signature' => $data['signature'],
+                'description' => $data['description'],
+            ]);
+            $photographe->save();
+
+            return response()->json($photographe, 200); // 200 pour une mise à jour réussie
+        } catch (Exception $e) {
+            Log::error('Error updating photographe: ' . $e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
-    }
-
-    // GET function to retrieve a photographe by ID
-    public function show($id)
-    {
-        $photographe = Photographe::findOrFail($id);
-
-        // Assurez-vous que l'URL de l'image est correcte
-        if ($photographe->photo) {
-            $photographe->photo = $photographe->photo;
-        }
-
-        return response()->json($photographe, 200);
-    }
-
-
-    // DELETE function to delete a photographe
-    public function destroy($id)
-    {
-        $photographe = Photographe::findOrFail($id);
-        if ($photographe->photo) {
-            Storage::disk('public')->delete($photographe->photo);
-        }
-        $photographe->delete();
-
-        return response()->json(null, 204);
     }
 
 
@@ -218,6 +153,32 @@ class PhotographeController extends Controller
             Log::error('Error registering photographe: ' . $e->getMessage());
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
+    }
+
+    // GET function to retrieve a photographe by ID
+    public function show($id)
+    {
+        $photographe = Photographe::findOrFail($id);
+
+        // Assurez-vous que l'URL de l'image est correcte
+        if ($photographe->photo) {
+            $photographe->photo = $photographe->photo;
+        }
+
+        return response()->json($photographe, 200);
+    }
+
+
+    // DELETE function to delete a photographe
+    public function destroy($id)
+    {
+        $photographe = Photographe::findOrFail($id);
+        if ($photographe->photo) {
+            Storage::disk('public')->delete($photographe->photo);
+        }
+        $photographe->delete();
+
+        return response()->json(null, 204);
     }
 }
 

@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfileComponent implements OnInit{
 
-  photographe = new Photographe
+  photographe = new Photographe()
 
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -29,6 +29,9 @@ export class ProfileComponent implements OnInit{
   data:any;
   public imgPath: any;
 
+  file: File | null = null;
+
+  defaultImageUrl: string = 'assets/account.png';
 
   constructor(private route: ActivatedRoute, private service: PhotographeService) {
     // this.photographe.user_id = 3;
@@ -39,6 +42,7 @@ export class ProfileComponent implements OnInit{
       this.id = localStorage.getItem('user_id');
       console.log(this.id);
       this.getData();
+      this.photographe.user_id = +this.id
     }
 
   getData() {
@@ -57,7 +61,7 @@ export class ProfileComponent implements OnInit{
             this.imgURL = 'assets/account.png'; // Chemin de l'image par défaut
         }
     });
-}
+  }
 
   triggerFileInput(): void {
     this.fileInput.nativeElement.click();
@@ -66,7 +70,7 @@ export class ProfileComponent implements OnInit{
   onSelectFile(event: any): void {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.userFile = file;
+      this.file = file;
 
       const mimeType = file.type;
       if (mimeType.match(/image\/*/) == null) {
@@ -79,21 +83,26 @@ export class ProfileComponent implements OnInit{
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
         this.imgURL = reader.result;
-      }
+      };
+    } else {
+      this.imgURL = this.defaultImageUrl;
+      this.file = null;
     }
-
   }
 
-  changeProfile(){
-    console.log(this.userFile)
-    console.log(this.userFile?.name)
-    console.log(this.photographe)
+  changeProfile(): void {
+    console.log(this.file);
+    console.log(this.file?.name);
+    console.log('Données du formulaire :');
 
-    var formData = new FormData();
+    const formData = new FormData();
 
-    if (this.userFile) {
-      formData.append('file', this.userFile, this.userFile.name);
+    if (this.file) {
+      formData.append('photo', this.file, this.file.name);  // Use 'photo' instead of 'file'
+    } else {
+      formData.append('photo', new Blob(), '');  // Empty file to indicate no file selected
     }
+    formData.append('user_id', this.photographe.user_id.toString());
     formData.append('nom', this.photographe.nom);
     formData.append('ville', this.photographe.ville);
     formData.append('pays', this.photographe.pays);
@@ -101,12 +110,19 @@ export class ProfileComponent implements OnInit{
     formData.append('signature', this.photographe.signature);
     formData.append('description', this.photographe.description);
 
-    // this.service.registerPhotographe(formData).subscribe((res: any) => {
-    //   console.log(res)
-    // })
+    console.log("Les data se presente comme suit", formData)
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
 
-    this.service.changeProfile(this.id, formData).subscribe(res =>{
-    })
+    this.service.changeProfile(formData).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error: any) => {
+        console.error('Error:', error);
+      }
+    );
   }
 
 }

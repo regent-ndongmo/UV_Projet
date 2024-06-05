@@ -1,15 +1,32 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/interface/api-response';
 import { Login } from 'src/app/model/login';
 import { Register } from 'src/app/model/register';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private apiUrl = `${environment.apiUrl}`;
+
+  isVisible: boolean = false;
+
+
+  getisVisible(): boolean {
+    return this.isVisible;
+  }
+
+  setisVisible(value: boolean) {
+    this.isVisible = value;
+  }
+  // Déclaration d'un événement pour notifier les changements de visibilité
+  onVisibilityChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
   private buttonClicked = new BehaviorSubject<boolean>(false);
   buttonClicked$ = this.buttonClicked.asObservable();
@@ -22,11 +39,11 @@ export class AuthService {
   }
 
   login(data: Login): Observable<ApiResponse>  {
-    return this.httpClient.post<ApiResponse>('http://127.0.0.1:8000/api/login', data);
+    return this.httpClient.post<ApiResponse>(`${this.apiUrl}/login`, data);
   }
 
   register(data: Register) {
-    return this.httpClient.post('http://127.0.0.1:8000/api/register', data);
+    return this.httpClient.post(`${this.apiUrl}/register`, data);
   }
 
   // Méthode pour vérifier si l'utilisateur est authentifié
@@ -44,11 +61,12 @@ export class AuthService {
   logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('user_id');
+    localStorage.removeItem("headerVisible");
     this.router.navigate(['/dasboard']);
   }
 
   //Profile
   registerProfile(data : any){
-    return this.httpClient.post("http://127.0.0.1:8000/api/registerPhotographe", data);
+    return this.httpClient.post(`${this.apiUrl}/registerPhotographe`, data);
   }
 }

@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit{
 
     this.service.login(this.login).subscribe((res: ApiResponse)=>{
       console.log(res);
+      // this.service.setisVisible(true)
+      localStorage.setItem("headerVisible", JSON.stringify(true));
       localStorage.setItem("user", JSON.stringify(res));
       localStorage.setItem("user_id", JSON.stringify(res.id))
       console.log("Le role du photographe conncte est ", res.role);

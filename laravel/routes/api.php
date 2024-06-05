@@ -42,8 +42,8 @@ Route::group(["ramespace"=>"Api\Auth"], function(){
     Route::post("/register", [RegisterController::class, "register"]);
 
     Route::post('/photographe', [PhotographeController::class, 'store']);
+    // Route::put('/photographe/{id}', [PhotographeController::class, 'update']);
     Route::put('/photographe/{id}', [PhotographeController::class, 'update']);
-    Route::patch('/photographe/{id}', [PhotographeController::class, 'patch']);
     Route::get('/photographe/{id}', [PhotographeController::class, 'show']);
     Route::delete('/photographe/{id}', [PhotographeController::class, 'destroy']);
 
