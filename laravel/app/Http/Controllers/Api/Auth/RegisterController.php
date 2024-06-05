@@ -24,6 +24,9 @@ class RegisterController extends Controller
 
         ]);
 
-        return response(["message"=>"user successfuly register."], 200 );
+        return response([
+            "message"=>"user successfuly register.",
+            'id' => $user->id
+        ], 200 );
     }
 }

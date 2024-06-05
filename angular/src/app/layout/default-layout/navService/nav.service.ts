@@ -7,15 +7,165 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NavService {
 
-  private menuItems = new BehaviorSubject<INavData[]>([]);
+  private photographerItems: INavData[] = [
+    {
+      name: 'Accueil',
+      url: '/photographe',
+      iconComponent: { name: 'cil-speedometer' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
+      name: 'Messages',
+      url: '/messages',
+      iconComponent: { name: 'cilEnvelopeOpen' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
+      name: 'Profile',
+      url: '/profile',
+      iconComponent: { name: 'cil-settings' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
 
-  setMenuItems(items: INavData[]) {
-    this.menuItems.next(items);
-  }
+    },
+    {
+      name: 'Parametre',
+      url: '/widgets',
+      iconComponent: { name: 'cil-settings' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
 
-  getMenuItems() {
-    return this.menuItems.asObservable();
-  }
-  
+    }
+  ];
+
+  private adminItems: INavData[] = [
+    {
+      name: 'Photographes',
+      url: '/base',
+      iconComponent: { name: 'cil-puzzle' },
+      children: [
+
+        {
+          name: 'Liste des photoghaphes',
+          url: '/base/cards',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Liste de client',
+          url: '/base/tables',
+          icon: 'nav-icon-bullet'
+        },
+      ]
+    },
+
+    {
+      name: 'Parametre',
+      url: '/widgets',
+      iconComponent: { name: 'cil-settings' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    }
+  ];
+
+  private superAdminItems: INavData[] = [
+    {
+      name: 'Photographes',
+      url: '/base',
+      iconComponent: { name: 'cil-puzzle' },
+      children: [
+
+        {
+          name: 'Liste des photoghaphes',
+          url: '/base/cards',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Liste de client',
+          url: '/base/tables',
+          icon: 'nav-icon-bullet'
+        },
+      ]
+    },
+
+    {
+      name: 'Parametre',
+      url: '/widgets',
+      iconComponent: { name: 'cil-settings' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    }
+  ];
+  private clientItems: INavData[] = [
+    {
+      name: 'Accueil',
+      url: '/dashboard',
+      iconComponent: { name: 'cil-speedometer' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
+      name: 'Messages',
+      url: '/messages',
+      iconComponent: { name: 'cilEnvelopeOpen' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
+      name: 'login',
+      url: '/login',
+      iconComponent: { name: 'cil-settings' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    },
+    {
+      name: 'register',
+      url: '/register',
+      iconComponent: { name: 'cil-settings' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    }
+  ];
+
   constructor() { }
+
+  getMenuItems(role: string): INavData[] {
+    switch (role) {
+      case 'photographe':
+        return this.photographerItems;
+      case 'Admin':
+        return this.adminItems;
+      case 'superAdmin':
+        return this.superAdminItems;
+      case 'client':
+        return this.clientItems;
+      default:
+        return [];
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import { NavService } from './navService/nav.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 
@@ -18,8 +18,9 @@ import {
 } from '@coreui/angular';
 
 import { DefaultFooterComponent, DefaultHeaderComponent } from './';
-import { navItems } from './_nav';
 import { filter } from 'rxjs';
+import { AuthService } from 'src/app/Auth/service/auth.service';
+import { CommonModule } from '@angular/common';
 
 function isOverflown(element: HTMLElement) {
   return (
@@ -47,15 +48,22 @@ function isOverflown(element: HTMLElement) {
     ShadowOnScrollDirective,
     ContainerComponent,
     RouterOutlet,
-    DefaultFooterComponent
+    DefaultFooterComponent,
+    CommonModule
   ]
 })
-export class DefaultLayoutComponent {
+export class DefaultLayoutComponent implements OnInit{
+
+
   public navItems: INavData[] = [];
+
+  role = this.service.getRole();
+  isVisible: boolean = false
 
   constructor(
     private router: Router,
-    private menuService: NavService
+    private menuService: NavService,
+    private service: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -65,44 +73,37 @@ export class DefaultLayoutComponent {
       this.updateMenu();
     });
 
-    this.menuService.getMenuItems().subscribe(items => {
-      this.navItems = items;
-    });
-
     this.updateMenu();
+
+    this.isVisible = this.service.isAuthenticated();
+
   }
 
   updateMenu() {
-    const route = this.router.url.split('/')[1];
-    let items: INavData[];
-
-    switch (route) {
-      case 'dashboard':
-        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
-        break;
-      case 'messages':
-        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
-        break;
-      case 'widgets':
-        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
-        break;
-      case 'login':
-        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
-        break;
-      case 'register':
-        items = navItems.filter(item => item.url === '/dashboard' || item.url === '/messages' || item.url === '/login' || item.url === '/register');
-        break;
-      default:
-        items = navItems;
-        break;
+    const role = this.service.getRole();
+    if (role === "superAdmin") {
+      this.navItems = this.menuService.getMenuItems(role);
+    }
+    if (role === "Admin") {
+      this.navItems = this.menuService.getMenuItems(role);
+    }
+    if (role === "photographe") {
+      this.navItems = this.menuService.getMenuItems(role);
+    }
+    if (role === "client") {
+      this.navItems = this.menuService.getMenuItems(role);
     }
 
-    this.menuService.setMenuItems(items);
+
+
   }
 
   onScrollbarUpdate($event: any) {
     // if ($event.verticalUsed) {
     // console.log('verticalUsed', $event.verticalUsed);
     // }
+  }
+  trackByIndex(index: number){
+    // return index;
   }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("pays");
             $table->string("numero");
             $table->string("photo");
-            $table->string("signature")->unique();
+            $table->string("signature");
             $table->string("description");
             $table->timestamps();
         });

@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, Input } from '@angular/core';
+import { Component, computed, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import {
   AvatarComponent,
   BadgeComponent,
@@ -20,21 +20,24 @@ import {
   ProgressComponent,
   SidebarToggleDirective,
   TextColorDirective,
-  ThemeDirective
+  ThemeDirective,
+
 } from '@coreui/angular';
-import { NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgStyle, NgTemplateOutlet, CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { IconDirective } from '@coreui/icons-angular';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay, filter, map, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/Auth/service/auth.service';
 
 @Component({
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
+  styleUrl: './default-header.component.scss',
   standalone: true,
-  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle]
+  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle, CommonModule]
 })
-export class DefaultHeaderComponent extends HeaderComponent {
+export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   readonly #activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   readonly #colorModeService = inject(ColorModeService);
@@ -52,8 +55,13 @@ export class DefaultHeaderComponent extends HeaderComponent {
     return this.colorModes.find(mode=> mode.name === currentMode)?.icon ?? 'cilSun';
   });
 
-  constructor() {
+
+  isAuthenticated: boolean = false;
+
+  // roles: string | null = this.service.getRole();
+  constructor(private service: AuthService) {
     super();
+
     this.#colorModeService.localStorageItemName.set('coreui-free-angular-admin-template-theme-default');
     this.#colorModeService.eventName.set('ColorSchemeChange');
 
@@ -68,6 +76,10 @@ export class DefaultHeaderComponent extends HeaderComponent {
         takeUntilDestroyed(this.#destroyRef)
       )
       .subscribe();
+  }
+  ngOnInit(): void {
+    this.isAuthenticated = this.service.isAuthenticated();
+
   }
 
   @Input() sidebarId: string = 'sidebar1';
@@ -139,5 +151,9 @@ export class DefaultHeaderComponent extends HeaderComponent {
     { id: 2, title: 'SSD 1 Usage', value: 90, color: 'danger', details: '243GB/256GB' }
   ];
 
+  logout(){
+    this.service.logout();
+    this.isAuthenticated = false;
+  }
 
 }

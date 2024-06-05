@@ -1,4 +1,3 @@
-sidebar
 <c-sidebar
   #sidebar1="cSidebar"
   class="d-print-none sidebar sidebar-fixed border-end"
@@ -16,7 +15,7 @@ sidebar
   <!-- Aside Bar -->
   <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow" pointerEventsMethod="scrollbar" visibility="hover">
     <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact>
-      <ul>
+      <!-- <ul>
         <li class="nav-item" *ngFor="let item of navItems; trackBy: trackByIndex">
           <a class="nav-link" [routerLink]="item.url">
             <i *ngIf="item.iconComponent" [class]="item.iconComponent.name"></i>
@@ -24,12 +23,13 @@ sidebar
             <span *ngIf="item.badge" class="badge badge-{{ item.badge.color }}">{{ item.badge.text }}</span>
           </a>
         </li>
-      </ul>
+      </ul> -->
     </c-sidebar-nav>
   </ng-scrollbar>
   @if (!sidebar1.narrow) {
     <c-sidebar-footer cSidebarToggle="sidebar1" class="border-top d-none d-lg-flex" toggle="unfoldable" style="cursor: pointer;">
       <button cSidebarToggler></button>
+      <!-- {{ role }} -->
     </c-sidebar-footer>
   }
 </c-sidebar>
@@ -37,7 +37,7 @@ sidebar
 <!--main-->
 <div class="wrapper d-flex flex-column min-vh-100">
   <!--app-header-->
-  <app-default-header [cShadowOnScroll]="'sm'"
+  <app-default-header *ngIf="isVisible" [cShadowOnScroll]="'sm'"
                       class="mb-4 d-print-none header header-sticky p-0 shadow-sm"
                       position="sticky"
                       sidebarId="sidebar1" />

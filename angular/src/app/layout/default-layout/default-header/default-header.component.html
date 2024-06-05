@@ -1,5 +1,5 @@
 <!--<c-header class="mb-4 d-print-none" position="sticky">-->
-<ng-container>
+<ng-container *ngIf="isAuthenticated">
   <c-container [fluid]="true" class="border-bottom px-4">
     <button
       [cSidebarToggle]="sidebarId"
@@ -116,8 +116,8 @@
       <li>
         <hr cDropdownDivider />
       </li>
-      <li>
-        <a cDropdownItem routerLink="">
+      <li class="logout">
+        <a cDropdownItem (click)="logout()">
           <svg cIcon class="me-2" name="cilAccountLogout"></svg>
           Logout
         </a>

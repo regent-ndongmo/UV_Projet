@@ -7,6 +7,9 @@ use App\Http\Controllers\PhotographeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,4 +40,29 @@ Route::group(["ramespace"=>"Api\Auth"], function(){
     Route::post("/login", [AuthentificationController::class, "login"]);
     Route::post("/logout", [AuthentificationController::class, "logout"])->middleware('auth:api');
     Route::post("/register", [RegisterController::class, "register"]);
+
+    Route::post('/photographe', [PhotographeController::class, 'store']);
+    Route::put('/photographe/{id}', [PhotographeController::class, 'update']);
+    Route::patch('/photographe/{id}', [PhotographeController::class, 'patch']);
+    Route::get('/photographe/{id}', [PhotographeController::class, 'show']);
+    Route::delete('/photographe/{id}', [PhotographeController::class, 'destroy']);
+
+    Route::post('/registerPhotographe', [PhotographeController::class, 'register']);
+});
+
+
+Route::get('storage/{filename}', function ($filename) {
+    $path = storage_path('app/public/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
 });
