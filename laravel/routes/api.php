@@ -51,9 +51,8 @@ Route::group(["ramespace"=>"Api\Auth"], function(){
 });
 
 
-Route::get('storage/{filename}', function ($filename) {
-    $path = storage_path('app/public/' . $filename);
-
+Route::get('profile/{fileName}', function ($fileName) {
+    $path = storage_path('app/public/images/profile/'. $fileName);
     if (!File::exists($path)) {
         abort(404);
     }

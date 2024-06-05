@@ -144,7 +144,7 @@ class PhotographeController extends Controller
 
         // Assurez-vous que l'URL de l'image est correcte
         if ($photographe->photo) {
-            $photographe->photo = 'storage/' . $photographe->photo;
+            $photographe->photo = $photographe->photo;
         }
 
         return response()->json($photographe, 200);
@@ -195,10 +195,10 @@ class PhotographeController extends Controller
                 $uploadPath = 'images/profile';
                 $originalName = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path($uploadPath), $originalName);
-                $photoPath = $uploadPath . '/' . $originalName;
+                $photoPath = $originalName;
             } else {
                 // Utilisation d'une photo par défaut
-                $photoPath = 'images/account.png'; // Remplacez par le chemin de votre photo par défaut
+                $photoPath = 'account.png'; // Remplacez par le chemin de votre photo par défaut
             }
 
 

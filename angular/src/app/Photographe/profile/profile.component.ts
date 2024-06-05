@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit{
         // Construire l'URL de l'image
         if (this.photographe.photo) {
             // Utiliser une URL relative en supposant que les images sont dans le dossier 'assets'
-            this.imgURL = `${environment.baseUrl}/${environment.imageBaseUrl}${this.photographe.photo}`;
+            this.imgURL = `${environment.baseUrl}/${this.photographe.photo}`;
 
             // this.imgURL = 'assets/account.png';
             console.log('la photo du photographe est : ', this.photographe.photo)
