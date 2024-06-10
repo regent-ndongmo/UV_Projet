@@ -115,7 +115,7 @@ export class ProfileComponent implements OnInit{
       console.log(`${key}: ${value}`);
     });
 
-    this.service.changeProfile(formData).subscribe(
+    this.service.changeProfile(this.photographe.user_id, formData).subscribe(
       (response: any) => {
         console.log(response);
       },

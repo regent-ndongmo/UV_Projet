@@ -14,7 +14,7 @@ class PhotographeController extends Controller
     public function index(){
         return Photographe::all();
     }
-    
+
     // POST function to create a new photographe
     //Creation d'un photographe
     public function register(Request $request)
@@ -81,6 +81,8 @@ class PhotographeController extends Controller
             // Récupérer uniquement les données nécessaires
             $data = $request->only('user_id', 'nom', 'ville', 'pays', 'numero', 'photo', 'signature', 'description');
 
+            dd($data);
+            Log::info('Contenu de la variable $data:', $data);
             // Valider les données
             $validator = Validator::make($data, [
                 'user_id' => 'required|integer',
