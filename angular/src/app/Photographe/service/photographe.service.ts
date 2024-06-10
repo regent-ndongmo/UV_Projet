@@ -49,9 +49,9 @@ export class PhotographeService{
   }
 
   //Modifier l'Photographe selectionne (updatePhotographe)
-  changeProfile(data: any) {
+  changeProfile(id: Photographe, data: any) {
     // return this.httpClient.put(`${this.apiUrl}/${id}`, data);
-    return this.httpClient.post(`${this.apiUrl}/registerPhotographe`, data);
+    return this.httpClient.put(`${this.apiUrl}/${id}`, data);
   }
 
   // registerPhotographe(data: any){
