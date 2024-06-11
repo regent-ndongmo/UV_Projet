@@ -72,8 +72,9 @@ class PhotographeController extends Controller
 
     // PATCH function to update an existing photographe
 
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
+        // return $request;
         try {
             // Trouver le photographe par son ID
             $photographe = Photographe::findOrFail($id);
@@ -81,7 +82,7 @@ class PhotographeController extends Controller
             // Récupérer uniquement les données nécessaires
             $data = $request->only('user_id', 'nom', 'ville', 'pays', 'numero', 'photo', 'signature', 'description');
 
-            dd($data);
+            // dd($data);
             Log::info('Contenu de la variable $data:', $data);
             // Valider les données
             $validator = Validator::make($data, [
