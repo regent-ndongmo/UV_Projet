@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Photographe } from 'src/app/model/photographe/photographe';
@@ -49,12 +49,9 @@ export class PhotographeService{
   }
 
   //Modifier l'Photographe selectionne (updatePhotographe)
-  changeProfile(id: Photographe, data: any) {
-    // return this.httpClient.put(`${this.apiUrl}/${id}`, data);
-    return this.httpClient.put(`${this.apiUrl}/${id}`, data);
+  changeProfile(id: Photographe, data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+    return this.httpClient.post<any>(`${this.apiUrl}/${id}`, data, { headers });
   }
 
-  // registerPhotographe(data: any){
-  //   return this.httpClient.post('http://127.0.0.1:8000/api/register', data)
-  // }
 }

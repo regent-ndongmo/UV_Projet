@@ -41,13 +41,10 @@ Route::group(["ramespace"=>"Api\Auth"], function(){
     Route::post("/logout", [AuthentificationController::class, "logout"])->middleware('auth:api');
     Route::post("/register", [RegisterController::class, "register"]);
 
-    Route::post('/photographe', [PhotographeController::class, 'store']);
-    // Route::put('/photographe/{id}', [PhotographeController::class, 'update']);
-    Route::put('/photographe/{id}', [PhotographeController::class, 'update']);
+    Route::post('/registerPhotographe', [PhotographeController::class, 'register']);
+    Route::post('/photographe/{id}', [PhotographeController::class, 'update']);
     Route::get('/photographe/{id}', [PhotographeController::class, 'show']);
     Route::delete('/photographe/{id}', [PhotographeController::class, 'destroy']);
-
-    Route::post('/registerPhotographe', [PhotographeController::class, 'register']);
 });
 
 
