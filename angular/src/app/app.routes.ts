@@ -48,11 +48,6 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent
       },
-      // {
-      //   path: 'creeProfile',
-      //   component: CreeProfileComponent,
-      //   canActivate: [routeGuard]
-      // },
       {
         path: 'profile',
         component: ProfileComponent,

@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit{
       // Any initialization logic can go here
       this.id = localStorage.getItem('user_id');
       console.log(this.id);
+      // this.service.changeImage(this.imgURL);
       this.getData();
       this.photographe.user_id = +this.id
     }
@@ -83,6 +84,7 @@ export class ProfileComponent implements OnInit{
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
         this.imgURL = reader.result;
+
       };
     } else {
       this.imgURL = this.defaultImageUrl;
@@ -118,6 +120,7 @@ export class ProfileComponent implements OnInit{
     this.service.changeProfile(this.photographe.user_id, formData).subscribe(
       (response: any) => {
         console.log(response);
+        this.service.changeImage(this.imgURL);
       },
       (error: any) => {
         console.error('Error:', error);

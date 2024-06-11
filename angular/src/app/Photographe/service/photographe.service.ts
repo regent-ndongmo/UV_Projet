@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Photographe } from 'src/app/model/photographe/photographe';
 import { environment } from 'src/environments/environment.development';
 
@@ -15,6 +15,13 @@ export class PhotographeService{
 
   getData(){
     return this.httpClient.get(`${this.apiUrl}`);
+  }
+
+  private imageSource = new BehaviorSubject<string | ArrayBuffer | null>(null);
+  currentImage = this.imageSource.asObservable();
+
+  changeImage(image: string | ArrayBuffer | null) {
+    this.imageSource.next(image);
   }
 
   //insertion des donnees dans la Base de donnee
@@ -34,12 +41,6 @@ export class PhotographeService{
   deleteData(id: Photographe){
     return this.httpClient.delete(`${this.apiUrl}/${id}`);
 
-  }
-
-  uploadImage(id: string, image: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('photo', image);
-    return this.httpClient.put(`${this.apiUrl}/${id}`, formData);
   }
 
   //Recuperer un employe en utilisant specifique en utilisant l'id
