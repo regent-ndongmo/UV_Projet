@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import {
   AvatarComponent,
   BadgeComponent,
@@ -62,7 +62,12 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   isAuthenticated: boolean = false;
 
   // roles: string | null = this.service.getRole();
-  constructor(private service: AuthService, private route: ActivatedRoute, private service1: PhotographeService) {
+  constructor(
+    private service: AuthService,
+    private route: ActivatedRoute,
+    private service1: PhotographeService,
+
+  ) {
     super();
 
     this.#colorModeService.localStorageItemName.set('coreui-free-angular-admin-template-theme-default');
@@ -95,14 +100,15 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   data:any;
   public imgPath: any;
 
-  
+
 
   ngOnInit(): void {
     // Any initialization logic can go here
     this.id = localStorage.getItem('user_id');
     console.log(this.id);
     this.getData();
-    this.isAuthenticated = this.service.isAuthenticated();
+    this.service.currentState.subscribe(state => this.isAuthenticated = state);
+    this.service1.currentImage.subscribe(image => this.imgURL = image);
 
   }
   //Recuperation des information sur les photographe
@@ -201,7 +207,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   logout(){
     this.service.logout();
-    this.isAuthenticated = false;
+    this.service.changeState(false);
   }
 
 }

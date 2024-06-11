@@ -13,15 +13,15 @@ export class DashboardPhotographerComponent implements OnInit{
 
   constructor(private service: AuthService, private router: Router){}
 
-  isAuthenticated: boolean = false;
+  isAuthenticated: boolean = true;
   ngOnInit(): void {
     this.isAuthenticated = this.service.isAuthenticated();
   }
 
   // Méthode pour se déconnecter
   logout() {
-    this.service.logout
-    this.isAuthenticated = false;
+    this.service.logout();
+    this.service.changeState(false);
   }
 
   role = this.service.getRole()

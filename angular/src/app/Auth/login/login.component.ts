@@ -2,7 +2,7 @@ import { ApiResponse } from './../../interface/api-response';
 import { Login } from './../../model/login';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from './../service/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit{
   login = new Login;
   showPassword: boolean = false;
 
-  constructor(private service: AuthService, private router: Router){}
+  constructor(private service: AuthService, private router: Router, private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void {
 
@@ -28,14 +28,16 @@ export class LoginComponent implements OnInit{
     console.log(this.login);
 
     this.service.login(this.login).subscribe((res: ApiResponse)=>{
-      console.log(res);
-      // this.service.setisVisible(true)
-      localStorage.setItem("headerVisible", JSON.stringify(true));
+      // console.log(res);
       localStorage.setItem("user", JSON.stringify(res));
       localStorage.setItem("user_id", JSON.stringify(res.id))
       console.log("Le role du photographe conncte est ", res.role);
       if(res.role == "photographe"){
-        this.router.navigate(['/photographe'])
+        this.service.changeState(true);
+        this.service.refreshComponent('/photographe');
+        this.cdr.markForCheck();
+        console.log('rafraichissement fait sans probleme')
+        // this.router.navigate(['/photographe'])
       }
       else{
         this.router.navigate(['/dashboard'])

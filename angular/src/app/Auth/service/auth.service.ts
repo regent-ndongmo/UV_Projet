@@ -14,25 +14,31 @@ export class AuthService {
 
   private apiUrl = `${environment.apiUrl}`;
 
-  isVisible: boolean = false;
 
+  private componentState: BehaviorSubject<boolean>;
+  currentState ;
 
-  getisVisible(): boolean {
-    return this.isVisible;
+  constructor(private httpClient: HttpClient, private router: Router) {
+    const savedState = localStorage.getItem('componentState');
+    this.componentState = new BehaviorSubject<boolean>(savedState === 'true');
+    this.currentState = this.componentState.asObservable();
   }
 
-  setisVisible(value: boolean) {
-    this.isVisible = value;
+  changeState(state: boolean) {
+    localStorage.setItem('componentState', state.toString());
+    this.componentState.next(state);
   }
-  // Déclaration d'un événement pour notifier les changements de visibilité
-  onVisibilityChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
   private buttonClicked = new BehaviorSubject<boolean>(false);
   buttonClicked$ = this.buttonClicked.asObservable();
 
-  constructor( private httpClient: HttpClient, private router: Router) {}
 
+  refreshComponent(route: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([route]);
+    });
+  }
 
   clickButton(): void {
     this.buttonClicked.next(true);
@@ -62,7 +68,7 @@ export class AuthService {
     localStorage.removeItem('user');
     localStorage.removeItem('user_id');
     localStorage.removeItem("headerVisible");
-    this.router.navigate(['/dasboard']);
+    this.router.navigate(['/dasboard'])
   }
 
   //Profile
