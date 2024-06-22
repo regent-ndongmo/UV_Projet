@@ -1,3 +1,4 @@
+import { MenuToggleComponent } from './../../menu-toggle/menu-toggle.component';
 import { ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import {
   AvatarComponent,
@@ -38,7 +39,7 @@ import { environment } from 'src/environments/environment.development';
   templateUrl: './default-header.component.html',
   styleUrl: './default-header.component.scss',
   standalone: true,
-  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle, CommonModule]
+  imports: [MenuToggleComponent, ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle, CommonModule]
 })
 export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
