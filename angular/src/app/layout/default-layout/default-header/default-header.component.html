@@ -1,8 +1,7 @@
 @if (isAuthenticated) {
   <ng-container>
     <c-container [fluid]="true" class="border-bottom px-4">
-      <app-menu-toggle></app-menu-toggle>
-      <!-- <button
+      <button
         [cSidebarToggle]="sidebarId"
         cHeaderToggler
         class="btn"
@@ -10,7 +9,7 @@
         style="margin-inline-start: -14px;"
       >
         <svg cIcon name="cilMenu" size="lg"></svg>
-      </button> -->
+      </button>
       <c-header-nav class="d-none d-md-flex">
         <c-nav-item>
           <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
@@ -57,30 +56,36 @@
 }@else{
   <ng-container>
     <c-container [fluid]="true" class="border-bottom px-4">
-      <app-menu-toggle></app-menu-toggle>
+      <button
+        [cSidebarToggle]="sidebarId"
+        cHeaderToggler
+        class="btn"
+        toggle="visible"
+        style="margin-inline-start: -14px;"
+      >
+        <svg cIcon name="cilMenu" size="lg"></svg>
+      </button>
       <c-header-nav class="d-none d-md-flex">
         <c-nav-item>
-          <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+          <a cNavLink routerLink="/dashboard" routerLinkActive="active">Bienvenue sur la plateforme de l'art</a>
         </c-nav-item>
-        <c-nav-item>
-          <a cNavLink routerLink="/users" routerLinkActive="active">Users</a>
-        </c-nav-item>
-        <c-nav-item>
-          <a cNavLink routerLink="/settings" routerLinkActive="active">Settings</a>
-        </c-nav-item>
+
+
       </c-header-nav>
 
       <c-header-nav class="d-none d-md-flex ms-auto ">
-        <a cNavLink>
-          <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
-        </a>
-        <a cNavLink>
-          <svg cIcon class="my-1" name="cilList" size="lg"></svg>
-        </a>
+        <form (ngSubmit)="onSubmit()" class="search-container">
+          <input type="text" placeholder="Rechercher..." class="search-input">
+          <button class="search-button">
+            <span class="search-text">Rechercher</span>
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
         <a cNavLink>
           <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
         </a>
       </c-header-nav>
+
 
       <c-header-nav class="ms-auto ms-md-0">
         <div class="nav-item py-1">

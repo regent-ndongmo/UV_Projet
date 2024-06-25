@@ -1,5 +1,4 @@
-import { MenuToggleComponent } from './../../menu-toggle/menu-toggle.component';
-import { ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, computed, DestroyRef, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import {
   AvatarComponent,
   BadgeComponent,
@@ -40,7 +39,6 @@ import { environment } from 'src/environments/environment.development';
   styleUrl: './default-header.component.scss',
   standalone: true,
   imports: [
-    MenuToggleComponent,
     ContainerComponent,
     HeaderTogglerDirective,
     SidebarToggleDirective,
@@ -230,6 +228,10 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     { id: 1, title: 'Memory Usage', value: 70, color: 'warning', details: '11444GB/16384MB' },
     { id: 2, title: 'SSD 1 Usage', value: 90, color: 'danger', details: '243GB/256GB' }
   ];
+
+  onSubmit(){
+    
+  }
 
   logout(){
     this.service.logout();
