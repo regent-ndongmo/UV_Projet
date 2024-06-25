@@ -1,10 +1,10 @@
-import { BarCodeComponent } from './../../layout/bar-code/bar-code.component';
+import { HeaderClientComponent } from './../../layout/default-layout/header-client/header-client.component';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-client',
   standalone: true,
-  imports: [BarCodeComponent],
+  imports: [],
   templateUrl: './dashboard-client.component.html',
   styleUrl: './dashboard-client.component.scss'
 })

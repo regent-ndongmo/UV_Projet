@@ -21,7 +21,6 @@ class AuthentificationController extends Controller
         if (!Auth::attempt($credentials)) {
             return response(['message' => 'Invalid login credentials'], 401);
         }
-        // return "Bonsoir";
 
         /**
          * @var User $user

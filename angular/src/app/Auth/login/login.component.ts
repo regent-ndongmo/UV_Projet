@@ -34,10 +34,15 @@ export class LoginComponent implements OnInit{
       console.log("Le role du photographe conncte est ", res.role);
       if(res.role == "photographe"){
         this.service.changeState(true);
-        this.service.refreshComponent('/photographe');
-        this.cdr.markForCheck();
-        console.log('rafraichissement fait sans probleme')
+        // this.service.refreshComponent('/photographe');
+        // this.cdr.markForCheck();
+        // console.log('rafraichissement fait sans probleme')
         // this.router.navigate(['/photographe'])
+
+        // this.router.navigate(['/photographe']).then(() => {
+        //   window.location.reload();
+        // });
+        window.location.href = '/photographe';
       }
       else{
         this.router.navigate(['/dashboard'])

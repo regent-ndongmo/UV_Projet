@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/interface/api-response';
@@ -32,13 +32,6 @@ export class AuthService {
 
   private buttonClicked = new BehaviorSubject<boolean>(false);
   buttonClicked$ = this.buttonClicked.asObservable();
-
-
-  refreshComponent(route: string) {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([route]);
-    });
-  }
 
   clickButton(): void {
     this.buttonClicked.next(true);

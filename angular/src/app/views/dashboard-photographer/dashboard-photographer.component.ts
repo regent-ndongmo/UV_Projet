@@ -15,6 +15,7 @@ export class DashboardPhotographerComponent implements OnInit{
 
   isAuthenticated: boolean = true;
   ngOnInit(): void {
+    
     this.isAuthenticated = this.service.isAuthenticated();
   }
 

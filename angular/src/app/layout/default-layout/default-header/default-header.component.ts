@@ -60,14 +60,12 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   });
 
 
-  isAuthenticated: boolean = false;
+  isAuthenticated: boolean = true;
 
   // roles: string | null = this.service.getRole();
   constructor(
     private service: AuthService,
-    private route: ActivatedRoute,
     private service1: PhotographeService,
-
   ) {
     super();
 
@@ -104,7 +102,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // Any initialization logic can go here
+    // this.service.changeState(true);
     this.id = localStorage.getItem('user_id');
     console.log(this.id);
     this.getData();
