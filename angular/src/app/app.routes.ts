@@ -1,14 +1,15 @@
-import { routeGuard } from './Auth/Guard/route.guard';
-import { adminGuardGuard } from './Auth/Guard/admin-guard.guard';
-import { DashboardComponent } from './views/dashboard-admin/dashboard.component';
-import { ProfileComponent } from './Photographe/profile/profile.component';
-import { authGuardGuard } from './Auth/Guard/auth-guard.guard';
-import { LoginComponent } from './Auth/login/login.component';
-import { RegisterComponent } from './Auth/register/register.component';
-import { DashboardClientComponent } from './views/dashboard-client/dashboard-client.component';
-import { DashboardPhotographerComponent } from './views/dashboard-photographer/dashboard-photographer.component';
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
+import { DashboardClientComponent } from './views/dashboard-client/dashboard-client.component';
+import { DashboardPhotographerComponent } from './views/dashboard-photographer/dashboard-photographer.component';
+import { DashboardComponent } from './views/dashboard-admin/dashboard.component';
+import { ProfileComponent } from './Photographe/profile/profile.component';
+import { LoginComponent } from './Auth/login/login.component';
+import { RegisterComponent } from './Auth/register/register.component';
+import { SearchComponent } from './components/search/search.component';
+import { routeGuard } from './Auth/Guard/route.guard';
+import { adminGuardGuard } from './Auth/Guard/admin-guard.guard';
+import { authGuardGuard } from './Auth/Guard/auth-guard.guard';
 
 export const routes: Routes = [
   {
@@ -57,28 +58,15 @@ export const routes: Routes = [
         path: 'admin',
         component: DashboardComponent,
         canActivate: [adminGuardGuard],
+      },
+      {
+        path: 'search',
+        component: SearchComponent,
       }
-
-      // {
-      //   path: 'pages',
-      //   loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
-      // }
     ]
   },
-  // {
-  //   path: '404',
-  //   loadComponent: () => import('./views/pages/page404/page404.component').then(m => m.Page404Component),
-  //   data: {
-  //     title: 'Page 404'
-  //   }
-  // },
-  // {
-  //   path: '500',
-  //   loadComponent: () => import('./views/pages/page500/page500.component').then(m => m.Page500Component),
-  //   data: {
-  //     title: 'Page 500'
-  //   }
-  // },
-
-  { path: '**', redirectTo: 'dashboard' }
+  { 
+    path: '**', 
+    redirectTo: 'dashboard' 
+  }
 ];

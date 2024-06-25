@@ -1,0 +1,114 @@
+<!-- src/app/components/search/search.component.html -->
+<section class="vh-100" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Search</p>
+                <form class="mx-1 mx-md-4" (ngSubmit)="onSearch()">
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-search fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="query"
+                        (ngModelChange)="onQueryChange()"
+                        placeholder="Search..."
+                        name="search"
+                      />
+                      <label class="form-label">Search</label>
+                    </div>
+                  </div>
+                  <div *ngIf="suggestions.length > 0" class="suggestions">
+                    <ul>
+                      <li *ngFor="let suggestion of suggestions" (click)="onSelectSuggestion(suggestion)">
+                        {{ suggestion }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid"
+                  alt="Sample image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container-xl px-4 mt-4">
+  <div *ngIf="results.photographes?.length > 0">
+    <h3>Photographes:</h3>
+    <ul>
+      <li *ngFor="let photographe of results.photographes">
+        {{ photographe.nom }} - {{ photographe.ville }} - {{ photographe.pays }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.categories?.length > 0">
+    <h3>Categories:</h3>
+    <ul>
+      <li *ngFor="let categorie of results.categories">{{ categorie.categorie }}</li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.contrats?.length > 0">
+    <h3>Contrats:</h3>
+    <ul>
+      <li *ngFor="let contrat of results.contrats">
+        {{ contrat.montant }} - {{ contrat.date }} - {{ contrat.status_paiement }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.commentaires?.length > 0">
+    <h3>Commentaires:</h3>
+    <ul>
+      <li *ngFor="let commentaire of results.commentaires">
+        {{ commentaire.nom_client }} - {{ commentaire.ville_client }} - {{ commentaire.description }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.disponibilites?.length > 0">
+    <h3>Disponibilites:</h3>
+    <ul>
+      <li *ngFor="let disponibilite of results.disponibilites">
+        {{ disponibilite.Date }} - {{ disponibilite.Heure }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.photos?.length > 0">
+    <h3>Photos:</h3>
+    <ul>
+      <li *ngFor="let photo of results.photos">
+        {{ photo.titre }} - {{ photo.url_image }} - {{ photo.nombre_likes }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.rendez_vous?.length > 0">
+    <h3>Rendez-vous:</h3>
+    <ul>
+      <li *ngFor="let rendez_vous of results.rendez_vous">
+        {{ rendez_vous.date }} - {{ rendez_vous.heure_debut }} - {{ rendez_vous.heure_fin }} - {{ rendez_vous.status }}
+      </li>
+    </ul>
+  </div>
+</div>

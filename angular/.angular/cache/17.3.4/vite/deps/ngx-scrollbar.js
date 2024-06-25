@@ -4,7 +4,7 @@ import {
   coerceElement,
   coerceNumberProperty,
   getRtlScrollAxisType
-} from "./chunk-3WEB32NQ.js";
+} from "./chunk-XHAFL7P6.js";
 import {
   DOCUMENT,
   NgIf,

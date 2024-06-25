@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\AuthentificationController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PhotographeController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -62,3 +63,5 @@ Route::get('profile/{fileName}', function ($fileName) {
 
     return $response;
 });
+Route::get('/search', [SearchController::class, 'search']);
+Route::get('/autocomplete', [SearchController::class, 'autocomplete']);
