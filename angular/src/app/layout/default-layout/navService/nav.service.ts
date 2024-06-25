@@ -11,7 +11,7 @@ export class NavService {
     {
       name: 'Accueil',
       url: '/photographe',
-      iconComponent: { name: 'cil-speedometer' },
+      iconComponent: { name: 'cil-home' },
       badge: {
         color: 'info',
         text: 'NEW'
@@ -29,7 +29,7 @@ export class NavService {
     {
       name: 'Profile',
       url: '/profile',
-      iconComponent: { name: 'cil-settings' },
+      iconComponent: { name: 'cil-user' },
       badge: {
         color: 'info',
         text: 'NEW'
@@ -115,7 +115,7 @@ export class NavService {
     {
       name: 'Accueil',
       url: '/dashboard',
-      iconComponent: { name: 'cil-speedometer' },
+      iconComponent: { name: 'cil-home' },
       badge: {
         color: 'info',
         text: 'NEW'
@@ -133,7 +133,7 @@ export class NavService {
     {
       name: 'login',
       url: '/login',
-      iconComponent: { name: 'cil-settings' },
+      iconComponent: { name: 'cil-user' },
       badge: {
         color: 'info',
         text: 'NEW'
@@ -143,7 +143,7 @@ export class NavService {
     {
       name: 'register',
       url: '/register',
-      iconComponent: { name: 'cil-settings' },
+      iconComponent: { name: 'cil-user' },
       badge: {
         color: 'info',
         text: 'NEW'
