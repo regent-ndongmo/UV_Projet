@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit{
   login = new Login;
   showPassword: boolean = false;
 
-  constructor(private service: AuthService, private router: Router, private cdr: ChangeDetectorRef){}
+  constructor(private service: AuthService, private router: Router){}
 
   ngOnInit(): void {
 

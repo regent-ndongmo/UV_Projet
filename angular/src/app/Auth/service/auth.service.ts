@@ -58,6 +58,7 @@ export class AuthService {
 
   // Méthode pour se déconnecter
   logout() {
+    this.changeState(false);
     localStorage.removeItem('user');
     localStorage.removeItem('user_id');
     localStorage.removeItem("headerVisible");
