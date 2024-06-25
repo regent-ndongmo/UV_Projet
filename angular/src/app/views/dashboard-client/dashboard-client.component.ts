@@ -1,4 +1,3 @@
-import { HeaderClientComponent } from './../../layout/default-layout/header-client/header-client.component';
 import { Component } from '@angular/core';
 
 @Component({
