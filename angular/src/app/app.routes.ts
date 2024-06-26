@@ -31,7 +31,10 @@ export const routes: Routes = [
       {
         path: 'photographe',
         component: DashboardPhotographerComponent,
-        canActivate: [authGuardGuard]
+        canActivate: [authGuardGuard],
+        data: {
+          title: 'Photographe'
+        }
       },
       {
         path: 'widgets',
