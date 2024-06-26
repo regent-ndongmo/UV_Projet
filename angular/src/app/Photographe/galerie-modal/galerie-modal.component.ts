@@ -1,16 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-galerie-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './galerie-modal.component.html',
   styleUrl: './galerie-modal.component.scss'
 })
 export class GalerieModalComponent implements OnInit {
 
-  isVisible: boolean = false;
+  // isVisible: boolean = false;
+  @Input() title!: string;
+  @Output() closed = new EventEmitter<void>();
+
+  isVisible = false;
+
+  // openModal() {
+  //   this.isVisible = true;
+  // }
+
+  closeModal() {
+    this.isVisible = false;
+    this.closed.emit();
+  }
 
   constructor() { }
 
@@ -22,8 +36,8 @@ export class GalerieModalComponent implements OnInit {
     console.log("regent openModal")
   }
 
-  closeModal() {
-    this.isVisible = false;
-  }
+  // closeModal() {
+  //   this.isVisible = false;
+  // }
 
 }

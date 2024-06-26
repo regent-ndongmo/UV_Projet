@@ -4,10 +4,10 @@
     <i class="fas fa-folder fa-6x"></i>
     <span>regent</span>
   </div>
-  <div class="add-galerie" (click)="formModal.openModal()">
+  <div class="add-galerie" (click)="openModal()">
     <i class="fas fa-plus fa-6x"></i>
   </div>
 </div>
 
 
-<app-galerie-modal #formModal></app-galerie-modal>
+<app-galerie-modal [title]="'Nouveau hashtag'" (closed)="onModalClosed()"></app-galerie-modal>

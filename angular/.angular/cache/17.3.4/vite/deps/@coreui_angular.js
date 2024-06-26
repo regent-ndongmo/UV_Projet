@@ -13,10 +13,6 @@ import {
   normalizePassiveListenerOptions
 } from "./chunk-3WEB32NQ.js";
 import {
-  takeUntilDestroyed,
-  toObservable
-} from "./chunk-HLKDVPWJ.js";
-import {
   AnimationBuilder,
   animate,
   animation,
@@ -28,6 +24,10 @@ import {
   trigger,
   useAnimation
 } from "./chunk-6GZUKG65.js";
+import {
+  takeUntilDestroyed,
+  toObservable
+} from "./chunk-HLKDVPWJ.js";
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -149,10 +149,10 @@ import {
   ɵɵtextInterpolate1,
   ɵɵviewQuery
 } from "./chunk-EOWI63OI.js";
+import "./chunk-SAVXX6OM.js";
 import {
   fromEvent
 } from "./chunk-SG3BCSKH.js";
-import "./chunk-SAVXX6OM.js";
 import {
   BehaviorSubject,
   Observable,

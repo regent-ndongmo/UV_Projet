@@ -12,5 +12,16 @@ import { Component, ViewChild } from '@angular/core';
 export class GalerieComponent {
 
   @ViewChild(GalerieModalComponent) formModal!: GalerieModalComponent;
+  private modalComponent!: GalerieModalComponent;
+
+  openModal() {
+    this.formModal.openModal();
+  }
+
+
+
+  onModalClosed() {
+    console.log('La modale a été fermée');
+  }
 
 }
