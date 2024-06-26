@@ -73,7 +73,7 @@
 
       </c-header-nav>
 
-      <c-header-nav class="d-none d-md-flex ms-auto ">
+      <c-header-nav class="d-md-flex ms-auto ">
         <form (ngSubmit)="onSubmit()" class="search-container">
           <input type="text" placeholder="Rechercher..." class="search-input">
           <button class="search-button">
@@ -81,9 +81,7 @@
             <i class="fas fa-search"></i>
           </button>
         </form>
-        <a cNavLink>
-          <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
-        </a>
+
       </c-header-nav>
 
 
@@ -92,9 +90,6 @@
           <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
         </div>
         <ng-container *ngTemplateOutlet="themeDropdown" />
-        <div class="nav-item mx-0">
-          <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-        </div>
       </c-header-nav>
 
     </c-container>

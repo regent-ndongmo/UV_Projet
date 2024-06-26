@@ -18,6 +18,15 @@ export class NavService {
       }
     },
     {
+      name: 'Galerie',
+      url: '/galerie',
+      iconComponent: { name: 'cil-puzzle' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
       name: 'Messages',
       url: '/messages',
       iconComponent: { name: 'cilEnvelopeOpen' },

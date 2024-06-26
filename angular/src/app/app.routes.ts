@@ -1,3 +1,4 @@
+import { GalerieComponent } from './Photographe/galerie/galerie.component';
 import { routeGuard } from './Auth/Guard/route.guard';
 import { adminGuardGuard } from './Auth/Guard/admin-guard.guard';
 import { DashboardComponent } from './views/dashboard-admin/dashboard.component';
@@ -51,6 +52,11 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [authGuardGuard]
+      },
+      {
+        path: 'galerie',
+        component: GalerieComponent,
         canActivate: [authGuardGuard]
       },
       {

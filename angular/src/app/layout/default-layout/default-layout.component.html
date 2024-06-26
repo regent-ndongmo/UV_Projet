@@ -15,17 +15,11 @@
   <!-- Aside Bar -->
   <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow" pointerEventsMethod="scrollbar" visibility="hover">
     <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact>
-      <!-- <ul>
-        <li class="nav-item" *ngFor="let item of navItems; trackBy: trackByIndex">
-          <a class="nav-link" [routerLink]="item.url">
-            <i *ngIf="item.iconComponent" [class]="item.iconComponent.name"></i>
-            {{ item.name }}
-            <span *ngIf="item.badge" class="badge badge-{{ item.badge.color }}">{{ item.badge.text }}</span>
-          </a>
-        </li>
-      </ul> -->
+
     </c-sidebar-nav>
   </ng-scrollbar>
+
+  
   @if (!sidebar1.narrow) {
     <c-sidebar-footer cSidebarToggle="sidebar1" class="border-top d-none d-lg-flex" toggle="unfoldable" style="cursor: pointer;">
       <button cSidebarToggler></button>
