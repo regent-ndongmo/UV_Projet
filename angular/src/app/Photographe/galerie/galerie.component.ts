@@ -1,6 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { GalerieModalComponent } from './../galerie-modal/galerie-modal.component';
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-galerie',
@@ -12,7 +13,6 @@ import { Component, ViewChild } from '@angular/core';
 export class GalerieComponent {
 
   @ViewChild(GalerieModalComponent) formModal!: GalerieModalComponent;
-  private modalComponent!: GalerieModalComponent;
 
   openModal() {
     this.formModal.openModal();
@@ -23,5 +23,18 @@ export class GalerieComponent {
   onModalClosed() {
     console.log('La modale a été fermée');
   }
+
+  //
+
+  constructor(private route: Router){}
+
+  categorie: string= 'regent';
+
+  openCategorie(){
+    localStorage.setItem("categorie_id", JSON.stringify(10));
+    this.route.navigate(['/categorie'])
+
+  }
+
 
 }

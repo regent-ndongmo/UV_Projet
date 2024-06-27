@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit{
       if(res.role == "photographe"){
         this.service.changeState(true);
 
-        window.location.href = '/photographe';
+        window.location.href = '#/photographe';
       }
       else{
         this.router.navigate(['/dashboard'])

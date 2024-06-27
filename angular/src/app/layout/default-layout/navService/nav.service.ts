@@ -46,6 +46,16 @@ export class NavService {
 
     },
     {
+      name: 'Corbeille',
+      url: '/corbeille',
+      iconComponent: { name: 'cil-basket' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    },
+    {
       name: 'Parametre',
       url: '/widgets',
       iconComponent: { name: 'cil-settings' },

@@ -1,0 +1,53 @@
+<div class="modall" *ngIf="isVisible">
+  <div class="modall-content">
+    <div class="modall-header">
+      <h2>{{ title }}</h2>
+      <button class="close-button" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modall-body">
+      <div class="container-xl px-4 mt-4">
+        <hr class="mt-0 mb-4">
+        <div class="row content">
+          <div class="col-xl-6">
+            <div class="card mb-auto">
+              <div class="card-header">Picture</div>
+              <div class="card-body text-center">
+                <img class="img mb-2 public-img" [src]="imgURL" >
+                <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                <button class="btn btn-primary" (click)="triggerFileInput()">Upload new image</button>
+                <input type="file" #fileInput name="photo" (change)="onSelectFile($event)" style="display: none;">
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <div class="card mb-4">
+              <div class="card-header">Image Details</div>
+              <div class="card-body">
+                <form>
+                  <input type="text" [(ngModel)]="photo.user_id"  name="userID" hidden>
+                  <input type="text" [(ngModel)]="photo.categorie_id" name="CategorieID" hidden>
+                  <div class="row gx-3 mb-3">
+                    <div class="col-md-12">
+                      <label class="small mb-1" for="inputFirstName">Nom de l'image</label>
+                      <input name="image" class="form-control" name="titre" [(ngModel)]="photo.titre"  id="inputFirstName" type="text" placeholder="Entrer un nom pour votre image">
+                    </div>
+
+                    <div class="col-md-12 textarea">
+                      <textarea name="description" id="" class="form-control" [(ngModel)]="photo.description" placeholder="Entrer une description de votre images ici"></textarea>
+                    </div>
+
+                  </div>
+
+                  <button class="btn btn-primary" type="button" (click)="Publier()" >Publier</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modall-footer">
+      <!-- <button class="btn btn-warning" (click)="closeModal()">Fermer</button> -->
+    </div>
+  </div>
+</div>

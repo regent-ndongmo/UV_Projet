@@ -1,3 +1,5 @@
+import { CategorieComponent } from './Photographe/galerie/categorie/categorie.component';
+import { CorbeilleComponent } from './Photographe/corbeille/corbeille.component';
 import { GalerieComponent } from './Photographe/galerie/galerie.component';
 import { routeGuard } from './Auth/Guard/route.guard';
 import { adminGuardGuard } from './Auth/Guard/admin-guard.guard';
@@ -55,12 +57,34 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
-        canActivate: [authGuardGuard]
+        canActivate: [authGuardGuard],
+        data: {
+          title: 'profile'
+        }
       },
       {
         path: 'galerie',
         component: GalerieComponent,
-        canActivate: [authGuardGuard]
+        canActivate: [authGuardGuard],
+        data: {
+          title: 'Galerie'
+        }
+      },
+      {
+        path: 'categorie',
+        component: CategorieComponent,
+        canActivate: [authGuardGuard],
+        data: {
+          title: 'categorie'
+        }
+      },
+      {
+        path: 'corbeille',
+        component: CorbeilleComponent,
+        canActivate: [authGuardGuard],
+        data: {
+          title: 'Galerie'
+        }
       },
       {
         path: 'admin',

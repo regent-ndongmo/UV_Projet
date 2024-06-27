@@ -1,6 +1,23 @@
-<div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat provident ducimus, ab dolore unde dolorum dicta vel expedita, quibusdam incidunt accusantium repellat tempore non cupiditate. Voluptatum aperiam fugit cumque id?</div>
-<br>
-<br>
+<app-picture-modal app-galerie-modal [title]="'Publier une nouvelle photo'" (closed)="onModalClosed()"></app-picture-modal>
+
+
+<div class="picture-container">
+  <div class="btn btn-primary new-picture" (click)="openModalPicture()">
+    <i class="fas fa-plus fa-2x"></i>
+    <span class="picture-text">Add new picture</span>
+  </div>
+</div>
+
+<div>
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+</div>
 
 <div>
   Le role du photographe connecte est :

@@ -1,8 +1,8 @@
 
 <div class="galerie">
-  <div class="folder">
+  <div class="folder" (click)="openCategorie()">
     <i class="fas fa-folder fa-6x"></i>
-    <span>regent</span>
+    <span>{{ categorie }}</span>
   </div>
   <div class="add-galerie" (click)="openModal()">
     <i class="fas fa-plus fa-6x"></i>
