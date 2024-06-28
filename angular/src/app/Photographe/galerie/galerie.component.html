@@ -1,12 +1,17 @@
 
 <div class="galerie">
-  <div class="folder" (click)="openCategorie()">
-    <i class="fas fa-folder fa-6x"></i>
-    <span>{{ categorie }}</span>
-  </div>
-  <div class="add-galerie" (click)="openModal()">
+  <!-- @for (item of categories; track $index) { -->
+    <div *ngFor="let categorie of categories" class="folder " (click)="openCategorie()">
+      <i class="fas fa-folder fa-6x img-fluid"></i>
+      <span>{{ categorie.categorie }}</span>
+      <!-- <span>{{ categorie.photographe_id }}</span> -->
+
+    </div>
+  <!-- } -->
+
+  <span class="add-galerie" (click)="openModal()">
     <i class="fas fa-plus fa-6x"></i>
-  </div>
+  </span>
 </div>
 
 

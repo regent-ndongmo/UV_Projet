@@ -20,7 +20,7 @@ class PhotoController extends Controller
      */
     public function create(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'categorie_id' => 'required|exists:categories,id',
             'photographe_id' => 'required|exists:photographes,id',
             'titre' => 'required|string|max:255',

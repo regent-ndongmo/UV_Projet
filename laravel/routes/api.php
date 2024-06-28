@@ -62,3 +62,29 @@ Route::get('profile/{fileName}', function ($fileName) {
 
     return $response;
 });
+
+
+
+
+
+//Definitio des routes pour la migration categorie
+use App\Http\Controllers\CategorieController;
+
+// Liste toutes les catégories
+Route::get('categories', [CategorieController::class, 'index']);
+
+// Crée une nouvelle catégorie
+Route::post('categories', [CategorieController::class, 'create']);
+
+// Affiche les détails d'une catégorie spécifique
+Route::get('categories/{id}', [CategorieController::class, 'show']);
+
+// Met à jour une catégorie spécifique
+Route::put('categories/{id}', [CategorieController::class, 'update']);
+Route::patch('categories/{id}', [CategorieController::class, 'update']);
+
+// Supprime une catégorie spécifique
+Route::delete('categories/{id}', [CategorieController::class, 'destroy']);
+
+// Récupère les catégories par ID de photographe
+Route::get('categories/photographes/{photographe_id}', [CategorieController::class, 'getByPhotographe']);

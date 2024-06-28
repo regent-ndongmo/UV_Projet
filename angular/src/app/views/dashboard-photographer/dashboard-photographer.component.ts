@@ -32,6 +32,9 @@ export class DashboardPhotographerComponent implements OnInit{
     console.log('La modale a été fermée');
   }
 
+
+  items = []
+
   // Méthode pour se déconnecter
   logout() {
     this.service.logout();

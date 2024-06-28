@@ -1,6 +1,7 @@
 .galerie{
 
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
   padding: 10px;
   margin: 10px;
 
@@ -8,7 +9,7 @@
     margin-right: 25%;
     color: #464664;
     cursor: pointer;
-    position: absolute;
+    // position: absolute;
     display: flex;
     flex-direction: column;
     &:hover{
@@ -19,12 +20,14 @@
   .add-galerie{
     background-color: auto;
     border-radius: 3%;
-    margin-left: 10%;
-    padding: 0.4%;
+    margin-left: 0%;
+    // padding: ;
     color: #5856d6;
     cursor: pointer;
     border: 2px solid #5856d6;
-    position: absolute;
+    margin-right: 70%;
+    margin-bottom: 8%;
+    margin-top: 10%;
     &:hover{
       color: #4645ab;
       border: 2px solid #4645ab;

@@ -20,6 +20,13 @@ public class ImageSevice {
         return imageRepository.count();
     }
 
+    public List<ImageEntity>  findByTitleOrDescription(String title, String description) {
+        return imageRepository.findByTitleOrDescription(title, description);
+    }
+
+    public boolean existeImage(Long id) {
+        return imageRepository.existsById(id);
+    }
 
     public ImageEntity incrementLikes( Long id) {
         Optional<ImageEntity> optionalImage = imageRepository.findById(id);

@@ -9,9 +9,7 @@ class Categorie extends Model
 {
     use HasFactory  ;
 
-    // public function avoir(){
-    //     return $this->hasMany(Categorie::class);
-    // }
+    protected $fillable = ['photographe_id', 'categorie'];
 
     public function photo(){
         return $this->hasMany(Photo::class);

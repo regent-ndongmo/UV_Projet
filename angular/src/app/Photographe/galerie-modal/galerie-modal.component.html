@@ -6,13 +6,17 @@
     </div>
     <div class="modall-body">
       <form action="">
-        <label for="name"></label>
-        <input type="text" name="hashtag" class="form-control input" placeholder="Veillez saisir votre nouveau hashtag">
+        <input type="text" name="user_id" [(ngModel)]="categorie.photographe_id" hidden>
+
+        <!-- @if (errors.categorie) {
+          <p class="text-danger pl-1" >{{ errors.categorie }}</p>
+        } -->
+        <input type="text" name="hashtag" class="form-control input" placeholder="Veillez saisir votre nouveau hashtag" [(ngModel)]="categorie.categorie">
       </form>
     </div>
     <div class="modall-footer">
       <!-- <button class="btn btn-warning" (click)="closeModal()">Fermer</button> -->
-      <button class="button-modall">Valider</button>
+      <button class="button-modall" (click)="Valider()">Valider</button>
     </div>
   </div>
 </div>
