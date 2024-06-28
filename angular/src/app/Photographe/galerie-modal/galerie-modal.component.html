@@ -11,7 +11,7 @@
         <!-- @if (errors.categorie) {
           <p class="text-danger pl-1" >{{ errors.categorie }}</p>
         } -->
-        <input type="text" name="hashtag" class="form-control input" placeholder="Veillez saisir votre nouveau hashtag" [(ngModel)]="categorie.categorie">
+        <input type="text" name="hashtag" class="form-control input" placeholder="Veillez saisir votre nouveau hashtag" [(ngModel)]="categorie.categorie" maxlength="15">
       </form>
     </div>
     <div class="modall-footer">

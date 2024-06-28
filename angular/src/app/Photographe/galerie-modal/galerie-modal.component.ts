@@ -1,9 +1,10 @@
 import { CategorieService } from './../service/Categorie/categorie.service';
 import { Categorie } from './../../model/Categorie/categorie';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GalerieComponent } from '../galerie/galerie.component';
 
 
 @Component({
@@ -21,16 +22,13 @@ export class GalerieModalComponent implements OnInit {
   @Input() title!: string;
   @Output() closed = new EventEmitter<void>();
 
+  // @ViewChild(GalerieComponent) galerieCompo!: GalerieComponent;
+
   isVisible = false;
 
   categorie = new Categorie();
 
   errors=new Categorie
-
-
-  // openModal() {
-  //   this.isVisible = true;
-  // }
 
   closeModal() {
     this.isVisible = false;
@@ -51,12 +49,10 @@ export class GalerieModalComponent implements OnInit {
   Valider(){
     console.log(this.categorie)
     this.service.create(this.categorie).subscribe(res => {
-      console.log(res)
+      console.log(res);
 
-
-      this.service.createCategorie(this.categorie);
       this.categorie.categorie = '';
-      
+      this.service.triggerRefresh();  // Trigger the refresh
       this.closeModal();
 
     },
@@ -65,9 +61,5 @@ export class GalerieModalComponent implements OnInit {
     });
 
   }
-
-  // closeModal() {
-  //   this.isVisible = false;
-  // }
 
 }

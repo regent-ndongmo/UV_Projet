@@ -73,7 +73,7 @@ class CategorieController extends Controller
     {
         $categorie = Categorie::findOrFail($id);
         $categorie->delete();
-        return response()->json(null, 204);
+        return response()->json(["message"=>"Categorie supprime avec succes"], 204);
     }
 
     //Recuperer les categorie en fonction du nom des utilisateur

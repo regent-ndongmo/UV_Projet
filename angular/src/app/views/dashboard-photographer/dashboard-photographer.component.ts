@@ -25,6 +25,7 @@ export class DashboardPhotographerComponent implements OnInit{
   }
 
   openModalPicture(){
+    this.pictureModal.ngOnInit();
     this.pictureModal.openModal();
   }
 

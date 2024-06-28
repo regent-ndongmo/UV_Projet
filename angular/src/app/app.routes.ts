@@ -71,7 +71,7 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'categorie',
+        path: 'categorie/:id',
         component: CategorieComponent,
         canActivate: [authGuardGuard],
         data: {

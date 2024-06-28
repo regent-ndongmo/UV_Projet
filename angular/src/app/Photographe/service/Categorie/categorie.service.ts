@@ -11,22 +11,18 @@ export class CategorieService {
 
   private apiUrl = `${environment.apiUrl}/categories`;
 
-  private categorieSource = new BehaviorSubject<Categorie | null>(null);
-  categorieCreated$ = this.categorieSource.asObservable();
+  private refreshSubject = new Subject<void>();
+  refresh$ = this.refreshSubject.asObservable();
+
+  triggerRefresh() {
+    this.refreshSubject.next();
+  }
 
   constructor(private httpClient: HttpClient) { }
 
   private reloadSubject = new Subject<void>();
 
-  reload$ = this.reloadSubject.asObservable();
 
-  triggerReload() {
-    this.reloadSubject.next();
-  }
-
-  createCategorie(categorie: Categorie) {
-    this.categorieSource.next(categorie);
-  }
 
   create(data: Categorie) : Observable<any>{
     const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
@@ -39,6 +35,10 @@ export class CategorieService {
 
   getCategoriePhotographe(id: Categorie){
     return this.httpClient.get<any>(`${this.apiUrl}/photographes/${id}`);
+  }
+
+  Delete(id: Categorie){
+    return this.httpClient.delete(`${this.apiUrl}/${id}`);
   }
 
 

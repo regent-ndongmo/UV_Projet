@@ -3,6 +3,7 @@ import { Photo } from './../../model/photographe/photo';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CategorieService } from '../service/Categorie/categorie.service';
 
 @Component({
   selector: 'app-picture-modal',
@@ -18,6 +19,8 @@ export class PictureModalComponent implements OnInit {
   @Output() closed = new EventEmitter<void>();
 
   isVisible = false;
+  photographe_id : any;
+  categories!: any[]
 
   // openModal() {
   //   this.isVisible = true;
@@ -28,11 +31,15 @@ export class PictureModalComponent implements OnInit {
     this.closed.emit();
   }
 
-  constructor(private service: ImageService) { }
+  constructor(private service: ImageService, private service1: CategorieService) { }
 
   ngOnInit() {
     this.photo.user_id = localStorage.getItem("user_id")
     this.photo.categorie_id = 3
+    this.photographe_id = localStorage.getItem("user_id")
+
+
+    this.getDataCategorie();
   }
 
   openModal() {
@@ -40,9 +47,14 @@ export class PictureModalComponent implements OnInit {
     console.log("regent openModal")
   }
 
-  // closeModal() {
-  //   this.isVisible = false;
-  // }
+  getDataCategorie() {
+    console.log("getDataCategorie");
+    console.log(this.photographe_id);
+    this.service1.getCategoriePhotographe(this.photographe_id).subscribe(res => {
+      console.log(res);
+      this.categories = res;
+    })
+  }
 
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -52,7 +64,7 @@ export class PictureModalComponent implements OnInit {
   message: string = '';
 
 
-  id: any;
+  // id: any;
   data:any;
   public imgPath: any;
 

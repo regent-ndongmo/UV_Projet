@@ -1,6 +1,11 @@
 import {
-  IconDirective
-} from "./chunk-ZWL5ZVMG.js";
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-OAVYXZW3.js";
 import {
   Platform,
   _getEventTarget,
@@ -11,7 +16,7 @@ import {
   coerceElement,
   coerceNumberProperty,
   normalizePassiveListenerOptions
-} from "./chunk-3WEB32NQ.js";
+} from "./chunk-XHAFL7P6.js";
 import {
   AnimationBuilder,
   animate,
@@ -29,13 +34,8 @@ import {
   toObservable
 } from "./chunk-HLKDVPWJ.js";
 import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-OAVYXZW3.js";
+  IconDirective
+} from "./chunk-ZWL5ZVMG.js";
 import "./chunk-3JN6HPMB.js";
 import "./chunk-HSRSC2DQ.js";
 import {

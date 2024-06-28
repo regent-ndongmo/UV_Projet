@@ -36,6 +36,21 @@
                       <textarea name="description" id="" class="form-control" [(ngModel)]="photo.description" placeholder="Entrer une description de votre images ici"></textarea>
                     </div>
 
+                    <div class="col-md-12 mb-3">
+                      <label class="small mb-1" for="inputCategorie">Catégorie</label>
+                      <select
+                        class="form-select"
+                        aria-label="Select categorie"
+                        [(ngModel)]="photo.categorie_id"
+                        name="categorie">
+                        @for (item of categories; track $index) {
+                          <option >{{ item.categorie }}</option>
+                        }
+                        <!-- <option *ngFor="let item of categories; let i = index" [value]="item.id">{{ item.categorie }}</option> -->
+
+                      </select>
+                    </div>
+
                   </div>
 
                   <button class="btn btn-primary" type="button" (click)="Publier()" >Publier</button>

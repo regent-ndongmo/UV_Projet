@@ -1,10 +1,15 @@
 
-<div class="galerie">
+<div class="galerie container-wrapper">
   <!-- @for (item of categories; track $index) { -->
-    <div *ngFor="let categorie of categories" class="folder " (click)="openCategorie()">
-      <i class="fas fa-folder fa-6x img-fluid"></i>
-      <span>{{ categorie.categorie }}</span>
-      <!-- <span>{{ categorie.photographe_id }}</span> -->
+    <div *ngFor="let categorie of categories" class="container">
+      <i class="fas fa-folder fa-8x img-fluid folder"  (click)="openCategorie(categorie.id)"></i>
+      <div class="folder-footer">
+        <span class="text ellipsis">{{ categorie.categorie   }}</span>
+        <!-- <i class="btn btn-info fas fa-pencil" (click)="modifier(categorie.id)"></i> -->
+        <i class="btn btn-dark fas fa-trash img-fluid" (click)="delete(categorie.id)"></i>
+
+      </div>
+      <!-- <span>{{ categorie.id }}</span> -->
 
     </div>
   <!-- } -->
