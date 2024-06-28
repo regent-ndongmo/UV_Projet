@@ -44,10 +44,8 @@
                         [(ngModel)]="photo.categorie_id"
                         name="categorie">
                         @for (item of categories; track $index) {
-                          <option >{{ item.categorie }}</option>
+                          <option [value]="item.id">{{ item.categorie }}</option>
                         }
-                        <!-- <option *ngFor="let item of categories; let i = index" [value]="item.id">{{ item.categorie }}</option> -->
-
                       </select>
                     </div>
 

@@ -1,8 +1,6 @@
 package com.dicap.ImageUploadApi;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,16 +21,16 @@ public class ImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
     @Column(nullable = false)
-    @NotBlank(message = "the title can't be blank")
-    @NotEmpty(message = "the title can't be blank")
-    private String title;
+    private String title="titre";
     @Column(nullable = false)
-    @NotBlank(message = "the description can't be blank")
-    @NotEmpty(message = "the description can't be blank")
-    private String description;
-    private Long likes;
+    private String description="description";
+    @Column(nullable = false)
+    private Long likes=1L;
+    @Column(nullable = false)
     private byte[] url;
-    private Long phototographer_id;
-    private Long category_id;
+    @Column(nullable = false)
+    private Long phototographer_id=1L;
+    @Column(nullable = false)
+    private Long category_id=1L;
     private boolean deleted = Boolean.FALSE;
 }

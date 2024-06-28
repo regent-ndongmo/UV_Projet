@@ -20,15 +20,9 @@ public class ImageSevice {
         return imageRepository.count();
     }
 
-    public List<ImageEntity>  findByTitleOrDescription(String title, String description) {
-        return imageRepository.findByTitleOrDescription(title, description);
-    }
 
-    public boolean existeImage(Long id) {
-        return imageRepository.existsById(id);
-    }
 
-    public ImageEntity incrementLikes( Long id) {
+    public ImageEntity incrementLikes(Long id) {
         Optional<ImageEntity> optionalImage = imageRepository.findById(id);
         if (optionalImage.isPresent()) {
             ImageEntity image = optionalImage.get();
@@ -39,11 +33,16 @@ public class ImageSevice {
         }
     }
 
-    public ImageEntity saveImage(MultipartFile file) throws IOException {
+
+    public ImageEntity saveImage(MultipartFile file, String title,String description, Long likes, Long category, Long photographer) throws IOException {
         ImageEntity image = new ImageEntity();
-        image.setTitle(file.getOriginalFilename());
+        //image.setTitle(file.getOriginalFilename());
+        image.setTitle(title);
+        image.setDescription(description);
         image.setUrl(file.getBytes());
-        image.setLikes(3L);
+        image.setLikes(likes);
+        image.setCategory_id(category);
+        image.setPhototographer_id(photographer);
         return imageRepository.save(image);
     }
 

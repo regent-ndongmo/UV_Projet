@@ -35,7 +35,7 @@ export class PictureModalComponent implements OnInit {
 
   ngOnInit() {
     this.photo.user_id = localStorage.getItem("user_id")
-    this.photo.categorie_id = 3
+
     this.photographe_id = localStorage.getItem("user_id")
 
 
@@ -54,6 +54,11 @@ export class PictureModalComponent implements OnInit {
       console.log(res);
       this.categories = res;
     })
+  }
+
+  categorieID(id: any){
+    this.photo.categorie_id = id;
+    console.log("La categorie selectionne pour cette photo a pour id : ", id)
   }
 
 
@@ -113,12 +118,12 @@ export class PictureModalComponent implements OnInit {
     const formData = new FormData();
 
     if (this.file) {
-      formData.append('photo', this.file, this.file.name);  // Use 'photo' instead of 'file'
+      formData.append('file', this.file, this.file.name);  // Use 'photo' instead of 'file'
     } else {
-      formData.append('photo', new Blob(), '');  // Empty file to indicate no file selected
+      formData.append('file', new Blob(), '');  // Empty file to indicate no file selected
     }
-    formData.append('user_id', this.photo.user_id.toString());
-    formData.append('titre', this.photo.titre);
+    formData.append('phototographer_id', this.photo.user_id.toString());
+    formData.append('title', this.photo.titre);
     formData.append('description', this.photo.description);
     formData.append('categorie_id', this.photo.categorie_id.toString());
 

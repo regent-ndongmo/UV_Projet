@@ -1,3 +1,4 @@
+import { RendezVousComponent } from './Photographe/rendez-vous/rendez-vous.component';
 import { CategorieComponent } from './Photographe/galerie/categorie/categorie.component';
 import { CorbeilleComponent } from './Photographe/corbeille/corbeille.component';
 import { GalerieComponent } from './Photographe/galerie/galerie.component';
@@ -84,6 +85,14 @@ export const routes: Routes = [
         canActivate: [authGuardGuard],
         data: {
           title: 'Galerie'
+        }
+      },
+      {
+        path: 'rendez-vous',
+        component: RendezVousComponent,
+        canActivate: [authGuardGuard],
+        data: {
+          title: 'rendez-vous'
         }
       },
       {

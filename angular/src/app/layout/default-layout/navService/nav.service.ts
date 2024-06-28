@@ -36,6 +36,16 @@ export class NavService {
       }
     },
     {
+      name: 'Rendez-Vous',
+      url: '/rendez-vous',
+      iconComponent: { name: 'cil-calendar' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    },
+    {
       name: 'Profile',
       url: '/profile',
       iconComponent: { name: 'cil-user' },
