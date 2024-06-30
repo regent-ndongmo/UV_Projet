@@ -60,7 +60,7 @@ export class AuthService {
   logout() {
     this.changeState(false);
     localStorage.removeItem('user');
-    localStorage.removeItem('user_id');
+    // localStorage.removeItem('user_id');
     localStorage.removeItem("headerVisible");
     localStorage.removeItem('categorie_id')
     this.router.navigate(['/dasboard'])

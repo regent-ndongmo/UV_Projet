@@ -46,6 +46,9 @@
                         @for (item of categories; track $index) {
                           <option [value]="item.id">{{ item.categorie }}</option>
                         }
+                        @empty {
+
+                        }
                       </select>
                     </div>
 

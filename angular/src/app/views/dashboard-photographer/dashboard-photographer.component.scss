@@ -80,11 +80,26 @@
   background-color: #0056b3;
 }
 
-//
 
+//
+.picture{
+  padding-top: 6%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1450px) {
+  .picture{
+    padding-top: 6%;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 .picture-card{
   padding-top: 7%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
+
 
 
 
