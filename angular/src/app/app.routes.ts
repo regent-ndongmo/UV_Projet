@@ -58,11 +58,6 @@ export const routes: Routes = [
         component: DashboardComponent,
         canActivate: [adminGuardGuard],
       }
-
-      // {
-      //   path: 'pages',
-      //   loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
-      // }
     ]
   },
   // {

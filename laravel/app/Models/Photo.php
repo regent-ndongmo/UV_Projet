@@ -15,6 +15,8 @@ class Photo extends Model
         'titre',
         'url_image',
         'nombre_likes',
+        'description',
+        'prix'
     ];
 
     public function photographe(){
@@ -22,6 +24,6 @@ class Photo extends Model
     }
 
     public function categorie(){
-        return $this->belongsTo(Categorie::class);
+        return $this->belongsTo(Categorie::class, 'categorie_id','id');
     }
 }

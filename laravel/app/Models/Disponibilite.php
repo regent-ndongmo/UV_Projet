@@ -9,6 +9,13 @@ class Disponibilite extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'date_debut',
+        'photographe_id',
+        'date_fin',
+        'libele',
+    ];
+
     public function photographe(){
         return $this->belongsTo(Photographe::class);
     }

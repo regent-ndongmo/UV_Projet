@@ -4,62 +4,121 @@ namespace App\Http\Controllers;
 
 use App\Models\Contrat;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Schema;
 
 class ContratController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Contrat::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'montant' => 'required|numeric',
+                'date' => 'required|date',
+                'status_paiement' => 'required|string',
+            ]);
+
+            $contrat = Contrat::create($validatedData);
+
+            return response()->json([
+                'message' => 'Le contrat a été créé avec succès.',
+                'contrat' => $contrat,
+            ], 201);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Impossible de créer le contrat.',
+                'errors' => $e->validator->errors(),
+            ], 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la création du contrat.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Contrat $contrat)
+    public function show($id)
     {
-        //
+        try {
+            $contrat = Contrat::findOrFail($id);
+            return response()->json([
+                'contrat' => $contrat,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Contrat non trouvé.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la recherche du contrat.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Contrat $contrat)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'montant' => 'required|numeric',
+                'date' => 'required|date',
+                'status_paiement' => 'required|string',
+            ]);
+
+            $contrat = Contrat::findOrFail($id);
+            $contrat->update($validatedData);
+
+            return response()->json([
+                'message' => 'Le contrat a été mis à jour avec succès.',
+                'contrat' => $contrat,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Impossible de mettre à jour le contrat.',
+                'errors' => $e->validator->errors(),
+            ], 400);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Contrat non trouvé.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la mise à jour du contrat.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Contrat $contrat)
+    public function destroy($id)
     {
-        //
-    }
+        try {
+            $contrat = Contrat::findOrFail($id);
+            $contrat->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Contrat $contrat)
-    {
-        //
+            return response()->json([
+                'message' => 'Le contrat a été supprimé avec succès.',
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Contrat non trouvé.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la suppression du contrat.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
+
+// {
+//     "montant": 100.50,
+//     "date": "2024-06-30",
+//     "status_paiement": "en attente"
+//   }

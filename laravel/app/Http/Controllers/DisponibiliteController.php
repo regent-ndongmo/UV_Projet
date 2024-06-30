@@ -12,54 +12,80 @@ class DisponibiliteController extends Controller
      */
     public function index()
     {
-        //
+        $disponibilites = Disponibilite::all();
+        return response()->json($disponibilites);
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created disponibilite in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date',
+            'libele' => 'required|string',
+            'photographe_id' => 'required|exists:photographes,id',
+        ]);
+
+        $disponibilite = Disponibilite::create($request->all());
+
+        return response()->json($disponibilite, 201);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified disponibilite.
+     *
+     * @param  \App\Models\Disponibilite  $disponibilite
+     * @return \Illuminate\Http\Response
      */
     public function show(Disponibilite $disponibilite)
     {
-        //
+        return response()->json($disponibilite);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Disponibilite $disponibilite)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified disponibilite in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Disponibilite  $disponibilite
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Disponibilite $disponibilite)
     {
-        //
+        $request->validate([
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date',
+            'libele' => 'required|string',
+            'photographe_id' => 'required|exists:photographes,id',
+        ]);
+
+        $disponibilite->update($request->all());
+
+        return response()->json($disponibilite, 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified disponibilite from storage.
+     *
+     * @param  \App\Models\Disponibilite  $disponibilite
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Disponibilite $disponibilite)
     {
-        //
+        $disponibilite->delete();
+
+        return response()->json(null, 204);
     }
 }
+
+// {
+//     "date_debut": "2024-07-01",
+//     "date_fin": "2024-07-15",
+//     "photographe_id": 1,
+//     "libele": "Disponibilité été"
+//   }
+  

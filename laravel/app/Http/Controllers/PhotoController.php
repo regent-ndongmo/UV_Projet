@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Photo;
+use Dotenv\Exception\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
@@ -12,7 +15,7 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        return response()->json(Photo::with(["photographe", "categorie"])->paginate(2000), 200);
+        return response()->json(Photo::with(["photographes", "categories"])->paginate(2000), 200);
     }
 
     /**
@@ -20,24 +23,52 @@ class PhotoController extends Controller
      */
     public function create(Request $request)
     {
-        $validatedData = $request->validate([
-            'categorie_id' => 'required|exists:categories,id',
-            'photographe_id' => 'required|exists:photographes,id',
-            'titre' => 'required|string|max:255',
-            'url_image' => 'required|string|max:255',
-            'nombre_likes' => 'required|integer',
-        ]);
-        $photo = Photo::create($request->all());
-        return response($photo, 201);
+        try {
+            $validatedData = $request->validate([
+                'categorie_id' => 'required|exists:categories,id',
+                'photographe_id' => 'required|exists:photographes,id',
+                'titre' => 'required|string|max:255',
+                'url_image' => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+                'prix' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+                'nombre_likes' => 'integer|min:0',
+            ]);
+            
+            $photo = Photo::create($validatedData);
+            
+            return response()->json([
+                'message' => 'Photo créée avec succès.',
+                'photo' => $photo,
+            ], 201);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Impossible de créer la photo.',
+                'errors' => $e,
+            ], 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la création de la photo.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     public function getPhotoById($id)
     {
-        $photo = Photo::with(["photographe", "categorie"])->find($id);
-        if (is_null($photo)) {
-            return response()->json(['message' => 'Photo not found'], 404);
+        try {
+            $photo = Photo::with(["photographes", "categories"])->findOrFail($id);
+            
+            return response()->json($photo, 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Photo non trouvée.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la recherche de la photo.',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-        return response()->json($photo, 200);
     }
 
     public function updatePut(Request $request, $id)
@@ -52,42 +83,78 @@ class PhotoController extends Controller
             'photographe_id' => 'sometimes|exists:photographes,id',
             'titre' => 'sometimes|string|max:255',
             'url_image' => 'sometimes|string|max:255',
+            'description' => 'required|string|max:255',
+            'prix' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'nombre_likes' => 'sometimes|integer',
         ]);
 
         $photo->update($validatedData);
         return response($photo, 200);
     }
-    public function updatePatch(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        $photo = Photo::find($id);
-        if(is_null($photo)){
-            return response()->json(['message'=>'photo not found'], 404);
+        try {
+            $validatedData = $request->validate([
+                'titre' => 'required|string|max:255',
+                'url_image' => 'required|string',
+                'nombre_likes' => 'integer|min:0',
+                'description' => 'required|string|max:255',
+                'prix' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+                'categorie_id' => 'required|exists:categories,id',
+                'photographe_id' => 'required|exists:photographes,id',
+            ]);
+
+            $photo = Photo::findOrFail($id);
+            $photo->update($validatedData);
+
+            return response()->json([
+                'message' => 'La photo a été mise à jour avec succès.',
+                'photo' => $photo,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Impossible de mettre à jour la photo.',
+                'errors' => $e,
+            ], 400);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Photo non trouvée.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la mise à jour de la photo.',
+                'error' => $e->getMessage(),
+            ], 500);
         }
+    }
+    public function destroy($id)
+    {
+        try {
+            $photo = Photo::findOrFail($id);
 
-        $validatedData = $request->validate([
-            'categorie_id' => 'sometimes|exists:categories,id',
-            'photographe_id' => 'sometimes|exists:photographes,id',
-            'titre' => 'sometimes|string|max:255',
-            'url_image' => 'sometimes|string|max:255',
-            'nombre_likes' => 'sometimes|integer',
-        ]);
+            // Supprimer le fichier image associé si nécessaire
+            if ($photo->url_image) {
+                Storage::delete($photo->url_image);
+            }
 
-        $photo->fill($validatedData);
-        $photo->save();
+            $photo->delete();
 
-        return response($photo, 200);
+            return response()->json([
+                'message' => 'La photo a été supprimée avec succès.',
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Photo non trouvée.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la suppression de la photo.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
-    public function delete(Request $request, $id)
-    {
-        $photo = Photo::find($id);
-        if (is_null($photo)) {
-            return response()->json(['message' => 'Photo not found'], 404);
-        }
-        $photo->delete();
-        return response()->json(["message" => "Photo supprime avec succes"], 204);
-    }
+    // ...
 }
 
 // {
@@ -97,3 +164,5 @@ class PhotoController extends Controller
 //     "url_image": "http://example.com/image.jpg",
 //     "nombre_likes": 10
 // }
+
+
