@@ -159,6 +159,25 @@ class PhotographeController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+
+
+    public function search(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        $photographers = Photographe::where('nom', 'like', "%$searchQuery%")
+                                     ->orWhere('ville', 'like', "%$searchQuery%")
+                                     ->orWhere('pays', 'like', "%$searchQuery%")
+                                     ->orWhere('description', 'like', "%$searchQuery%")
+                                     ->get();
+
+        if ($photographers->isEmpty()) {
+            return response()->json(['message' => 'Aucun photographe trouvé pour cette recherche.'], 404);
+        }
+
+        return response()->json($photographers);
+    }
+
 }
 
 
