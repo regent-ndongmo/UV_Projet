@@ -38,10 +38,12 @@ Route::put("photo/{id}", [PhotoController::class, "updatePut"] );
 Route::patch("photo/{id}", [PhotoController::class, "updatePatch"] );
 Route::delete("photo/{id}", [PhotoController::class, "destroy"] );
 Route::post('photo/{id}/like', [PhotoController::class, 'likePhoto']);
+Route::get('/photos/search', [PhotoController::class, 'search']); // Recherche de photos
 
 
 
 Route::get('/photographe', [PhotographeController::class, "index"]);
+Route::get('/photographers/search', [PhotographeController::class, 'search']); // Recherche de photographes
 
 
 Route::group(["ramespace"=>"Api\Auth"], function(){
@@ -91,6 +93,8 @@ Route::post('/categories', [CategorieController::class, 'store']);
 Route::get('/categories/{id}', [CategorieController::class, 'show']);
 Route::put('/categories/{id}', [CategorieController::class, 'update']);
 Route::delete('/categories/{id}', [CategorieController::class, 'destroy']);
+Route::get('/categories/search', [CategorieController::class, 'search']); // Recherche de photographes
+
 
 // Routes pour les disponibilités
 Route::get('/disponibilites', [DisponibiliteController::class, 'index']);
