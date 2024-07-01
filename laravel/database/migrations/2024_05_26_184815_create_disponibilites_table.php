@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('disponibilites', function (Blueprint $table) {
             $table->id();
             $table->foreignId("photographe_id")->constrained("photographes");
-            $table->date("Date");
-            $table->time("Heure");
+            $table->string('libele');
+            $table->date('date_debut');
+            $table->date('date_fin');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

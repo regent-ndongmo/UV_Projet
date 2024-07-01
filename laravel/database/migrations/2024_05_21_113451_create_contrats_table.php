@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('contrats', function (Blueprint $table) {
             $table->id();
+            $table->string("libelle");
+            $table->foreignId("photographe_id")->constrained("photographes");
             $table->double("montant");
             $table->date("date");
             $table->string("status_paiement");
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -25,6 +28,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table("contrats", function(Blueprint $table){
+            $table->dropForeign('photographe_id');
+
+        });
         Schema::dropIfExists('contacts');
     }
 };

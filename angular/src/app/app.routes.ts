@@ -1,3 +1,4 @@
+import { ContratComponent } from './Photographe/rendez-vous/contrat/contrat.component';
 import { RendezVousComponent } from './Photographe/rendez-vous/rendez-vous.component';
 import { CategorieComponent } from './Photographe/galerie/categorie/categorie.component';
 import { CorbeilleComponent } from './Photographe/corbeille/corbeille.component';
@@ -93,6 +94,14 @@ export const routes: Routes = [
         canActivate: [authGuardGuard],
         data: {
           title: 'rendez-vous'
+        }
+      },
+      {
+        path: 'contrat',
+        component: ContratComponent,
+        canActivate: [authGuardGuard],
+        data: {
+          title: 'Contrat'
         }
       },
       {

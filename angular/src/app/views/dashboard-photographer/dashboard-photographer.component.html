@@ -1,17 +1,18 @@
 <app-picture-modal app-galerie-modal [title]="'Publier une nouvelle photo'" (closed)="onModalClosed()"></app-picture-modal>
 
 
-<div class="picture-container">
+<div class="position-absolute top-5 end-0">
   <div class="btn btn-primary new-picture" (click)="openModalPicture()">
     <i class="fas fa-plus fa-2x"></i>
     <span class="picture-text">Add new picture</span>
   </div>
 </div>
 
+
 <div class="picture">
   @for (item of items; track $index) {
     <div class="picture-card">
-      <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 19.3rem;">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Card title</h5>

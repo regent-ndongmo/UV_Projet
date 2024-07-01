@@ -1,0 +1,111 @@
+@if (isVisible) {
+  <form (ngSubmit)="createContrat(form)" #form="ngForm" class="container my-5">
+    <div class="col-sm-10" hidden>
+      <input type="number" name="photographe_id" id="" [(ngModel)]="paymentInfo.photographe_id" class="form-control" required>
+    </div>
+    <div class="row mb-3">
+      <label for="libelle" class="col-sm-2 col-form-label">Libelle :</label>
+      <div class="col-sm-10">
+        <input type="text" id="libelle" [(ngModel)]="paymentInfo.libelle" name="libelle" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="montant" class="col-sm-2 col-form-label">Montant :</label>
+      <div class="col-sm-10">
+        <input type="number" id="montant" [(ngModel)]="paymentInfo.montant" name="montant" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="date" class="col-sm-2 col-form-label">Date :</label>
+      <div class="col-sm-10">
+        <input type="date" id="date" [(ngModel)]="paymentInfo.date" name="date" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="status_paiement" class="col-sm-2 col-form-label">Statut de paiement :</label>
+      <div class="col-sm-10">
+        <select id="status_paiement" [(ngModel)]="paymentInfo.status_paiement" name="status_paiement" class="form-select" required>
+          <option value="en attente">En attente</option>
+          <option value="payé">Payé</option>
+          <option value="rejeté">Rejeté</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-10 offset-sm-2">
+        <button class="btn btn-secondary" (click)="rendez_vous()">Enregistrer rendes-vous</button>
+        <button type="submit" class="btn btn-primary m-2">Enregistrer</button>
+      </div>
+    </div>
+  </form>
+}
+@else {
+  <form (ngSubmit)="Rendez_vous(form1)" #form1="ngForm" class="container my-5">
+    <div class="row mb-3">
+      <label for="date" class="col-sm-2 col-form-label">Date :</label>
+      <div class="col-sm-10">
+        <input type="date" id="date" [(ngModel)]="eventInfo.date" name="date" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="heure_debut" class="col-sm-2 col-form-label">Heure de début :</label>
+      <div class="col-sm-10">
+        <input type="time" id="heure_debut" [(ngModel)]="eventInfo.heure_debut" name="heure_debut" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="heure_fin" class="col-sm-2 col-form-label">Heure de fin :</label>
+      <div class="col-sm-10">
+        <input type="time" id="heure_fin" [(ngModel)]="eventInfo.heure_fin" name="heure_fin" class="form-control" required>
+      </div>
+    </div>
+    
+    <div class="row mb-3" hidden>
+      <label for="photographe_id" class="col-sm-2 col-form-label">ID Photographe :</label>
+      <div class="col-sm-10">
+        <input type="number" id="photographe_id" [(ngModel)]="eventInfo.photographe_id" name="photographe_id" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="status" class="col-sm-2 col-form-label">Statut :</label>
+      <div class="col-sm-10">
+        <select id="status" [(ngModel)]="eventInfo.status" name="status" class="form-select" required>
+          <option value="confirmé">Confirmé</option>
+          <option value="annulé">Annulé</option>
+          <option value="en attente">En attente</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="contrat_id" class="col-sm-2 col-form-label">Contrat :</label>
+      <div class="col-sm-10">
+        <select id="contrat_id" [(ngModel)]="eventInfo.contrat_id" name="contrat_id" class="form-select" required>
+          @for (item of dataPhotographe; track $index) {
+            <option [value]="item.id">{{ item.libelle }}</option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="nom_client" class="col-sm-2 col-form-label">Nom du client :</label>
+      <div class="col-sm-10">
+        <input type="text" id="nom_client" [(ngModel)]="eventInfo.nom_client" name="nom_client" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="lieux" class="col-sm-2 col-form-label">Lieux :</label>
+      <div class="col-sm-10">
+        <input type="text" id="lieux" [(ngModel)]="eventInfo.lieux" name="lieux" class="form-control" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-10 offset-sm-2">
+        <button (click)="BackTo()" class="btn btn-dark">Retour</button>
+        <button type="submit" class="btn btn-primary m-2">Enregistrer</button>
+      </div>
+    </div>
+  </form>
+
+}
+

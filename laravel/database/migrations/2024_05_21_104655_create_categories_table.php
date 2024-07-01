@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table("commentaires", function(Blueprint $table){
+        Schema::table("categories", function(Blueprint $table){
             $table->dropForeign('photographe_id');
 
         });

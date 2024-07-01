@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('photographes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained("users");
+            $table->foreignId("user_id")->constrained("users")->unique();
             $table->string("nom");
             $table->string("ville");
             $table->string("pays");
@@ -32,7 +32,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table("rendez_vous", function(Blueprint $table){
+        Schema::table("photographes", function(Blueprint $table){
             $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('photographes');

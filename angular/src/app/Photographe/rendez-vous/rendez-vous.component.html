@@ -1,1 +1,45 @@
-<p>rendez-vous works!</p>
+<div class="cointainer position-relative">
+  <div class="position-absolute top-5 end-0">
+    <div class="btn btn-primary new-picture" [routerLink]="['/contrat']">
+      <i class="fas fa-plus fa-2x"></i>
+      <!-- <span class="picture-text">Add new picture</span> -->
+    </div>
+  </div>
+</div>
+
+<div>
+  <div class="container pt-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom Client</th>
+                <th scope="col">Status</th>
+                <th scope="col">Contrat</th>
+                <th scope="col">Date</th>
+                <th scope="col">Lieu</th>
+                <th scope="col">Heure Debut</th>
+                <th scope="col">Heure Fin</th>
+            </tr>
+        </thead>
+        <tbody>
+          @for (item of data; track $index) {
+            <tr>
+              <th scope="row">{{item.id}}</th>
+              <td>{{ item.nom_client }}</td>
+              <td>{{ item.status }}</td>
+              <td>{{ item.contrat.libelle }}</td>
+              <td>{{ item.date }}</td>
+              <td>{{ item.lieux }}</td>
+              <td>{{ item.heure_debut }}</td>
+              <td>{{ item.heure_fin }}</td>
+            </tr>
+
+          }
+
+
+            <!-- Ajoutez plus de lignes ici -->
+        </tbody>
+    </table>
+</div>
+</div>

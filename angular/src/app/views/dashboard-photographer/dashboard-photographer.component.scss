@@ -86,6 +86,8 @@
   padding-top: 6%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-content: space-between;
 }
 
 @media (max-width: 1450px) {

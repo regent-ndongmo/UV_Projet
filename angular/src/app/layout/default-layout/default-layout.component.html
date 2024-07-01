@@ -19,7 +19,7 @@
     </c-sidebar-nav>
   </ng-scrollbar>
 
-  
+
   @if (!sidebar1.narrow) {
     <c-sidebar-footer cSidebarToggle="sidebar1" class="border-top d-none d-lg-flex" toggle="unfoldable" style="cursor: pointer;">
       <button cSidebarToggler></button>
@@ -37,7 +37,7 @@
                       sidebarId="sidebar1" />
   <!--app-body-->
   <div class="body flex-grow-1">
-    <c-container breakpoint="lg" class="h-auto px-4">
+    <c-container breakpoint="lg" class="h-auto px-4 position-relative">
       <router-outlet />
     </c-container>
   </div>

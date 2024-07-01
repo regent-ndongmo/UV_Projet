@@ -69,22 +69,54 @@ Route::get('profile/{fileName}', function ($fileName) {
 
 //Definitio des routes pour la migration categorie
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\ContratController;
+use App\Http\Controllers\DisponibiliteController;
+use App\Http\Controllers\RendezVousController;
 
-// Liste toutes les catégories
+// Routes pour les categories
 Route::get('categories', [CategorieController::class, 'index']);
-
 // Crée une nouvelle catégorie
 Route::post('categories', [CategorieController::class, 'create']);
-
 // Affiche les détails d'une catégorie spécifique
 Route::get('categories/{id}', [CategorieController::class, 'show']);
-
 // Met à jour une catégorie spécifique
 Route::put('categories/{id}', [CategorieController::class, 'update']);
 Route::patch('categories/{id}', [CategorieController::class, 'update']);
-
 // Supprime une catégorie spécifique
 Route::delete('categories/{id}', [CategorieController::class, 'destroy']);
-
 // Récupère les catégories par ID de photographe
 Route::get('categories/photographes/{photographe_id}', [CategorieController::class, 'getByPhotographe']);
+
+
+// Routes pour les rendez vous
+Route::get('/rendez-vous', [RendezVousController::class, "index"]);
+Route::get("rendez-vous/{id}", [RendezVousController::class, "show"] );
+Route::get("rendez-vousByPhotographe/{id}", [RendezVousController::class, "getByPhotographe"] );
+Route::post("rendez-vous", [RendezVousController::class, "store"] );
+Route::put("rendez-vous/{id}", [RendezVousController::class, "update"] );
+Route::delete("rendez-vous/{id}", [RendezVousController::class, "destroy"] );
+
+// Routes pour Contrat
+Route::get('/contrats', [ContratController::class, 'index']);
+Route::get('/contratsPhotographe/{id}', [ContratController::class, 'getByPhotographe']);
+Route::post('/contrats', [ContratController::class, 'store']);
+Route::get('/contrats/{id}', [ContratController::class, 'show']);
+Route::put('/contrats/{id}', [ContratController::class, 'update']);
+Route::delete('/contrats/{id}', [ContratController::class, 'destroy']);
+
+
+// Routes pour les disponibilités
+Route::get('/disponibilites', [DisponibiliteController::class, 'index']);
+Route::post('/disponibilites', [DisponibiliteController::class, 'store']);
+Route::get('/disponibilites/{disponibilite}', [DisponibiliteController::class, 'show']);
+Route::put('/disponibilites/{disponibilite}', [DisponibiliteController::class, 'update']);
+Route::delete('/disponibilites/{disponibilite}', [DisponibiliteController::class, 'destroy']);
+
+// Routes pour les commentaires
+Route::prefix('commentaires')->group(function () {
+    Route::get('/', [CommentaireController::class, 'index']);
+    Route::post('/', [CommentaireController::class, 'store']);
+    Route::put('/{commentaire}', [CommentaireController::class, 'update']);
+    Route::delete('/{commentaire}', [CommentaireController::class, 'destroy']);
+});

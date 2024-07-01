@@ -37,13 +37,7 @@ class CategorieController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
-    //     $request->validate([
-    //         'photographe_id' => 'required|exists:photographes,id',
-    //         'categorie' => 'required|string|max:255|unique:categories,categorie,NULL,id,photographe_id,' . $request->photographe_id,
 
-    //     ]);
-    //     $categorie = Categorie::create($request->all());
-    //     return response()->json([$categorie, "message"=>"regent"]);
     }
 
     /**
