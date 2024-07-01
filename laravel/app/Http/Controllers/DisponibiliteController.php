@@ -108,6 +108,11 @@ class DisponibiliteController extends Controller
      */
     public function destroy(Disponibilite $disponibilite)
     {
+         // Vérifier que le photographe connecté est bien celui qui a créé la disponibilité
+         if ($disponibilite->photographe_id !== Auth::id()) {
+            return response()->json(['error' => 'Accès non autorisé.'], 403);
+        }
+        
         $disponibilite->delete();
 
         return response()->json(null, 204);

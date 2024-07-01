@@ -17,21 +17,14 @@ class ContratController extends Controller
     }
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'montant' => 'required|numeric',
-            'date' => 'required|date',
-            // 'photographe_id' => 'required|exists:photographes,id',
-            'status_paiement' => 'required|string',
-        ]);
-
         try {
-            $user = Auth::user(); // Récupère l'utilisateur authentifié
+            $validatedData = $request->validate([
+                'montant' => 'required|numeric',
+                'date' => 'required|date',
+                // 'photographe_id' => 'required|exists:photographes,id',
+                'status_paiement' => 'required|string',
+            ]);
 
-            // Validation de l'existence de l'utilisateur (optionnel)
-            if (!$user) {
-                throw new \Exception("Utilisateur non authentifié.");
-            }
-            
             // Récupérer l'ID du photographe actuellement authentifié
             $photographe_id = Auth::id();
 
