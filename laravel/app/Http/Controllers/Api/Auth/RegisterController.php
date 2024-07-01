@@ -67,3 +67,12 @@ class RegisterController extends Controller
         }
     }
 }
+
+
+
+// {
+//     "name": "John Doe",
+//     "email": "john.doe@example.com",
+//     "password": "ffffffff",
+//     "password_confirmation": "ffffffff"
+// }
