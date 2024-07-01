@@ -10,18 +10,24 @@ class AuthentificationController extends Controller
 {
     public function login(Request $request)
     {
-        // return "Login";
+        // Définition des messages d'erreur personnalisés
+        $messages = [
+            'required' => 'Le champ :attribute est obligatoire.',
+            'max' => 'Le champ :attribute ne peut pas dépasser :max caractères.',
+        ];
+
+        // Validation des données entrées par l'utilisateur avec les messages personnalisés
         $this->validate($request, [
             'email' => 'required|max:255',
             'password' => 'required|max:8',
-        ]);
+        ], $messages);
 
         $credentials = $request->only('email', 'password');
 
         if (!Auth::attempt($credentials)) {
-            return response(['message' => 'Invalid login credentials'], 401);
+            // Retourner une réponse JSON pour une authentification invalide
+            return response()->json(['message' => 'Email ou mot de passe incorrect'], 401);
         }
-        // return "Bonsoir";
 
         /**
          * @var User $user
@@ -30,7 +36,8 @@ class AuthentificationController extends Controller
         $tokenResult = $user->createToken('LaravelPassportToken');
         $token = $tokenResult->accessToken;
 
-        return response([
+        // Retourner les informations de l'utilisateur et le token d'accès
+        return response()->json([
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
