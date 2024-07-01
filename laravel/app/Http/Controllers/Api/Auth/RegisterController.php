@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
@@ -14,12 +15,28 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         try {
-            // Validation des données entrées par l'utilisateur
-            $this->validate($request, [
+            // Définition des messages d'erreur personnalisés
+            $messages = [
+                'required' => 'Le champ :attribute est obligatoire.',
+                'email' => 'Le champ :attribute doit être une adresse email valide.',
+                'unique' => 'Le champ :attribute existe déjà dans notre base de données.',
+                'confirmed' => 'Le champ :attribute doit être confirmé.'
+            ];
+
+            // Validation des données entrées par l'utilisateur avec les messages personnalisés
+            $validator = Validator::make($request->all(), [
                 "name" => "required",
                 "email" => "required|email|unique:users",
                 "password" => "required|confirmed",
-            ]);
+            ], $messages);
+
+            // Vérification des erreurs de validation
+            if ($validator->fails()) {
+                return response()->json([
+                    "message" => "Erreur de validation.",
+                    'errors' => $validator->errors(),
+                ], 400);
+            }
 
             // Création d'un nouvel utilisateur
             $user = User::create([
@@ -50,4 +67,3 @@ class RegisterController extends Controller
         }
     }
 }
-
