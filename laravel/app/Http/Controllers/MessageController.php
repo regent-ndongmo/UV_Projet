@@ -32,6 +32,9 @@ class MessageController extends Controller
             'nom_client' => 'required|string',
             'ville_client' => 'required|string',
             'libellé' => 'required|string',
+            'email_client' => 'required|email',
+            'numero_telephone' => 'required|string',
+
         ]);
 
         if ($validator->fails()) {
@@ -40,7 +43,7 @@ class MessageController extends Controller
 
         try {
             $message = Message::create($request->all());
-            return response()->json(['message' => 'votre message a été prise en compte il sera envoyés au photographes après validation des données fournies', 'comment' => $message], 201);
+            return response()->json(['message' => 'votre message a été prise en compte il sera envoyés au photographes après validation des données fournies et il vous contectera soit par email soit pas whatsapp', 'comment' => $message], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'une erreur est survenu lors de l\'ajout de votre message veuillez reessayer!', 'error' => $e->getMessage()], 500);
         }
@@ -71,9 +74,9 @@ class MessageController extends Controller
 
         try {
             $message->update($request->all());
-            return response()->json(['message' => 'la modification de votre commentaire a été prise en compte!', 'comment' => $message], 200);
+            return response()->json(['message' => 'la modification de votre message a été prise en compte!', 'comment' => $message], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'erreur lors de la modification de votre comment veuillez ressayer!', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'erreur lors de la modification de votre message veuillez ressayer!', 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -84,9 +87,9 @@ class MessageController extends Controller
     {
         try {
             $message->delete();
-            return response()->json(['message' => 'vous avez supprimer votre commentaire'], 200);
+            return response()->json(['message' => 'vous avez supprimer votre message'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'erreur lors de la suppresion de votre commentaire veuillez ressayer!', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'erreur lors de la suppresion de votre message veuillez ressayer!', 'error' => $e->getMessage()], 500);
         }
     }
 }
