@@ -11,6 +11,8 @@ class Message extends Model
 
     protected $fillable = [
         'photographe_id',
+        'email_client',
+        'numero_telephone',
         'nom_client',
         'ville_client',
         'libellé',

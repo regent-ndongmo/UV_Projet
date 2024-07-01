@@ -9,6 +9,7 @@ use App\Http\Controllers\PhotographeController;
 use App\Http\Controllers\DisponibiliteController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\AvoirController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RendezVousController;
@@ -109,6 +110,14 @@ Route::prefix('commentaires')->group(function () {
     Route::post('/', [CommentaireController::class, 'store']);
     Route::put('/{commentaire}', [CommentaireController::class, 'update']);
     Route::delete('/{commentaire}', [CommentaireController::class, 'destroy']);
+});
+
+// Routes pour les commentaires 
+Route::prefix('messages')->group(function () {
+    Route::get('/', [MessageController::class, 'index']);
+    Route::post('/', [MessageController::class, 'store']);
+    Route::put('/{message}', [MessageController::class, 'update']);
+    Route::delete('/{message}', [MessageController::class, 'destroy']);
 });
 
 
