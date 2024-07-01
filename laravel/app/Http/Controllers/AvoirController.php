@@ -2,64 +2,107 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Avoir;
+use App\Models\Categorie;
+use App\Models\Photographe;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
 
 class AvoirController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Associer un photographe à une catégorie (CRUD - Create).
      */
-    public function index()
+    public function associerPhotographeACategorie(Request $request)
     {
-        //
+        try {
+            // Validation des données
+            $request->validate([
+                'photographe_id' => 'required|exists:photographes,id',
+                'categorie_id' => 'required|exists:categories,id',
+            ]);
+
+            // Associer le photographe à la catégorie
+            $categorie = Categorie::findOrFail($request->categorie_id);
+            $categorie->photographes()->syncWithoutDetaching([$request->photographe_id]);
+
+            return response()->json(['message' => 'Photographe associé à la catégorie avec succès']);
+
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->validator->errors()], 422);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Ressource non trouvée'], 404);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erreur interne du serveur'], 500);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Désassocier un photographe d'une catégorie (CRUD - Delete).
      */
-    public function create()
+    public function desassocierPhotographeDeCategorie(Request $request)
     {
-        //
+        try {
+            // Validation des données
+            $request->validate([
+                'photographe_id' => 'required|exists:photographes,id',
+                'categorie_id' => 'required|exists:categories,id',
+            ]);
+
+            // Désassocier le photographe de la catégorie
+            $categorie = Categorie::findOrFail($request->categorie_id);
+            $categorie->photographes()->detach($request->photographe_id);
+
+            return response()->json(['message' => 'Photographe désassocié de la catégorie avec succès']);
+
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->validator->errors()], 422);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Ressource non trouvée'], 404);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erreur interne du serveur'], 500);
+        }
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Afficher tous les photographes d'une catégorie spécifique (CRUD - Read).
      */
-    public function store(Request $request)
+    public function photographesParCategorie($categorie_id)
     {
-        //
+        try {
+            // Récupérer les photographes de la catégorie spécifiée
+            $categorie = Categorie::with('photographes')->findOrFail($categorie_id);
+
+            return response()->json($categorie->photographes);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Catégorie non trouvée'], 404);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erreur interne du serveur'], 500);
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Afficher toutes les catégories d'un photographe spécifique (CRUD - Read).
      */
-    public function show(Avoir $avoir)
+    public function categoriesParPhotographe($photographe_id)
     {
-        //
-    }
+        try {
+            // Récupérer les catégories du photographe spécifié
+            $photographe = Photographe::with('categories')->findOrFail($photographe_id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Avoir $avoir)
-    {
-        //
-    }
+            return response()->json($photographe->categories);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Avoir $avoir)
-    {
-        //
-    }
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Photographe non trouvé'], 404);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Avoir $avoir)
-    {
-        //
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erreur interne du serveur'], 500);
+        }
     }
 }
