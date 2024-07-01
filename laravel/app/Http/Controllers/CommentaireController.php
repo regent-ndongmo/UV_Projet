@@ -33,8 +33,8 @@ class CommentaireController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'photographe_id' => 'required|exists:photographes,id',
-            'nom_client' => 'nullable|string',
-            'ville_client' => 'nullable|string',
+            'nom_client' => 'required|string',
+            'ville_client' => 'required|string',
             'description' => 'required|string',
         ]);
 
