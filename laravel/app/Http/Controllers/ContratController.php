@@ -20,7 +20,7 @@ class ContratController extends Controller
         $validatedData = $request->validate([
             'montant' => 'required|numeric',
             'date' => 'required|date',
-            'photographe_id' => 'required|exists:photographes,id',
+            // 'photographe_id' => 'required|exists:photographes,id',
             'status_paiement' => 'required|string',
         ]);
 
@@ -81,7 +81,7 @@ class ContratController extends Controller
             $validatedData = $request->validate([
                 'montant' => 'required|numeric',
                 'date' => 'required|date',
-                'photographe_id' => 'required|exists:photographes,id',
+                // 'photographe_id' => 'required|exists:photographes,id',
                 'status_paiement' => 'required|string',
             ]);
 
