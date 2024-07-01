@@ -112,4 +112,19 @@ class CategorieController extends Controller
             ], 500);
         }
     }
+
+
+    public function search(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        $photographers = Categorie::where('categorie', 'like', "%$searchQuery%")
+                                     ->get();
+
+        if ($photographers->isEmpty()) {
+            return response()->json(['message' => 'Aucune categorie  trouvé pour cette recherche.'], 404);
+        }
+
+        return response()->json($photographers);
+    }
 }
