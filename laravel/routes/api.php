@@ -7,6 +7,7 @@ use App\Http\Controllers\ContratController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PhotographeController;
 use App\Http\Controllers\DisponibiliteController;
+use App\Http\Controllers\CommentaireController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RendezVousController;
@@ -93,3 +94,11 @@ Route::post('/disponibilites', [DisponibiliteController::class, 'store']);
 Route::get('/disponibilites/{disponibilite}', [DisponibiliteController::class, 'show']);
 Route::put('/disponibilites/{disponibilite}', [DisponibiliteController::class, 'update']);
 Route::delete('/disponibilites/{disponibilite}', [DisponibiliteController::class, 'destroy']);
+
+// Routes pour les commentaires 
+Route::prefix('commentaires')->group(function () {
+    Route::get('/', [CommentaireController::class, 'index']);
+    Route::post('/', [CommentaireController::class, 'store']);
+    Route::put('/{commentaire}', [CommentaireController::class, 'update']);
+    Route::delete('/{commentaire}', [CommentaireController::class, 'destroy']);
+});
