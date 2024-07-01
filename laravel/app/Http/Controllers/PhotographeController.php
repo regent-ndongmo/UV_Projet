@@ -162,21 +162,36 @@ class PhotographeController extends Controller
 
 
     public function search(Request $request)
-    {
-        $searchQuery = $request->input('query');
+{
+    // Valider l'entrée utilisateur
+    $request->validate([
+        'query' => 'required|string', // Assurez-vous que 'query' correspond à votre clé d'entrée dans la requête
+    ]);
 
+    // Récupérer la requête de recherche de l'utilisateur
+    $searchQuery = $request->input('query');
+
+    try {
+        // Rechercher les photographes correspondants dans la base de données
         $photographers = Photographe::where('nom', 'like', "%$searchQuery%")
-                                     ->orWhere('ville', 'like', "%$searchQuery%")
-                                     ->orWhere('pays', 'like', "%$searchQuery%")
-                                     ->orWhere('description', 'like', "%$searchQuery%")
-                                     ->get();
+                                    ->orWhere('ville', 'like', "%$searchQuery%")
+                                    ->orWhere('pays', 'like', "%$searchQuery%")
+                                    ->orWhere('description', 'like', "%$searchQuery%")
+                                    ->get();
 
+        // Vérifier s'il y a des résultats
         if ($photographers->isEmpty()) {
             return response()->json(['message' => 'Aucun photographe trouvé pour cette recherche.'], 404);
         }
 
+        // Retourner les résultats sous forme de JSON
         return response()->json($photographers);
+    } catch (\Exception $e) {
+        // Gérer les erreurs de base de données ou autres exceptions
+        return response()->json(['message' => 'Une erreur est survenue lors de la recherche.', 'error' => $e->getMessage()], 500);
     }
+}
+
 
 }
 

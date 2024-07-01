@@ -33,9 +33,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Definition des differente routes pour notre API
 Route::get('/photo', [PhotoController::class, "index"]);
+Route::get('/photo/search', [PhotoController::class, 'search']); // Recherche de photos
 Route::get("photo/{id}", [PhotoController::class, "getPhotoById"] );
 Route::post("photo/", [PhotoController::class, "create"] );
-Route::get('/photos/search', [PhotoController::class, 'search']); // Recherche de photos
 
 Route::put("photo/{id}", [PhotoController::class, "updatePut"] );
 Route::patch("photo/{id}", [PhotoController::class, "updatePatch"] );
@@ -45,7 +45,7 @@ Route::post('photo/{id}/like', [PhotoController::class, 'likePhoto']);
 
 
 Route::get('/photographe', [PhotographeController::class, "index"]);
-Route::get('/photographers/search', [PhotographeController::class, 'search']); // Recherche de photographes
+Route::get('/photographe/search', [PhotographeController::class, 'search']); // Recherche de photographes
 
 
 Route::group(["ramespace"=>"Api\Auth"], function(){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Photo;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -172,21 +173,37 @@ class PhotoController extends Controller
     
     public function search(Request $request)
     {
+        // Valider l'entrée utilisateur
+        $request->validate([
+            'query' => 'required|string', // Assurez-vous que 'query' correspond à votre clé d'entrée dans la requête
+        ]);
+    
+        // Récupérer la requête de recherche de l'utilisateur
         $searchQuery = $request->input('query');
-
-        $photos = Photo::where('titre', 'like', "%$searchQuery%")
-                       ->orWhere('description', 'like', "%$searchQuery%")
-                       ->with('categorie')
-                       ->get();
-
-        if ($photos->isEmpty()) {
-            return response()->json(['message' => 'Aucune photo trouvée pour cette recherche.'], 404);
+    
+        try {
+            // Rechercher les photos correspondantes dans la base de données
+            $photos = Photo::where('titre', 'like', "%$searchQuery%")
+                           ->orWhere('description', 'like', "%$searchQuery%")
+                           ->with('categorie')
+                           ->get();
+    
+            // Vérifier s'il y a des résultats
+            if ($photos->isEmpty()) {
+                return response()->json(['message' => 'Aucune photo trouvée pour cette recherche.'], 404);
+            }
+    
+            // Retourner les résultats sous forme de JSON
+            return response()->json($photos);
+        } catch (QueryException $e) {
+            // Gérer les erreurs de requête SQL (par exemple, erreur de syntaxe SQL)
+            return response()->json(['message' => 'Erreur de requête SQL.', 'error' => $e->getMessage()], 500);
+        } catch (\Exception $e) {
+            // Gérer les autres exceptions générales
+            return response()->json(['message' => 'Une erreur est survenue lors de la recherche.', 'error' => $e->getMessage()], 500);
         }
-
-        return response()->json($photos);
     }
 }
-
 
 // {
 //     "categorie_id": 1,
