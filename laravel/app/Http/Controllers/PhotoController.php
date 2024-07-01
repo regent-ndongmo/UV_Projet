@@ -15,7 +15,7 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        return response()->json(Photo::with(["photographes", "categories"])->paginate(2000), 200);
+        return response()->json(Photo::with(["photographe", "categorie"])->paginate(2000), 200);
     }
 
     public function likePhoto($id)
