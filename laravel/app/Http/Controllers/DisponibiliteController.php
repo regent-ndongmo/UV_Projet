@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Disponibilite;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DisponibiliteController extends Controller
 {
@@ -28,13 +30,35 @@ class DisponibiliteController extends Controller
             'date_debut' => 'required|date',
             'date_fin' => 'required|date',
             'libele' => 'required|string',
-            'photographe_id' => 'required|exists:photographes,id',
         ]);
 
-        $disponibilite = Disponibilite::create($request->all());
+        try {
+            $user = Auth::user(); // Récupère l'utilisateur authentifié
 
-        return response()->json($disponibilite, 201);
+            // Validation de l'existence de l'utilisateur (optionnel)
+            if (!$user) {
+                throw new \Exception("Utilisateur non authentifié.");
+            }
+
+            $validatedData = $request->all();
+            $validatedData['photographe_id'] = $user->id; // Associe l'ID du photographe connecté
+
+            $disponibilite = Disponibilite::create($validatedData);
+
+            return response()->json($disponibilite, 201);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Impossible de créer la disponibilité.',
+                'errors' => $e,
+            ], 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la création de la disponibilité.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
+
 
     /**
      * Display the specified disponibilite.
@@ -60,10 +84,18 @@ class DisponibiliteController extends Controller
             'date_debut' => 'required|date',
             'date_fin' => 'required|date',
             'libele' => 'required|string',
-            'photographe_id' => 'required|exists:photographes,id',
         ]);
 
-        $disponibilite->update($request->all());
+        // Vérifier que le photographe connecté est bien celui qui a créé la disponibilité
+        if ($disponibilite->photographe_id !== Auth::id()) {
+            return response()->json(['error' => 'Accès non autorisé.'], 403);
+        }
+
+        $disponibilite->update([
+            'date_debut' => $request->date_debut,
+            'date_fin' => $request->date_fin,
+            'libele' => $request->libele,
+        ]);
 
         return response()->json($disponibilite, 200);
     }

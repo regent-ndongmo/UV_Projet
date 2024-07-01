@@ -6,6 +6,7 @@ use App\Models\RendezVous;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class RendezVousController extends Controller
 {
@@ -28,7 +29,12 @@ class RendezVousController extends Controller
                 'lieux' => 'required|string',
             ]);
 
-            $rendezVous = RendezVous::create($validatedData);
+            // Récupérer l'ID du photographe actuellement authentifié
+            $photographe_id = Auth::id();
+
+            $rendezVous = RendezVous::create(array_merge($validatedData, [
+                'photographe_id' => $photographe_id,
+            ]));
 
             return response()->json([
                 'message' => 'Le rendez-vous a été créé avec succès.',
@@ -50,7 +56,6 @@ class RendezVousController extends Controller
             ], 500);
         }
     }
-
     public function show($id)
     {
         try {
@@ -84,7 +89,18 @@ class RendezVousController extends Controller
                 'lieux' => 'required|string',
             ]);
 
+            // Récupérer l'ID du photographe actuellement authentifié
+            $photographe_id = Auth::id();
+
             $rendezVous = RendezVous::findOrFail($id);
+
+            // Vérifier si le photographe qui modifie le rendez-vous est bien celui qui l'a créé
+            if ($rendezVous->photographe_id !== $photographe_id) {
+                return response()->json([
+                    'message' => 'Vous n\'êtes pas autorisé à modifier ce rendez-vous.',
+                ], 403); // Code d'erreur 403 pour l'accès interdit
+            }
+
             $rendezVous->update($validatedData);
 
             return response()->json([

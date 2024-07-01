@@ -6,6 +6,7 @@ use App\Models\Contrat;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class ContratController extends Controller
@@ -14,17 +15,22 @@ class ContratController extends Controller
     {
         return Contrat::all();
     }
-
     public function store(Request $request)
     {
         try {
             $validatedData = $request->validate([
                 'montant' => 'required|numeric',
                 'date' => 'required|date',
+                'photographe_id' => 'required|exists:photographes,id',
                 'status_paiement' => 'required|string',
             ]);
 
-            $contrat = Contrat::create($validatedData);
+            // Récupérer l'ID du photographe actuellement authentifié
+            $photographe_id = Auth::id();
+
+            $contrat = Contrat::create(array_merge($validatedData, [
+                'photographe_id' => $photographe_id,
+            ]));
 
             return response()->json([
                 'message' => 'Le contrat a été créé avec succès.',
@@ -68,10 +74,22 @@ class ContratController extends Controller
             $validatedData = $request->validate([
                 'montant' => 'required|numeric',
                 'date' => 'required|date',
+                'photographe_id' => 'required|exists:photographes,id',
                 'status_paiement' => 'required|string',
             ]);
 
+            // Récupérer l'ID du photographe actuellement authentifié
+            $photographe_id = Auth::id();
+
             $contrat = Contrat::findOrFail($id);
+
+            // Vérifier si le photographe qui modifie le contrat est bien celui qui l'a créé
+            if ($contrat->photographe_id !== $photographe_id) {
+                return response()->json([
+                    'message' => 'Vous n\'êtes pas autorisé à modifier ce contrat.',
+                ], 403); // Code d'erreur 403 pour l'accès interdit
+            }
+
             $contrat->update($validatedData);
 
             return response()->json([

@@ -12,6 +12,7 @@ class Contrat extends Model
         'montant',
         'date',
         'status_paiement',
+        'photographe_id',
     ];
 
     protected $dates = [
