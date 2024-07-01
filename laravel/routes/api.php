@@ -8,6 +8,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PhotographeController;
 use App\Http\Controllers\DisponibiliteController;
 use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\AvoirController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RendezVousController;
@@ -105,3 +106,10 @@ Route::prefix('commentaires')->group(function () {
     Route::put('/{commentaire}', [CommentaireController::class, 'update']);
     Route::delete('/{commentaire}', [CommentaireController::class, 'destroy']);
 });
+
+
+// Route pour la table pivot 
+Route::post('associer-photographe-categorie', [AvoirController::class, 'associerPhotographeACategorie']);
+Route::delete('desassocier-photographe-categorie', [AvoirController::class, 'desassocierPhotographeDeCategorie']);
+Route::get('photographes-par-categorie/{categorie_id}', [AvoirController::class, 'photographesParCategorie']);
+Route::get('categories-par-photographe/{photographe_id}', [AvoirController::class, 'categoriesParPhotographe']);
