@@ -117,6 +117,16 @@ class ContratController extends Controller
     {
         try {
             $contrat = Contrat::findOrFail($id);
+             // Récupérer l'ID du photographe actuellement authentifié
+             $photographe_id = Auth::id();
+
+             // Vérifier si le photographe qui modifie le contrat est bien celui qui l'a créé
+             if ($contrat->photographe_id !== $photographe_id) {
+                return response()->json([
+                    'message' => 'Vous n\'êtes pas autorisé à supprimer ce contrat.',
+                ], 403); // Code d'erreur 403 pour l'accès interdit
+            }
+
             $contrat->delete();
 
             return response()->json([
