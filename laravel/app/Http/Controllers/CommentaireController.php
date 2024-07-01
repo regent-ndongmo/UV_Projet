@@ -93,3 +93,12 @@ class CommentaireController extends Controller
         }
     }
 }
+
+
+// {
+//     "photographe_id": 2,
+//     "nom_client": "John Doe",
+//     "ville_client": "Paris",
+//     "description": "je vous conseille ce photographe! !"
+//   }
+  
