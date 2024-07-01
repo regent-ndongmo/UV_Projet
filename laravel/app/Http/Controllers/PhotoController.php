@@ -18,6 +18,21 @@ class PhotoController extends Controller
         return response()->json(Photo::with(["photographes", "categories"])->paginate(2000), 200);
     }
 
+    public function likePhoto($id)
+    {
+        try {
+            $photo = Photo::findOrFail($id);
+            $photo->nombre_likes++;
+            $photo->save();
+
+            return response()->json(['message' => 'merci d\'avoir liké!', 'photo' => $photo]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'la photo n\'existe pas'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'erreur lors de l\'ajout de votre like veuillez ressayer!'], 500);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
