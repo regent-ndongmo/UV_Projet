@@ -8,25 +8,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User; // Assurez-vous d'importer le modèle User si ce n'est pas déjà fait
 
 class PhotographeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return Photographe::all();
     }
 
-    // POST function to create a new photographe
-    //Creation d'un photographe
     public function register(Request $request)
     {
-        // Log the request data for debugging
         Log::info('Register request data: ', $request->all());
 
         try {
-            $data = $request->only('user_id','nom', 'ville', 'pays', 'numero', 'photo', 'signature', 'description');
+            $data = $request->only('user_id', 'nom', 'ville', 'pays', 'numero', 'photo', 'signature', 'description');
 
+            // Validation des données
             $validator = Validator::make($data, [
-                "user_id"=>"required|integer",
+                "user_id" => "required|integer|exists:users,id", // Vérifie que l'utilisateur existe dans la table users
                 'nom' => 'required|string',
                 'ville' => 'required|string',
                 'pays' => 'required|string',
@@ -47,10 +47,8 @@ class PhotographeController extends Controller
                 $file->move(public_path($uploadPath), $originalName);
                 $photoPath = $originalName;
             } else {
-                // Utilisation d'une photo par défaut
-                $photoPath = 'account.png'; // Remplacez par le chemin de votre photo par défaut
+                $photoPath = 'account.png'; // Photo par défaut
             }
-
 
             $photographe = Photographe::create([
                 'user_id' => $data['user_id'],
@@ -70,23 +68,18 @@ class PhotographeController extends Controller
         }
     }
 
-    // PATCH function to update an existing photographe
-
     public function update($id, Request $request)
     {
-        // return $request;
         try {
-            // Trouver le photographe par son ID
+            // Vérifier si le photographe existe
             $photographe = Photographe::findOrFail($id);
 
             // Récupérer uniquement les données nécessaires
             $data = $request->only('user_id', 'nom', 'ville', 'pays', 'numero', 'photo', 'signature', 'description');
 
-            // dd($data);
-            Log::info('Contenu de la variable $data:', $data);
             // Valider les données
             $validator = Validator::make($data, [
-                'user_id' => 'required|integer',
+                'user_id' => 'required|integer|exists:users,id', // Vérifie que l'utilisateur existe dans la table users
                 'nom' => 'required|string',
                 'ville' => 'required|string',
                 'pays' => 'required|string',
@@ -95,13 +88,13 @@ class PhotographeController extends Controller
                 'description' => 'required|string',
             ]);
 
-            // Retourner les erreurs de validation
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
 
-            // Traiter le téléchargement de la photo
-            $photoPath = $photographe->photo; // Valeur par défaut, garder l'ancienne photo
+            // Gestion du téléchargement de la photo
+            $photoPath = $photographe->photo; // Conserver l'ancienne photo par défaut
+
             if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                 $file = $request->file('photo');
                 $uploadPath = 'storage/images/profile';
@@ -109,8 +102,7 @@ class PhotographeController extends Controller
                 $file->move(public_path($uploadPath), $originalName);
                 $photoPath = $originalName;
             } else if (!$photographe->photo) {
-                // Utilisation d'une photo par défaut si aucune photo n'existait auparavant
-                $photoPath = 'account.png'; // Remplacez par le chemin de votre photo par défaut
+                $photoPath = 'account.png'; // Photo par défaut
             }
 
             // Mettre à jour les données du photographe
@@ -124,43 +116,47 @@ class PhotographeController extends Controller
                 'signature' => $data['signature'],
                 'description' => $data['description'],
             ]);
+
             $photographe->save();
 
-            return response()->json($photographe, 200); // 200 pour une mise à jour réussie
+            return response()->json($photographe, 200); // Réponse pour mise à jour réussie
         } catch (Exception $e) {
             Log::error('Error updating photographe: ' . $e->getMessage());
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 
-
-
-    // GET function to retrieve a photographe by ID
     public function show($id)
     {
-        $photographe = Photographe::findOrFail($id);
+        try {
+            $photographe = Photographe::findOrFail($id);
 
-        // Assurez-vous que l'URL de l'image est correcte
-        if ($photographe->photo) {
-            $photographe->photo = $photographe->photo;
+            if ($photographe->photo) {
+                $photographe->photo = $photographe->photo;
+            }
+
+            return response()->json($photographe, 200);
+        } catch (Exception $e) {
+            Log::error('Error fetching photographe: ' . $e->getMessage());
+            return response()->json(['error' => 'Photographe not found'], 404);
         }
-
-        return response()->json($photographe, 200);
     }
 
-
-    // DELETE function to delete a photographe
     public function destroy($id)
     {
-        $photographe = Photographe::findOrFail($id);
-        if ($photographe->photo) {
-            Storage::disk('public')->delete($photographe->photo);
-        }
-        $photographe->delete();
+        try {
+            $photographe = Photographe::findOrFail($id);
 
-        return response()->json(null, 204);
+            if ($photographe->photo) {
+                Storage::disk('public')->delete($photographe->photo);
+            }
+
+            $photographe->delete();
+
+            return response()->json(null, 204);
+        } catch (Exception $e) {
+            Log::error('Error deleting photographe: ' . $e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
 }
-
-
-
