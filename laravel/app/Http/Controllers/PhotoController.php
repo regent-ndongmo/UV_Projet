@@ -169,8 +169,24 @@ class PhotoController extends Controller
         }
     }
 
-    // ...
+    
+    public function search(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        $photos = Photo::where('titre', 'like', "%$searchQuery%")
+                       ->orWhere('description', 'like', "%$searchQuery%")
+                       ->with('categorie')
+                       ->get();
+
+        if ($photos->isEmpty()) {
+            return response()->json(['message' => 'Aucune photo trouvée pour cette recherche.'], 404);
+        }
+
+        return response()->json($photos);
+    }
 }
+
 
 // {
 //     "categorie_id": 1,
