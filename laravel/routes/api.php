@@ -36,6 +36,9 @@ Route::post("photo/", [PhotoController::class, "create"] );
 Route::put("photo/{id}", [PhotoController::class, "updatePut"] );
 Route::patch("photo/{id}", [PhotoController::class, "updatePatch"] );
 Route::delete("photo/{id}", [PhotoController::class, "destroy"] );
+Route::post('photos/{id}/like', [PhotoController::class, 'likePhoto']);
+
+
 
 Route::get('/photographe', [PhotographeController::class, "index"]);
 
