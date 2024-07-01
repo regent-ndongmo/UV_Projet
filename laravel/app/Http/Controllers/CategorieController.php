@@ -113,18 +113,32 @@ class CategorieController extends Controller
         }
     }
 
-
     public function search(Request $request)
-    {
-        $searchQuery = $request->input('query');
+{
+    // Valider l'entrée utilisateur
+    $request->validate([
+        'query' => 'required|string', // Assurez-vous que 'query' correspond à votre clé d'entrée dans la requête
+    ]);
 
-        $photographers = Categorie::where('categorie', 'like', "%$searchQuery%")
-                                     ->get();
+    // Récupérer la requête de recherche de l'utilisateur
+    $searchQuery = $request->input('query');
 
-        if ($photographers->isEmpty()) {
-            return response()->json(['message' => 'Aucune categorie  trouvé pour cette recherche.'], 404);
+    try {
+        // Rechercher les catégories correspondantes dans la base de données
+        $categories = Categorie::where('categorie', 'like', "%$searchQuery%")->get();
+
+        // Vérifier s'il y a des résultats
+        if ($categories->isEmpty()) {
+            return response()->json(['message' => 'Aucune catégorie trouvée pour cette recherche.'], 404);
         }
 
-        return response()->json($photographers);
+        // Retourner les résultats sous forme de JSON
+        return response()->json($categories);
+    } catch (\Exception $e) {
+        // Gérer les erreurs de base de données ou autres exceptions
+        return response()->json(['message' => 'Une erreur est survenue lors de la recherche.', 'error' => $e->getMessage()], 500);
     }
+}
+
+    
 }

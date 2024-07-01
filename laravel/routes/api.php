@@ -35,11 +35,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/photo', [PhotoController::class, "index"]);
 Route::get("photo/{id}", [PhotoController::class, "getPhotoById"] );
 Route::post("photo/", [PhotoController::class, "create"] );
+Route::get('/photos/search', [PhotoController::class, 'search']); // Recherche de photos
+
 Route::put("photo/{id}", [PhotoController::class, "updatePut"] );
 Route::patch("photo/{id}", [PhotoController::class, "updatePatch"] );
 Route::delete("photo/{id}", [PhotoController::class, "destroy"] );
 Route::post('photo/{id}/like', [PhotoController::class, 'likePhoto']);
-Route::get('/photos/search', [PhotoController::class, 'search']); // Recherche de photos
 
 
 
@@ -91,11 +92,10 @@ Route::delete('/contrats/{id}', [ContratController::class, 'destroy']);
 // Routes pour les categories 
 Route::get('/categories', [CategorieController::class, 'index']);
 Route::post('/categories', [CategorieController::class, 'store']);
+Route::get('/categories/search', [CategorieController::class, 'search'])->name('categories.search');
 Route::get('/categories/{id}', [CategorieController::class, 'show']);
 Route::put('/categories/{id}', [CategorieController::class, 'update']);
 Route::delete('/categories/{id}', [CategorieController::class, 'destroy']);
-Route::get('/categories/search', [CategorieController::class, 'search']); // Recherche de photographes
-
 
 // Routes pour les disponibilités
 Route::get('/disponibilites', [DisponibiliteController::class, 'index']);
