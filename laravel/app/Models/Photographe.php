@@ -32,7 +32,9 @@ class Photographe extends Model
         return $this->hasMany(Disponibilite::class);
     }
     public function categories(){
-        return $this->belongsToMany(Categorie::class, 'avoirs', 'photographe_id', 'categorie_id');
+        return $this->belongsToMany(Categorie::class, 'avoirs', 'photographe_id', 'categorie_id')
+                    ->withTimestamps();
+
     }
 
 

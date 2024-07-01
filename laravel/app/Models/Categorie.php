@@ -23,6 +23,7 @@ class Categorie extends Model
 
     // Relation avec le modèle Photographe via la table pivot 'avoirs'
     public function photographes(){
-        return $this->belongsToMany(Photographe::class, 'avoirs', 'categorie_id', 'photographe_id');
+        return $this->belongsToMany(Photographe::class, 'avoirs', 'categorie_id', 'photographe_id')
+                    ->withTimestamps();
     }
 }
