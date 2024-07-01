@@ -160,3 +160,15 @@ class PhotographeController extends Controller
         }
     }
 }
+
+
+
+// {
+//     "user_id": 2,
+//     "nom": "John Doe",
+//     "ville": "Paris",
+//     "pays": "France",
+//     "numero": "123456789",
+//     "signature": "Signature",
+//     "description": "Photographe professionnel"
+// }
