@@ -60,8 +60,8 @@ class CommentaireController extends Controller
     public function update(Request $request, Commentaire $commentaire)
     {
         $validator = Validator::make($request->all(), [
-            'nom_client' => 'nullable|string',
-            'ville_client' => 'nullable|string',
+            // 'nom_client' => 'nullable|string',
+            // 'ville_client' => 'nullable|string',
             'description' => 'required|string',
         ]);
 
