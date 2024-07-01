@@ -44,9 +44,9 @@ class CommentaireController extends Controller
 
         try {
             $commentaire = Commentaire::create($request->all());
-            return response()->json(['message' => 'Comment created', 'comment' => $commentaire], 201);
+            return response()->json(['message' => 'votre commentaire a été prise en compte il sera afficher après validation des données fournies', 'comment' => $commentaire], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error creating comment', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'une erreur est survenu lors de l\'ajout de votre commentaire veuillez reessayer!', 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -71,9 +71,9 @@ class CommentaireController extends Controller
 
         try {
             $commentaire->update($request->all());
-            return response()->json(['message' => 'Comment updated', 'comment' => $commentaire], 200);
+            return response()->json(['message' => 'la modification de votre commentaire a été prise en compte!', 'comment' => $commentaire], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error updating comment', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'erreur lors de la modification de votre comment veuillez ressayer!', 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -87,9 +87,9 @@ class CommentaireController extends Controller
     {
         try {
             $commentaire->delete();
-            return response()->json(['message' => 'Comment deleted'], 200);
+            return response()->json(['message' => 'vous avez supprimer votre commentaire'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error deleting comment', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'erreur lors de la suppresion de votre commentaire veuillez ressayer!', 'error' => $e->getMessage()], 500);
         }
     }
 }
