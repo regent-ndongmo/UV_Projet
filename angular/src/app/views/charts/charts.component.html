@@ -1,72 +1,26 @@
-<c-row>
-  <c-col xs="12">
-    <app-docs-callout href="charts">
-      CoreUI Angular wrapper component for Chart.js 4.4, the most popular charting library.
-      <br>
-    </app-docs-callout>
-  </c-col>
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        Bar Chart
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="bar" [data]="chartBarData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        Line Chart
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="line" [data]="chartLineData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
-</c-row>
-<c-row>
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        Doughnut Chart
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="doughnut" [data]="chartDoughnutData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        Pie Chart
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="pie" [data]="chartPieData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
-</c-row>
-<c-row>
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        Polar Area Chart
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="polarArea" [data]="chartPolarAreaData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        Radar Chart
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="radar" [data]="chartRadarData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
-</c-row>
+<div class="container my-5">
+  @for (item of items; track $index) {
+    <div class="row">
+      <div class="col-12">
+        <div class="commentaire-list">
+          <div class="commentaire card mb-3">
+            <div class="card-header d-flex justify-content-between">
+              <span class="photographe-id">Photographe ID: 4</span>
+              <span class="nom-client">Nom du client: Regent</span>
+              <span class="ville-client">Ville du client: dddde</span>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Email: 1354684464</p>
+              <p class="card-text">Téléphone: 54687465468</p>
+              <p class="card-text">Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+              <span class="created-at">Créé le: </span>
+              <span class="updated-at">Modifié le: </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

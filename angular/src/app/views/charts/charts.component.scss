@@ -1,0 +1,25 @@
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.message {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1rem;
+}
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.sender {
+  font-weight: bold;
+}
+.timestamp {
+  color: #666;
+  font-size: 0.8rem;
+}
+.message-content {
+  white-space: pre-wrap;
+}

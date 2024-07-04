@@ -23,20 +23,21 @@ class CategorieController extends Controller
     public function create(Request $request)
     {
 
-        try {
-            $request->validate([
-                'photographe_id' => 'required|exists:photographes,id',
-                'categorie' => 'required|string|max:255|unique:categories,categorie,NULL,id,photographe_id,' . $request->photographe_id,
-            ]);
+        return $request;
+        // try {
+        //     $request->validate([
+        //         'photographe_id' => 'required|exists:photographes,id',
+        //         'categorie' => 'required|string|max:255|unique:categories,categorie,NULL,id,photographe_id,' . $request->photographe_id,
+        //     ]);
 
-            $categorie = Categorie::create($request->all());
+        //     $categorie = Categorie::create($request->all());
 
-            return response()->json(['categorie' => $categorie, 'message' => 'success'], 201);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['error' => $e->validator->errors()->all()], 422);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+        //     return response()->json(['categorie' => $categorie, 'message' => 'success'], 201);
+        // } catch (\Illuminate\Validation\ValidationException $e) {
+        //     return response()->json(['error' => $e->validator->errors()->all()], 422);
+        // } catch (\Exception $e) {
+        //     return response()->json(['error' => $e->getMessage()], 500);
+        // }
 
     }
 

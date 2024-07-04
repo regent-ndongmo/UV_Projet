@@ -29,7 +29,12 @@
                   <div class="row gx-3 mb-3">
                     <div class="col-md-12">
                       <label class="small mb-1" for="inputFirstName">Nom de l'image</label>
-                      <input name="image" class="form-control" name="titre" [(ngModel)]="photo.titre"  id="inputFirstName" type="text" placeholder="Entrer un nom pour votre image">
+                      <input class="form-control" name="titre" [(ngModel)]="photo.titre"  id="inputFirstName" type="text" placeholder="Entrer un nom pour votre image">
+                    </div>
+
+                    <div class="col-md-12">
+                      <label class="small mb-1" for="inputFirstName">Prix de l'image</label>
+                      <input class="form-control" name="prix" [(ngModel)]="photo.prix"  id="inputFirstName" type="number" min="0" placeholder="Entrer un prix pour votre image">
                     </div>
 
                     <div class="col-md-12 textarea">
