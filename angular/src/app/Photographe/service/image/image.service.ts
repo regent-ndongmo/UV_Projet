@@ -13,33 +13,32 @@ export class ImageService {
 
   constructor(private http: HttpClient) { }
 
-  upload(data: any): Observable<any> {
+  upload(file: File, image: Photo): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('title', image.title);
+    formData.append('description', image.description);
+    formData.append('category_id', image.category_id);
+    formData.append('price', image.price);
+    formData.append('phototographer_id', image.photographer_id);
+    console.log("formdata",formData)
 
-    // console.log("regent service")
-    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
-    return this.http.post(`${this.apiUrl}`, data, { headers });
+    return this.http.post(this.apiUrl, formData);
+  }
+
+  incrementLikes(id: number): Observable<Photo> {
+    return this.http.patch<Photo>(`${this.apiUrl}/${id}/like`, {});
   }
 
   getImage(id: number): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/${id}`, { responseType: 'blob' });
   }
 
-  getFiles(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  deleteImage(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  count(): Observable<number> {
-    return this.http.get<number>(this.apiUrl+"/count");
-  }
-
-  rechercherImages(title: string, description: string): Observable<any> {
-    let params = new HttpParams();
-    if (title) {
-      params = params.set('title', title);
-    }
-    if (description) {
-      params = params.set('description', description);
-    }
-    return this.http.get(`${this.apiUrl}/recherche`, { params: params });
+  getAll():Observable<void[]>{
+    return this.http.get<any[]>(this.apiUrl)
   }
 }

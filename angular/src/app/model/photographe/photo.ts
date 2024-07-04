@@ -1,8 +1,10 @@
 export class Photo {
-  photo:any;
-  prix: any;
-  user_id: any;
-  categorie_id: any;
-  titre: any;
+  id!:number;
+  url:any;
+  likes:any;
+  price: any;
+  category_id: any;
+  photographer_id: any;
+  title: any;
   description: any;
 }

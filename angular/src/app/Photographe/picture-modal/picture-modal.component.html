@@ -15,7 +15,7 @@
                 <img class="img mb-2 public-img" [src]="imgURL" >
                 <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                 <button class="btn btn-primary" (click)="triggerFileInput()">Upload new image</button>
-                <input type="file" #fileInput name="photo" (change)="onSelectFile($event)" style="display: none;">
+                <input type="file" multiple #fileInput name="photo" (change)="selectFiles($event)" style="display: none;">
               </div>
             </div>
           </div>
@@ -24,21 +24,21 @@
               <div class="card-header">Image Details</div>
               <div class="card-body">
                 <form>
-                  <input type="text" [(ngModel)]="photo.user_id"  name="userID" hidden>
-                  <input type="text" [(ngModel)]="photo.categorie_id" name="CategorieID" hidden>
+                  <input type="text" [(ngModel)]="image.photographer_id"  name="userID" hidden>
+                  <input type="text" [(ngModel)]="image.category_id" name="CategorieID" hidden>
                   <div class="row gx-3 mb-3">
                     <div class="col-md-12">
                       <label class="small mb-1" for="inputFirstName">Nom de l'image</label>
-                      <input class="form-control" name="titre" [(ngModel)]="photo.titre"  id="inputFirstName" type="text" placeholder="Entrer un nom pour votre image">
+                      <input class="form-control" name="titre" [(ngModel)]="image.title"  id="inputFirstName" type="text" placeholder="Entrer un nom pour votre image">
                     </div>
 
                     <div class="col-md-12">
                       <label class="small mb-1" for="inputFirstName">Prix de l'image</label>
-                      <input class="form-control" name="prix" [(ngModel)]="photo.prix"  id="inputFirstName" type="number" min="0" placeholder="Entrer un prix pour votre image">
+                      <input class="form-control" name="prix" [(ngModel)]="image.price"  id="inputFirstName" type="number" min="0" placeholder="Entrer un prix pour votre image">
                     </div>
 
                     <div class="col-md-12 textarea">
-                      <textarea name="description" id="" class="form-control" [(ngModel)]="photo.description" placeholder="Entrer une description de votre images ici"></textarea>
+                      <textarea name="description" id="" class="form-control" [(ngModel)]="image.description" placeholder="Entrer une description de votre images ici"></textarea>
                     </div>
 
                     <div class="col-md-12 mb-3">
@@ -46,7 +46,7 @@
                       <select
                         class="form-select"
                         aria-label="Select categorie"
-                        [(ngModel)]="photo.categorie_id"
+                        [(ngModel)]="image.category_id"
                         name="categorie">
                         @for (item of categories; track $index) {
                           <option [value]="item.id">{{ item.categorie }}</option>
@@ -59,7 +59,7 @@
 
                   </div>
 
-                  <button class="btn btn-primary" type="button" (click)="Publier()" >Publier</button>
+                  <button class="btn btn-primary" type="button" (click)="publier()" >Publier</button>
                 </form>
               </div>
             </div>
