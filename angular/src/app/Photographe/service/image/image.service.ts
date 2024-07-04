@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Photo } from 'src/app/model/photographe/photo';
 
 @Injectable({
@@ -11,19 +11,18 @@ export class ImageService {
 
   private apiUrl = `${environment.SpringURL}`;
 
+  private refreshSubject = new Subject<void>();
+  refresh$ = this.refreshSubject.asObservable();
+
+  triggerRefresh() {
+    this.refreshSubject.next();
+  }
+
   constructor(private http: HttpClient) { }
 
-  upload(file: File, image: Photo): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('title', image.title);
-    formData.append('description', image.description);
-    formData.append('category_id', image.category_id);
-    formData.append('price', image.price);
-    formData.append('phototographer_id', image.photographer_id);
-    console.log("formdata",formData)
+  upload(data: any): Observable<any> {
 
-    return this.http.post(this.apiUrl, formData);
+    return this.http.post(this.apiUrl, data);
   }
 
   incrementLikes(id: number): Observable<Photo> {
@@ -40,5 +39,9 @@ export class ImageService {
 
   getAll():Observable<void[]>{
     return this.http.get<any[]>(this.apiUrl)
+  }
+
+  getAllBYid(id: number): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 }

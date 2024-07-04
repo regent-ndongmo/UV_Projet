@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-
 @AllArgsConstructor
 @RestController
 @RequestMapping("/image")
@@ -24,17 +23,16 @@ public class ImageController {
         return imageSevice.count();
     }
 
-
-
     @PostMapping
     public ResponseEntity<ImageEntity> uploadImage(@RequestParam("file") MultipartFile file,
                                                    @RequestParam("description") String description,
                                                    @RequestParam("category_id") Long category_id,
-                                                   @RequestParam("likes") Long likes,
+                                                   @RequestParam("price") double price,
                                                    @RequestParam("phototographer_id") Long phototographer_id,
                                                    @RequestParam("title") String title) throws IOException {
-        ImageEntity image = imageSevice.saveImage(file,title,description,likes,category_id,phototographer_id);
+        ImageEntity image = imageSevice.saveImage(file,title,description,price,category_id,phototographer_id);
         return ResponseEntity.ok(image);
+
     }
 
     @GetMapping("/{id}")
@@ -42,6 +40,11 @@ public class ImageController {
         return imageSevice.getImage(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/all/id")
+    public List<ImageEntity> findAllById(@PathVariable Long id){
+        return imageSevice.getAllById(id);
     }
 
     @PatchMapping("/{id}/like")
@@ -61,9 +64,6 @@ public class ImageController {
         List<ImageEntity> images = imageSevice.getAllImages();
         return ResponseEntity.ok(images);
     }
-
-
-
 
     @DeleteMapping("/all")
     public void deleteAllImages() {

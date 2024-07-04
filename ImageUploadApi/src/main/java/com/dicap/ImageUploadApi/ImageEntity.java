@@ -13,8 +13,8 @@ import org.hibernate.annotations.Where;
 @Getter
 @Setter
 @Entity
-@Table(name = "image_upload1")
-@SQLDelete(sql = "UPDATE image_upload1 SET deleted = true WHERE id=?")
+@Table(name = "photos")
+@SQLDelete(sql = "UPDATE photos SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 public class ImageEntity {
     @Id
@@ -25,12 +25,14 @@ public class ImageEntity {
     @Column(nullable = false)
     private String description="description";
     @Column(nullable = false)
-    private Long likes=1L;
+    private Long likes=0L;
+    @Column(nullable = false)
+    private double price=0;
     @Column(nullable = false)
     private byte[] url;
     @Column(nullable = false)
-    private Long phototographer_id=1L;
+    private Long photographe_id=1L;
     @Column(nullable = false)
-    private Long category_id=1L;
+    private Long categorie_id=1L;
     private boolean deleted = Boolean.FALSE;
 }

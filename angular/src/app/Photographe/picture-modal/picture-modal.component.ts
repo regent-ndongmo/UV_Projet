@@ -30,6 +30,22 @@ export class PictureModalComponent implements OnInit {
   images?: Observable<any>
   selectedFiles?:FileList
 
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
+  userFile: File | null = null;
+  imgURL: any;
+  message: string = '';
+
+
+  // id: any;
+  data:any;
+  public imgPath: any;
+
+  file: File | null = null;
+
+  defaultImageUrl: string = 'assets/account.png';
+  // photo = new Photo();
+
   // openModal() {
   //   this.isVisible = true;
   // }
@@ -39,10 +55,10 @@ export class PictureModalComponent implements OnInit {
     this.closed.emit();
   }
 
-  constructor(private imageService: ImageService, private service1: CategorieService) { }
+  constructor(private service: ImageService, private service1: CategorieService) { }
 
   ngOnInit() {
-    this.images=this.imageService.getAll()
+    this.images=this.service.getAll()
 
     this.photographe_id = localStorage.getItem("user_id")
     this.image.photographer_id = this.photographe_id;
@@ -52,12 +68,6 @@ export class PictureModalComponent implements OnInit {
   }
 
   selectFiles(event:any):void{
-    this.selectedFiles=event.target.files
-    if(this.selectedFiles){
-      this.image.url=this.selectedFiles[0]
-      this.imgURL = this.image.url
-
-    }
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.file = file;
@@ -79,38 +89,43 @@ export class PictureModalComponent implements OnInit {
       this.imgURL = this.defaultImageUrl;
       this.file = null;
     }
-    console.log(this.selectedFiles);
 
-    console.log("url",this.image.url);
-
-  }
-
-  upload(file:File):void{
-    if(file){
-      this.imageService.upload(file,this.image).subscribe({
-        next:(event:any)=>{
-          if(event instanceof HttpResponse){
-            this.images=this.imageService.getAll()
-            console.log("post succesful");
-            console.log(this.image);
-
-
-          }
-        },error(err:any){
-          console.error(err);
-
-        }
-      })
-    }
   }
 
 
   publier(){
-    if(this.selectedFiles){
-      for(let i=0;i<this.selectedFiles.length; i++){
-        this.upload(this.selectedFiles[i])
-      }
-      this.selectedFiles=undefined
+    console.log("les informations sur les photos sont : ", this.image)
+    console.log(this.file);
+    console.log(this.file?.name);
+    console.log('Données du formulaire :');
+
+    const formData = new FormData();
+
+    if (this.file) {
+      formData.append('file', this.file, this.file.name);  // Use 'photo' instead of 'file'
+    } else {
+      formData.append('file', new Blob(), '');  // Empty file to indicate no file selected
+    }
+    formData.append('price', this.image.price);
+    formData.append('phototographer_id', this.image.photographer_id);
+    formData.append('title', this.image.title);
+    formData.append('description', this.image.description);
+    formData.append('category_id', this.image.category_id);
+
+
+    console.log("Les data se presente comme suit", formData)
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+
+    console.log("regent regent")
+
+    if(confirm("voulez vouz vraiment publier cette photo ? ")){
+      this.service.upload(formData).subscribe(res=>{
+        this.service.triggerRefresh();
+        this.isVisible = false;
+        console.log("Photo upload avec succes ; ", res)
+      })
     }
   }
 
@@ -129,26 +144,9 @@ export class PictureModalComponent implements OnInit {
   }
 
   categorieID(id: any){
-    this.photo.category_id = id;
+    this.image.category_id = id;
     console.log("La categorie selectionne pour cette photo a pour id : ", id)
   }
-
-
-  @ViewChild('fileInput') fileInput!: ElementRef;
-
-  userFile: File | null = null;
-  imgURL: any;
-  message: string = '';
-
-
-  // id: any;
-  data:any;
-  public imgPath: any;
-
-  file: File | null = null;
-
-  defaultImageUrl: string = 'assets/account.png';
-  photo = new Photo();
 
 
 

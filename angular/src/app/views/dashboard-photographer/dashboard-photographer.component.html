@@ -10,14 +10,20 @@
 
 
 <div class="picture">
-  @for (item of items; track $index) {
+  @for (item of data; track $index) {
     <div class="picture-card">
       <div class="card" style="width: 19.3rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
+        <img class="card-img-top" [src]="'data:image/png;base64,' + item.url" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <div class="card-body-left">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <span class="card-text">{{ item.price }} Fcfa</span>
+            <span class="card-text">{{ item.description }}lorembdjkwbjnejbckjbev ejv cejlvjjhrbv</span>
+          </div>
+          <div>
+            <div><i class="fas fa-pencil btn btn-info mb-2" (click)="updateImage(item.id)"></i></div>
+            <div><i class="fas fa-trash btn btn-dark" (click)="deleteImage(item.id)"></i></div>
+          </div>
         </div>
       </div>
     </div>

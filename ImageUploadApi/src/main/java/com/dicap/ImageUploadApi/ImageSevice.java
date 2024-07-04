@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,15 +35,15 @@ public class ImageSevice {
     }
 
 
-    public ImageEntity saveImage(MultipartFile file, String title,String description, Long likes, Long category, Long photographer) throws IOException {
+    public ImageEntity saveImage(MultipartFile file, String title,String description, double price, Long category, Long photographer) throws IOException {
         ImageEntity image = new ImageEntity();
         //image.setTitle(file.getOriginalFilename());
         image.setTitle(title);
         image.setDescription(description);
         image.setUrl(file.getBytes());
-        image.setLikes(likes);
-        image.setCategory_id(category);
-        image.setPhototographer_id(photographer);
+        image.setPrice(price);
+        image.setCategorie_id(category);
+        image.setPhotographe_id(photographer);
         return imageRepository.save(image);
     }
 
@@ -61,5 +62,9 @@ public class ImageSevice {
     @Transactional
     public void deleteAllImages() {
         imageRepository.deleteAll();
+    }
+
+    public List<ImageEntity> getAllById(Long id){
+        return imageRepository.findAllById(Collections.singleton(id));
     }
 }
