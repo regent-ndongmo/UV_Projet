@@ -20,9 +20,10 @@ export class DashboardPhotographerComponent implements OnInit{
   isAuthenticated: boolean = true;
   @Input() title!: string;
   isVisible = false;
-  photographer_id = localStorage.getItem("user_id")
+  photographer_id : any;
   data: any
   ngOnInit(): void {
+    this.photographer_id = localStorage.getItem("user_id")
     console.log("l'Id du photographe connecte est: ", this.photographer_id)
     this.getData()
     this.isAuthenticated = this.service.isAuthenticated();
@@ -42,7 +43,7 @@ export class DashboardPhotographerComponent implements OnInit{
   }
 
   getData(){
-    this.service1.getAll().subscribe(res=>{
+    this.service1.getAllByPhotographeId(this.photographer_id).subscribe(res=>{
       console.log("l'ensemble des photo existante pour ce photographe sont: ",res)
       this.data=res;
       // console.log("image: ", this.data.url)

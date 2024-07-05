@@ -1,1 +1,23 @@
-<p>corbeille works!</p>
+<div class="picture">
+  @for (item of data; track $index) {
+    <div class="picture-card">
+      <div class="card" style="width: 19.3rem;">
+        <img class="card-img-top" [src]="'data:image/png;base64,' + item.url" alt="Card image cap">
+        <div class="card-body">
+          <div class="card-body-left">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <span class="card-text">{{ item.price }} Fcfa</span>
+            <span class="card-text">{{ item.description }}lorembdjkwbjnejbckjbev ejv cejlvjjhrbv</span>
+          </div>
+          <div>
+            <div><i class="fas fa-pencil btn btn-info mb-2" (click)="updateImage(item.id)"></i></div>
+            <div><i class="fas fa-trash btn btn-dark" (click)="deleteImage(item.id)"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  @empty {
+    <div class="diff-card center">Ce dossier est vide a present, Veillez publier une photo en utilisant cette categorie</div>
+  }
+</div>

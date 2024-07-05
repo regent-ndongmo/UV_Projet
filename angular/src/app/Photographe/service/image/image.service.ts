@@ -44,4 +44,33 @@ export class ImageService {
   getAllBYid(id: number): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+
+
+  // photos non suprimmées d'une categorie
+  getAllByPhotographeId(id: number): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+"/photographe/"+id);
+  }
+
+  // photos non suprimmées d'un photographe
+  getAllByCategorieId(id: number): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+"/categorie/"+id);
+  }
+
+  // photos non suprimmées
+  getFiles(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  //photos suprimmées
+  getFilesTrashed(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+"?isDeleted=true");
+  }
+
+  //nombre de photo
+  count(): Observable<number> {
+    return this.http.get<number>(this.apiUrl+"/count");
+  }
 }
+
+

@@ -18,22 +18,19 @@ export class CorbeilleComponent implements OnInit {
       this.getData()
   }
   getData(){
-    this.service1.getAll().subscribe(res=>{
+    this.service1.getFilesTrashed().subscribe(res=>{
       console.log("l'ensemble des photo existante pour ce photographe sont: ",res)
       this.data=res;
-      if (this.data && this.data.length > 0) {
-        // Filtrer les données pour ne garder celle supprime
-        this.data = this.data.filter((photo: any) => photo.deleted === false);
-        console.log("les photos supprime sont : ",this.data)
-        if (this.data.length > 0) {
-          this.data.forEach((photo: any) => {
-            // console.log("Image URL: ", photo.url); // Assurez-vous que la propriété 'url' existe dans vos objets photo
-          });
-        }
-      } else {
-        console.log("Aucune photo trouvée.");
-      }
+      
     })
+  }
+
+  updateImage(id: any){
+
+  }
+
+  deleteImage(id: any){
+
   }
 
 }
