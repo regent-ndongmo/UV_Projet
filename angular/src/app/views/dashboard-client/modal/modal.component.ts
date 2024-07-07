@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, ThemeDirective } from '@coreui/angular';
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
 
@@ -21,7 +22,7 @@ export class ModalComponent {
   dataDemo: any;
   isVisible = false;
 
-  constructor(private servicePhoto: ImageService){}
+  constructor(private servicePhoto: ImageService, private router: Router){}
 
 
   //Modal
@@ -39,5 +40,11 @@ export class ModalComponent {
 
     })
   }
+  goToProfile(id: any){
+    console.log("l'id est : ", id);
+    this.router.navigate(["/info-photographe", id])
+
+  }
+
 
 }

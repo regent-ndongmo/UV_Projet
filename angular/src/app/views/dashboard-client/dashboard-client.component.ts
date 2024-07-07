@@ -17,7 +17,6 @@ export class DashboardClientComponent implements OnInit {
 
   categories : any;
   images: any;
-  dataDemo: any;
 
   constructor(private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
 
@@ -36,10 +35,18 @@ export class DashboardClientComponent implements OnInit {
   }
 
   getDataPhoto() {
+    // this.servicePhoto.getAll().subscribe(res => {
+    //   console.log(res);
+    //   this.images = res;
+    // })
+
     this.servicePhoto.getAll().subscribe(res => {
-      console.log(res);
-      this.images = res;
-    })
+      // Ajouter la propriété isLiked pour chaque image
+      this.images = res.map((image: any) => ({
+        ...image,
+        isLiked: false,
+      }));
+    });
   }
 
   //Modal
@@ -47,47 +54,61 @@ export class DashboardClientComponent implements OnInit {
   openModal(id: any) {
     console.log("l'id de la photo est : ", id)
     this.photoModal.openModal(id)
-    // this.servicePhoto.getAllBYid(id).subscribe(res=>{
-    //   console.log(res);
-    //   this.dataDemo = res;
 
-    // })
   }
   onModalClosed() {
     console.log('La modale a été fermée');
   }
 
 
-  isLiked = false;
+  // isLiked = false;
   likeCount = 0;
+  likedId: number = 0;
 
-  toggleLike() {
-    this.isLiked = !this.isLiked;
-    if (this.isLiked) {
-      this.incrementLikes();
+  toggleLike(image: any) {
+    image.isLiked = !image.isLiked;
+    if (image.isLiked) {
+      this.incrementLikes(image);
     } else {
-      this.decrementLikes();
+      this.decrementLikes(image);
     }
   }
 
-  incrementLikes() {
-    this.likeCount++;
-    this.animateLike();
+  
+  incrementLikes(image: any) {
+    this.servicePhoto.incrementLikes(image.id).subscribe(res => {
+      image.likes++;
+      console.log("incrementation du like ", image.id)
+    });
   }
 
-  decrementLikes() {
-    if (this.likeCount > 0) {
-      this.likeCount--;
-    }
+
+  decrementLikes(image: any) {
+    // this.servicePhoto.decrementLikes(image.id).subscribe(res => {
+    //   image.likes--;
+    // });
   }
 
-  animateLike() {
+  animateLike(id: number) {
+    this.likedId = id;
+
     if (this.likeIconRef && this.likeIconRef.nativeElement) {
-      this.likeIconRef.nativeElement.classList.add('liked');
+      const likeIcon = this.likeIconRef.nativeElement;
+
+      // Ajoutez la classe CSS pour lancer l'animation
+      likeIcon.classList.add('liked');
+
+      // Retirez la classe CSS après 300 ms pour terminer l'animation
       setTimeout(() => {
-        this.likeIconRef.nativeElement.classList.remove('liked');
+        likeIcon.classList.remove('liked');
       }, 300);
     }
+    // if (this.likeIconRef && this.likeIconRef.nativeElement) {
+    //   this.likeIconRef.nativeElement.classList.add('liked');
+    //   setTimeout(() => {
+    //     this.likeIconRef.nativeElement.classList.remove('liked');
+    //   }, 300);
+    // }
   }
 
 

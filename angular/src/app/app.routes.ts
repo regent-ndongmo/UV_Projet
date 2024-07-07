@@ -1,3 +1,4 @@
+import { InfoPhotographeComponent } from './views/dashboard-client/info-photographe/info-photographe.component';
 import { ContratComponent } from './Photographe/rendez-vous/contrat/contrat.component';
 import { RendezVousComponent } from './Photographe/rendez-vous/rendez-vous.component';
 import { CategorieComponent } from './Photographe/galerie/categorie/categorie.component';
@@ -32,6 +33,15 @@ export const routes: Routes = [
         path: 'dashboard',
         component: DashboardClientComponent
       },
+
+      {
+        path: 'info-photographe/:id',
+        component: InfoPhotographeComponent,
+        data: {
+          title: 'info-photographe'
+        }
+      },
+
       {
         path: 'photographe',
         component: DashboardPhotographerComponent,

@@ -85,3 +85,8 @@
   image-rendering: pixelated; /* Cette propriété dégrade la qualité de l'image */
   filter: blur(2px); /* Ajoutez un flou pour adoucir l'effet */
 }
+
+.card-footer{
+  display: flex;
+  justify-content: space-between;
+}
