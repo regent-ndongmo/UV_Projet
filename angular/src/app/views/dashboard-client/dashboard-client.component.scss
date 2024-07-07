@@ -1,0 +1,18 @@
+.navBar-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.btn-link{
+  text-decoration: none;
+}
+
+.card-img-top{
+  height: 15rem;
+  object-fit: cover;
+}
+.card-footer{
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,3 +1,48 @@
 
-<div>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id, numquam vitae. Nesciunt recusandae deserunt exercitationem ad incidunt, quidem repellat ipsum amet animi, corporis accusantium porro possimus consectetur laborum quos assumenda!</div>
-<!-- <app-bar-code [websiteUrl]="'https://chatgpt.com/'"></app-bar-code> -->
+<div class="container-fluid">
+
+  <div class="row" id="div2">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="navBar-container">
+        @for (item of categories; track $index) {
+          <a class=" btn btn-link  mx-2">#{{ item.categorie }}</a>
+        }
+
+      </div>
+    </nav>
+
+  </div>
+
+  <div class="row my-5">
+    @for (itemC of categories; track $index) {
+      <!-- <a class=" btn btn-link  mx-2">#{{ item.categorie }}</a> -->
+      <div class="row">
+        <div class="col-5"></div>
+        <div class="col-3">
+          <h1 class="mt-3 justify-content-center" id="Portraits">{{ itemC.categorie }}</h1>
+        </div>
+        <div class="col"></div>
+      </div>
+      @for (itemP of images; track $index) {
+        @if (itemC.id == itemP.categorieId){
+          <div class="col-3 mt-3">
+            <div class="card">
+              <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" [alt]="itemP.title">
+              <div class="card-body">
+                <h5 class="card-title">{{ itemP.title }}</h5>
+                <!-- <p class="card-text">{{ itemP.description }} bjhrfjhbfijhrifbhebfhbrhefbh jvhebkc ebjvhbejv bev jhcvje fjvrfh</p> -->
+                  <div class="card-footer">
+                    <div class=""><a href="#" class="btn btn-danger">Voir plus<i class="fas fa-plus"></i></a></div>
+                    <div class=""><i class="fas fa-heart fa-2x" style="color: rgb(217, 46, 46);"></i></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+        }
+
+      }
+    }
+
+  </div>
+</div>

@@ -7,7 +7,7 @@
   @for (item of data; track $index) {
     <div class="picture-card">
       <div class="card" style="width: 19.3rem;">
-        <img class="card-img-top" [src]="'data:image/png;base64,' + item.url" alt="Card image cap">
+        <img class="card-img-top" [src]="'data:image/png;base64,' + item.url" [alt]="item.title">
         <div class="card-body">
           <div class="card-body-left">
             <h5 class="card-title">{{ item.title }}</h5>
