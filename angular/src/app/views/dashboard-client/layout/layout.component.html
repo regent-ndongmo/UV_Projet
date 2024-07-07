@@ -2,7 +2,7 @@
   <div class="row" id="div2">
     <nav class="navbar navbar-expand-lg">
       <div class="navBar-container">
-        @for (item of categories; track $index) {
+        @for (item of uniqueCategories; track $index) {
           <ng-container>
             <a class="btn btn-link mx-2" (click)="openCategorie(item.categorie)">#{{ item.categorie }}</a>
           </ng-container>

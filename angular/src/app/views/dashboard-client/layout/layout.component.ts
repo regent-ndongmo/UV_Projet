@@ -14,6 +14,7 @@ import { DashboardClientComponent } from '../dashboard-client.component';
 export class LayoutComponent {
 
   categories : any;
+  uniqueCategories: any
   isVisible = true
 
   constructor(private router: Router,private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
@@ -29,7 +30,20 @@ export class LayoutComponent {
     this.serviceCategorie.getAll().subscribe(res => {
       console.log(res);
       this.categories = res;
+      this.uniqueCategories = this.getUniqueCategories(this.categories);
     })
+  }
+
+  getUniqueCategories(categories: any[]): any[] {
+    const unique = [];
+    const map = new Map();
+    for (const item of categories) {
+      if (!map.has(item.categorie)) {
+        map.set(item.id, true);
+        unique.push(item);
+      }
+    }
+    return unique;
   }
 
   openCategorie(name: string){

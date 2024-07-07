@@ -13,7 +13,9 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $categories = Categorie::all();
+        $categories = Categorie::select('categorie')
+            ->distinct()
+            ->get();
         return response()->json($categories);
     }
 
