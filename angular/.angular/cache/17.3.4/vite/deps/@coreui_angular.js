@@ -21,10 +21,6 @@ import {
   RouterModule
 } from "./chunk-OAVYXZW3.js";
 import {
-  takeUntilDestroyed,
-  toObservable
-} from "./chunk-HLKDVPWJ.js";
-import {
   AnimationBuilder,
   animate,
   animation,
@@ -47,6 +43,10 @@ import {
   isPlatformBrowser,
   isPlatformServer
 } from "./chunk-CEW2EBYN.js";
+import {
+  takeUntilDestroyed,
+  toObservable
+} from "./chunk-HLKDVPWJ.js";
 import {
   APP_ID,
   AfterRenderPhase,

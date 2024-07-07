@@ -1,32 +1,44 @@
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, ThemeDirective } from '@coreui/angular';
 import { CategorieService } from 'src/app/Photographe/service/Categorie/categorie.service';
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-client',
   standalone: true,
   imports: [
-    ModalComponent
+    ModalComponent,
+    NgxPaginationModule,
+    RouterModule,
+    CommonModule
   ],
   templateUrl: './dashboard-client.component.html',
   styleUrl: './dashboard-client.component.scss'
 })
 export class DashboardClientComponent implements OnInit {
 
+  page: number = 1;
   categories : any;
   images: any;
+  pageSize: number = 8
 
-  constructor(private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
+  constructor(private route: ActivatedRoute ,private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
 
   @ViewChild(ModalComponent) photoModal!: ModalComponent;
   @ViewChild('likeIcon', { static: true }) likeIconRef!: ElementRef<HTMLElement>;
 
   ngOnInit(): void {
-      this.getDataCategorie()
-      this.getDataPhoto()
+
+
+    this.getDataCategorie()
+    this.getDataPhoto()
+
   }
+
   getDataCategorie() {
     this.serviceCategorie.getAll().subscribe(res => {
       console.log(res);
@@ -74,7 +86,7 @@ export class DashboardClientComponent implements OnInit {
     }
   }
 
-  
+
   incrementLikes(image: any) {
     this.servicePhoto.incrementLikes(image.id).subscribe(res => {
       image.likes++;

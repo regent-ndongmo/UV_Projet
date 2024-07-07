@@ -1,74 +1,42 @@
 
-<app-modal app-galerie-modal (closed)="onModalClosed()"></app-modal>
+<app-modal (closed)="onModalClosed()"></app-modal>
 
 <div class="container-fluid">
-
   <div class="row" id="div2">
     <nav class="navbar navbar-expand-lg">
       <div class="navBar-container">
         @for (item of categories; track $index) {
-          <a class="btn btn-link  mx-2">#{{ item.categorie }}</a>
+          <ng-container>
+            <a class="btn btn-link mx-2" [routerLink]="[]" [fragment]="item.id">#{{ item.categorie }}</a>
+          </ng-container>
         }
-
       </div>
     </nav>
-
   </div>
 
   <div class="row my-5">
-    @for (itemC of categories; track $index) {
-      <!-- <a class=" btn btn-link  mx-2">#{{ item.categorie }}</a> -->
-      <div class="row">
-        <div class="col-5"></div>
-        <div class="col-3">
-          <h1 class="mt-3 justify-content-center categorie_item" id="Portraits">{{ itemC.categorie }}</h1>
-        </div>
-        <div class="col"></div>
-      </div>
-      @for (itemP of images; track $index) {
-        @if (itemC.id == itemP.categorieId){
-          <div class="col-3 mt-3">
-            <div class="card">
-              <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
-              <div class="card-body">
-                <h5 class="card-title">{{ itemP.title }}</h5>
-                <!-- <p class="card-text">{{ itemP.description }} bjhrfjhbfijhrifbhebfhbrhefbh jvhebkc ebjvhbejv bev jhcvje fjvrfh</p> -->
-                  <div class="card-footer">
-                    <div class=""><button class="btn btn-danger" (click)="openModal(itemP.id)" cButton>Voir plus<i class="fas fa-plus"></i></button></div>
-                    <div class="like-button" (click)="toggleLike(itemP)">
-                      <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
-                      <span class="like-count">{{ itemP.likes }}</span>
-                    </div>
-                  </div>
+
+    @for (itemP of (images | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
+      <ng-container>
+        <div  class="col-3 mt-3">
+          <div class="card">
+            <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
+            <div class="card-body">
+              <h5 class="card-title">{{ itemP.title }}</h5>
+              <div class="card-footer">
+                <button class="btn btn-danger" (click)="openModal(itemP.id)" cButton>Voir plus<i class="fas fa-plus"></i></button>
+                <div class="like-button" (click)="toggleLike(itemP)">
+                  <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
+                  <span class="like-count">{{ itemP.likes }}</span>
+                </div>
               </div>
             </div>
           </div>
-
-        }
-
-      }
+        </div>
+      </ng-container>
     }
 
   </div>
 </div>
 
-<!-- Modal -->
-<!-- <button (click)="toggleLiveDemo()" cButton>Launch demo modal</button> -->
-
-<!-- <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
-  <c-modal-header>
-    <h5 cModalTitle>{{ dataDemo.title }}</h5>
-    <button (click)="closeDemo()" cButtonClose></button>
-  </c-modal-header>
-  <c-modal-body>
-
-    {{ dataDemo.title }}
-
-  </c-modal-body>
-  <c-modal-footer>
-    <button (click)="closeDemo()" cButton color="secondary">
-      Close
-    </button>
-    <button cButton color="primary">Save changes</button>
-  </c-modal-footer>
-</c-modal> -->
+<pagination-controls id="my-pagination-id" (pageChange)="page = $event"></pagination-controls>
