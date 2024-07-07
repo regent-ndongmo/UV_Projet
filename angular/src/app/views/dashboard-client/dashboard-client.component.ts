@@ -1,7 +1,6 @@
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, ThemeDirective } from '@coreui/angular';
 import { CategorieService } from 'src/app/Photographe/service/Categorie/categorie.service';
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -47,10 +46,6 @@ export class DashboardClientComponent implements OnInit {
   }
 
   getDataPhoto() {
-    // this.servicePhoto.getAll().subscribe(res => {
-    //   console.log(res);
-    //   this.images = res;
-    // })
 
     this.servicePhoto.getAll().subscribe(res => {
       // Ajouter la propriété isLiked pour chaque image

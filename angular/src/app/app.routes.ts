@@ -1,3 +1,5 @@
+import { CategorieInfoComponent } from './views/dashboard-client/categorie-info/categorie-info.component';
+import { LayoutComponent } from './views/dashboard-client/layout/layout.component';
 import { InfoPhotographeComponent } from './views/dashboard-client/info-photographe/info-photographe.component';
 import { ContratComponent } from './Photographe/rendez-vous/contrat/contrat.component';
 import { RendezVousComponent } from './Photographe/rendez-vous/rendez-vous.component';
@@ -17,11 +19,7 @@ import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
+
   {
     path: '',
     component: DefaultLayoutComponent,
@@ -30,8 +28,22 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'dashboard',
-        component: DashboardClientComponent
+        path: '',
+        component: LayoutComponent,
+        children: [
+          {
+            path: '',
+            component: DashboardClientComponent
+
+          },
+          {
+            path: 'categorieN/:name',
+            component: CategorieInfoComponent,
+            data: {
+              title: 'categorie'
+            }
+          },
+        ]
       },
 
       {
@@ -136,5 +148,5 @@ export const routes: Routes = [
   //   }
   // },
 
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: '' }
 ];
