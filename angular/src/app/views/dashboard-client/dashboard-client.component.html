@@ -1,4 +1,6 @@
 
+<app-modal app-galerie-modal (closed)="onModalClosed()"></app-modal>
+
 <div class="container-fluid">
 
   <div class="row" id="div2">
@@ -32,8 +34,11 @@
                 <h5 class="card-title">{{ itemP.title }}</h5>
                 <!-- <p class="card-text">{{ itemP.description }} bjhrfjhbfijhrifbhebfhbrhefbh jvhebkc ebjvhbejv bev jhcvje fjvrfh</p> -->
                   <div class="card-footer">
-                    <div class=""><a href="#" class="btn btn-danger">Voir plus<i class="fas fa-plus"></i></a></div>
-                    <div class=""><i class="fas fa-heart fa-2x" style="color: rgb(217, 46, 46);"></i></div>
+                    <div class=""><button class="btn btn-danger" (click)="openModal(itemP.id)" cButton>Voir plus<i class="fas fa-plus"></i></button></div>
+                    <div class="like-button" (click)="toggleLike()">
+                      <i class="fas fa-heart" [class.liked]="isLiked"></i>
+                      <span class="like-count">{{ likeCount }}</span>
+                    </div>
                   </div>
               </div>
             </div>
@@ -46,3 +51,24 @@
 
   </div>
 </div>
+
+<!-- Modal -->
+<!-- <button (click)="toggleLiveDemo()" cButton>Launch demo modal</button> -->
+
+<!-- <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>{{ dataDemo.title }}</h5>
+    <button (click)="closeDemo()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+
+    {{ dataDemo.title }}
+
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="closeDemo()" cButton color="secondary">
+      Close
+    </button>
+    <button cButton color="primary">Save changes</button>
+  </c-modal-footer>
+</c-modal> -->

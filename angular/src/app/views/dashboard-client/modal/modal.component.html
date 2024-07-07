@@ -1,0 +1,33 @@
+<div class="modall" *ngIf="isVisible">
+  <div class="modall-content">
+    <div class="modall-header">
+      <h2>{{ dataDemo.title }}</h2>
+      <button class="close-button" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modall-body">
+      <div class="container-xl px-4 mt-4">
+        <hr class="mt-0 mb-4">
+        <div class="col-12 mt-3">
+          <div class="card">
+            <img [src]="'data:image/png;base64,' + dataDemo.url" class="card-img-top" [alt]="dataDemo.title">
+            <div class="card-body">
+              <h5 class="card-title">{{ dataDemo.title }}</h5>
+              <p class="card-text">{{ dataDemo.description }}</p>
+                <div class="card-footer">
+                  <!-- <div class=""><button class="btn btn-danger" (click)="openModal(dataDemo.id)" cButton>Voir plus<i class="fas fa-plus"></i></button></div> -->
+                  <!-- <div class="like-button" (click)="toggleLike()">
+                    <i class="fas fa-heart" [class.liked]="isLiked"></i>
+                    <span class="like-count">{{ likeCount }}</span>
+                  </div> -->
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modall-footer">
+      <button class="btn btn-warning" (click)="closeModal()">Fermer</button>
+    </div>
+  </div>
+</div>

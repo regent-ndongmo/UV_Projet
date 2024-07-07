@@ -42,7 +42,7 @@ export class ImageService {
   }
 
   getAllBYid(id: number): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.apiUrl}/${id}`);
   }
 
 
