@@ -1,1 +1,141 @@
-<p>info-photographe works!</p>
+@if (photographe) {
+  <div class="container">
+
+    <main id="main">
+
+      <section class="photographer">
+        <div class="photographer-information">
+          <div>
+            <h2>
+              {{photographe.nom}}
+            </h2>
+            <h3>
+              {{photographe.ville}}, {{photographe.pays}}
+            </h3>
+            <span class="tagline">{{photographe.description}}</span>
+            <div class="hashtag-container">
+              @for (item of categories; track $index) {
+                <span class="hashtag"><a href="#">{{item.categorie}}</a></span>
+
+              }
+            </div>
+          </div>
+
+          <div class="photograph-header">
+            <button class="contact_button" (click)="openModal()">Contactez-moi</button>
+          </div>
+
+        </div>
+
+        <img
+                [alt]="photographe.description"
+                [src]="imgURL"
+                class="profile"
+        />
+      </section>
+
+
+      <div class="price">
+        <span> <i class="fas fa-heart"></i></span>
+        <span>$ / jour</span>
+      </div>
+
+      <div class="tri">
+         <h5>Trier par</h5><br><br>
+
+         <select name="" id="">
+          <option value="" class="option">Popularite</option>
+          <option value="" class="option">date</option>
+          <option value="" class="option">Heur</option>
+          <option value="" class="option">Jour</option>
+         </select>
+      </div>
+
+
+
+
+      <div class="container-fluid">
+
+        <div class="row my-5">
+
+          @for (itemP of (images | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
+            <ng-container>
+              <div  class="col-3 mt-3">
+                <div class="card">
+                  <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ itemP.title }}</h5>
+                    <div class="card-footer">
+                      <button class="btn btn-danger" cButton>Voir plus<i class="fas fa-plus"></i></button>
+                      <div class="like-button" (click)="toggleLike(itemP)">
+                        <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
+                        <span class="like-count">{{ itemP.likes }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          }
+
+        </div>
+      </div>
+
+      <pagination-controls id="my-pagination-id" (pageChange)="page = $event"></pagination-controls>
+
+      @if (showModal) {
+        <div class="modall">
+          <div class="modall-content">
+            <div class="modall-header">
+              <h2>Regent</h2>
+              <button class="close-button" (click)="closeModal()">&times;</button>
+            </div>
+            <div class="modall-body">
+              <div class="container-xl px-4 mt-4">
+                <hr class="mt-0 mb-4">
+                <div class="row content">
+                  <div class="col-xl-6">
+                    <div class="card mb-4">
+                      <div class="card-header">Image Details</div>
+                      <div class="card-body">
+                        <form>
+                          <input type="text"  name="userID" hidden>
+                          <input type="text" name="CategorieID" hidden>
+                          <div class="row gx-3 mb-3">
+                            <div class="col-md-12">
+                              <label class="small mb-1" for="inputFirstName">Nom de l'image</label>
+                              <input class="form-control" name="titre"  id="inputFirstName" type="text" placeholder="Entrer un nom pour votre image">
+                            </div>
+
+                            <div class="col-md-12">
+                              <label class="small mb-1" for="inputFirstName">Prix de l'image</label>
+                              <input class="form-control" name="prix"   id="inputFirstName" type="number" min="0" placeholder="Entrer un prix pour votre image">
+                            </div>
+
+                            <div class="col-md-12 textarea">
+                              <textarea name="description" id="" class="form-control" placeholder="Entrer une description de votre images ici"></textarea>
+                            </div>
+
+                          </div>
+
+                          <button class="btn btn-primary" type="button" >Publier</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modall-footer">
+              <!-- <button class="btn btn-warning" (click)="closeModal()">Fermer</button> -->
+            </div>
+          </div>
+        </div>
+      }
+
+
+    </main>
+
+  </div>
+}
+
