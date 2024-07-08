@@ -1,0 +1,49 @@
+.navBar-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.btn-link{
+  text-decoration: none;
+  border: 1px solid #f2f2f2;
+}
+
+.card-img-top{
+  height: 15rem;
+  object-fit: cover;
+}
+.card-footer{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+//Like
+.like-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.like-button .fa-heart {
+  font-size: 24px;
+  color: #ccc;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.like-button .fa-heart.liked {
+  color: #ff0000;
+  transform: scale(1.2);
+}
+
+.like-button .like-count {
+  margin-left: 5px;
+  font-size: 16px;
+}
+
+//
+.categorie_item{
+  color: red;
+}

@@ -2,18 +2,7 @@
 <app-modal (closed)="onModalClosed()"></app-modal>
 
 <div class="container-fluid">
-  <!-- <div class="row" id="div2">
-    <nav class="navbar navbar-expand-lg">
-      <div class="navBar-container">
-        @for (item of categories; track $index) {
-          <ng-container>
-            <a class="btn btn-link mx-2" [routerLink]="[]" [fragment]="item.id">#{{ item.categorie }}</a>
-          </ng-container>
-        }
-      </div>
-    </nav>
-  </div> -->
-
+  
   <div class="row my-5">
 
     @for (itemP of (images | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {

@@ -76,6 +76,7 @@ use App\Http\Controllers\RendezVousController;
 
 // Routes pour les categories
 Route::get('categories', [CategorieController::class, 'index']);
+Route::get('categories/ByName/{name}', [CategorieController::class, 'getCategoryIdsByName']);
 // Crée une nouvelle catégorie
 Route::post('categories', [CategorieController::class, 'create']);
 // Affiche les détails d'une catégorie spécifique

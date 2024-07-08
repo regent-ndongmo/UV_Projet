@@ -1,1 +1,30 @@
-<p>categorie-info works!</p>
+<app-modal (closed)="onModalClosed()"></app-modal>
+
+<div class="container-fluid">
+  <div class="row my-5">
+    @for (itemP of (data | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
+      <div class="col-3 mt-3">
+        <div class="card">
+          <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
+          <div class="card-body">
+            <h5 class="card-title">{{ itemP.title }}</h5>
+            <div class="card-footer">
+              <button class="btn btn-danger" (click)="openModal(itemP.id)" cButton>Voir plus<i class="fas fa-plus"></i></button>
+              <div class="like-button" (click)="toggleLike(itemP)">
+                <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
+                <span class="like-count">{{ itemP.likes }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    }
+
+  </div>
+</div>
+<pagination-controls id="my-pagination-id" (pageChange)="page = $event"></pagination-controls>
+
+<!-- {{ AllId }} -->
+
+

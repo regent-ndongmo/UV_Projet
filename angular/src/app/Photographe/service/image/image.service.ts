@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { Photo } from 'src/app/model/photographe/photo';
 
 @Injectable({
@@ -33,11 +33,18 @@ export class ImageService {
     return this.http.get(`${this.apiUrl}/${id}`, { responseType: 'blob' });
   }
 
+  getDataByIds(ids: number[]): Observable<Photo[]> {
+    const idsParam = ids.join(',');
+    return this.http.get<Photo[]>(`${this.apiUrl}/${idsParam}`).pipe(
+      map(data => data.filter(item => ids.includes(item.id)))
+    );
+  }
+
   deleteImage(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  getAll():Observable<void[]>{
+  getAll():Observable<any[]>{
     return this.http.get<any[]>(this.apiUrl)
   }
 

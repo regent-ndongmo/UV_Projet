@@ -18,6 +18,16 @@ export class CategorieService {
     this.refreshSubject.next();
   }
 
+  private initSubject = new Subject<void>();
+
+  triggerInit() {
+    this.initSubject.next();
+  }
+
+  onInit() {
+    return this.initSubject.asObservable();
+  }
+
   constructor(private httpClient: HttpClient) { }
 
   private reloadSubject = new Subject<void>();
@@ -31,6 +41,10 @@ export class CategorieService {
 
   getAll(){
     return this.httpClient.get<any>(`${this.apiUrl}`);
+  }
+
+  getIdByName(name: String){
+    return this.httpClient.get<any>(`${this.apiUrl}/ByName/${name}`);
   }
 
   getCategoriePhotographe(id: Categorie){

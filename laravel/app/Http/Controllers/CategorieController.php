@@ -79,4 +79,13 @@ class CategorieController extends Controller
         $categories = Categorie::where('photographe_id', $photographe_id)->get();
         return response()->json($categories);
     }
+
+
+    public function getCategoryIdsByName($name)
+    {
+        // Récupérer les IDs des catégories ayant le même nom
+        $categories = Categorie::where('categorie', $name)->pluck('id');
+
+        return response()->json($categories);
+    }
 }
