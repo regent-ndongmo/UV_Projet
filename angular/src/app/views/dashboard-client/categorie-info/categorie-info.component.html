@@ -7,7 +7,10 @@
         <div class="card">
           <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
           <div class="card-body">
-            <h5 class="card-title">{{ itemP.title }}</h5>
+            <div class="card-body-title">
+              <h5 class="card-title">{{ itemP.title }}</h5>
+              <h5 class="card-title">{{ itemP.price }}Fcfa</h5>
+            </div>
             <div class="card-footer">
               <button class="btn btn-danger" (click)="openModal(itemP.id)" cButton>Voir plus<i class="fas fa-plus"></i></button>
               <div class="like-button" (click)="toggleLike(itemP)">

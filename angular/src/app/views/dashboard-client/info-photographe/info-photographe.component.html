@@ -1,32 +1,23 @@
 @if (photographe) {
   <div class="container">
-
     <main id="main">
-
       <section class="photographer">
         <div class="photographer-information">
           <div>
-            <h2>
-              {{photographe.nom}}
-            </h2>
-            <h3>
-              {{photographe.ville}}, {{photographe.pays}}
-            </h3>
-            <span class="tagline">{{photographe.message}}</span>
+            <h2>{{photographe.nom}}</h2>
+            <h3>{{photographe.ville}}, {{photographe.pays}}</h3>
+            <span class="tagline">{{photographe.description}}</span>
             <div class="hashtag-container">
               @for (item of categories; track $index) {
-                <span class="hashtag"><a href="#">{{item.categorie}}</a></span>
-
+                <span class="hashtag">#{{item.categorie}}</span>
               }
             </div>
-          </div>
 
+          </div>
           <div class="photograph-header">
-            <button class="contact_button" (click)="openModal()">Contactez-moi</button>
+            <button class=" contact_button" (click)="openModal()">Contactez-moi</button>
           </div>
-
         </div>
-
         <img
                 [alt]="photographe.message"
                 [src]="imgURL"
@@ -34,22 +25,16 @@
         />
       </section>
 
-
-      <div class="price">
-        <span> <i class="fas fa-heart"></i></span>
-        <span>$ / jour</span>
-      </div>
-
       <div class="tri">
          <h5>Trier par</h5><br><br>
 
-         <select name="" id="">
+         <select class="select" name="" id="">
           <option value="" class="option">Popularite</option>
           <option value="" class="option">date</option>
-          <option value="" class="option">Heur</option>
-          <option value="" class="option">Jour</option>
+          <option value="" class="option">Titre</option>
          </select>
       </div>
+
 
 
 
@@ -64,9 +49,12 @@
                 <div class="card">
                   <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
                   <div class="card-body">
-                    <h5 class="card-title">{{ itemP.title }}</h5>
+                    <div class="card-body-title">
+                      <h5 class="card-title">{{ itemP.title }}</h5>
+                      <h5 class="card-title">{{ itemP.price }}Fcfa</h5>
+                    </div>
                     <div class="card-footer">
-                      <button class="btn btn-danger" cButton>Voir plus<i class="fas fa-plus"></i></button>
+                      <button class="btn btn-danger" cButton>Acheter l'image</button>
                       <div class="like-button" (click)="toggleLike(itemP)">
                         <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
                         <span class="like-count">{{ itemP.likes }}</span>

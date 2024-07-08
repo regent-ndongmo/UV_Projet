@@ -84,7 +84,7 @@ export class DefaultLayoutComponent implements OnInit{
     if (role === "superAdmin") {
       this.navItems = this.menuService.getMenuItems(role);
     }
-    if (role === "Admin") {
+    if (role === "admin") {
       this.navItems = this.menuService.getMenuItems(role);
     }
     if (role === "photographe") {

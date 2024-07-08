@@ -11,7 +11,10 @@
           <div class="card">
             <img [src]="'data:image/png;base64,' + dataDemo.url" class="card-img-top" [alt]="dataDemo.title" oncontextmenu="return false;">
             <div class="card-body">
-              <h5 class="card-title">{{ dataDemo.title }}</h5>
+              <div class="card-body-title">
+                <h5 class="card-title">{{ dataDemo.title }}</h5>
+                <h5 class="card-title">{{ dataDemo.price }}Fcfa</h5>
+              </div>
               <p class="card-text">{{ dataDemo.description }}</p>
                 <div class="card-footer">
                   <div>

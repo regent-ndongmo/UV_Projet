@@ -37,6 +37,16 @@ export class LoginComponent implements OnInit{
 
         window.location.href = '#/photographe';
       }
+      else if(res.role == "admin"){
+        this.service.changeState(true);
+
+        window.location.href = '#/admin';
+      }
+      else if(res.role == "superadmin"){
+        this.service.changeState(true);
+
+        window.location.href = '#/superadmin';
+      }
       else{
         this.router.navigate(['/dashboard'])
         alert("Votre compte a ete bloque")

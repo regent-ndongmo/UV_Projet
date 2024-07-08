@@ -79,6 +79,73 @@ export class NavService {
 
   private adminItems: INavData[] = [
     {
+      name: 'Accueil',
+      url: '/photographe',
+      iconComponent: { name: 'cil-home' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
+      name: 'Galerie',
+      url: '/galerie',
+      iconComponent: { name: 'cil-puzzle' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
+      name: 'Messages',
+      url: '/messages',
+      iconComponent: { name: 'cilEnvelopeOpen' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
+      name: 'Rendez-Vous',
+      url: '/rendez-vous',
+      iconComponent: { name: 'cil-calendar' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    },
+    {
+      name: 'Profile',
+      url: '/profile',
+      iconComponent: { name: 'cil-user' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    },
+    {
+      name: 'Corbeille',
+      url: '/corbeille',
+      iconComponent: { name: 'cil-basket' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    },
+    {
+      name: 'Parametre',
+      url: '/widgets',
+      iconComponent: { name: 'cil-settings' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+
+    },
+    {
       name: 'Photographes',
       url: '/base',
       iconComponent: { name: 'cil-puzzle' },
@@ -97,16 +164,7 @@ export class NavService {
       ]
     },
 
-    {
-      name: 'Parametre',
-      url: '/widgets',
-      iconComponent: { name: 'cil-settings' },
-      badge: {
-        color: 'info',
-        text: 'NEW'
-      }
 
-    }
   ];
 
   private superAdminItems: INavData[] = [
