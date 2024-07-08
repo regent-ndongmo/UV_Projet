@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CategorieService } from 'src/app/Photographe/service/Categorie/categorie.service';
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment.development';
 @Component({
   selector: 'app-info-photographe',
   standalone: true,
-  imports: [NgxPaginationModule],
+  imports: [NgxPaginationModule, FormsModule, ReactiveFormsModule],
   templateUrl: './info-photographe.component.html',
   styleUrl: './info-photographe.component.scss'
 })
@@ -24,8 +25,15 @@ export class InfoPhotographeComponent implements OnInit {
   imgURL: any;
   page: number = 1;
   pageSize: number = 8
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private service: PhotographeService,
+    private service1: ImageService,
+    private service2: CategorieService,
+    private formBuilder: FormBuilder){
 
-  constructor(private router: Router, private route: ActivatedRoute, private service: PhotographeService, private service1: ImageService, private service2: CategorieService){}
+  }
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.route.paramMap.subscribe(params => {

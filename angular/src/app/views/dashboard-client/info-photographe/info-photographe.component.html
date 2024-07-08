@@ -12,7 +12,7 @@
             <h3>
               {{photographe.ville}}, {{photographe.pays}}
             </h3>
-            <span class="tagline">{{photographe.description}}</span>
+            <span class="tagline">{{photographe.message}}</span>
             <div class="hashtag-container">
               @for (item of categories; track $index) {
                 <span class="hashtag"><a href="#">{{item.categorie}}</a></span>
@@ -28,7 +28,7 @@
         </div>
 
         <img
-                [alt]="photographe.description"
+                [alt]="photographe.message"
                 [src]="imgURL"
                 class="profile"
         />
@@ -87,38 +87,53 @@
         <div class="modall">
           <div class="modall-content">
             <div class="modall-header">
-              <h2>Regent</h2>
+              <h2>{{ photographe.nom }}</h2>
               <button class="close-button" (click)="closeModal()">&times;</button>
             </div>
             <div class="modall-body">
               <div class="container-xl px-4 mt-4">
                 <hr class="mt-0 mb-4">
                 <div class="row content">
-                  <div class="col-xl-6">
+                  <div class="col-xl-12">
                     <div class="card mb-4">
-                      <div class="card-header">Image Details</div>
+                      <div class="card-header">Contacter le photographe</div>
                       <div class="card-body">
                         <form>
                           <input type="text"  name="userID" hidden>
-                          <input type="text" name="CategorieID" hidden>
                           <div class="row gx-3 mb-3">
                             <div class="col-md-12">
-                              <label class="small mb-1" for="inputFirstName">Nom de l'image</label>
-                              <input class="form-control" name="titre"  id="inputFirstName" type="text" placeholder="Entrer un nom pour votre image">
+                              <label class="small mb-1" for="name">Entrez votre nom</label>
+                              <input class="form-control" name="name"  id="name" type="text" placeholder="Entrez votre nom" required>
                             </div>
 
                             <div class="col-md-12">
-                              <label class="small mb-1" for="inputFirstName">Prix de l'image</label>
-                              <input class="form-control" name="prix"   id="inputFirstName" type="number" min="0" placeholder="Entrer un prix pour votre image">
+                              <label class="small mb-1" for="email">Entrez votre nom</label>
+                              <input class="form-control" name="email"  id="email" type="email" placeholder="regent@gmail.com" required>
                             </div>
 
-                            <div class="col-md-12 textarea">
-                              <textarea name="description" id="" class="form-control" placeholder="Entrer une description de votre images ici"></textarea>
+                            <div class="col-md-12">
+                              <label class="small mb-1" for="tel">Entrez votre numero de telephone</label>
+                              <input class="form-control" name="tel"  id="tel" type="number" min="000000000" placeholder="678 254 254" required>
+                            </div>
+
+                            <div class="col-md-12">
+                              <label class="small mb-1" for="ville">Entrez votre ville</label>
+                              <input class="form-control" name="name"  id="ville" type="text" placeholder="Dschang" required>
+                            </div>
+
+                            <!-- <div class="col-md-12">
+                              <label class="small mb-1" for="inputFirstName">Prix de l'image</label>
+                              <input class="form-control" name="prix"   id="inputFirstName" type="number" min="0" placeholder="Entrer un prix pour votre image">
+                            </div> -->
+
+                            <div class="col-md-12">
+                              <label class="small mb-1" for="message">Entrez votre message</label>
+                              <textarea name="message" id="message" class="form-control" placeholder="Entrer le contenu de votre message ici"></textarea>
                             </div>
 
                           </div>
 
-                          <button class="btn btn-primary" type="button" >Publier</button>
+                          <button class="btn btn-primary" type="submit" >Envoyer</button>
                         </form>
                       </div>
                     </div>
