@@ -3,24 +3,34 @@
 <div class="container-fluid">
   <div class="row my-5">
     @for (itemP of (data | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
-      <div class="col-3 mt-3">
-        <div class="card">
-          <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
-          <div class="card-body">
-            <div class="card-body-title">
-              <h5 class="card-title">{{ itemP.title }}</h5>
-              <h5 class="card-title">{{ itemP.price }}Fcfa</h5>
-            </div>
-            <div class="card-footer">
-              <button class="btn btn-danger" (click)="openModal(itemP.id)" cButton>Voir plus<i class="fas fa-plus"></i></button>
-              <div class="like-button" (click)="toggleLike(itemP)">
-                <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
-                <span class="like-count">{{ itemP.likes }}</span>
+      @for (item of photographes; track $index) {
+        @if (itemP.photographeId == item.id) {
+          <div class="col-3 mt-3">
+            <div class="card">
+              <div class="gallery">
+                <div class="image-container">
+                  <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
+                  <div class="watermark middle rotated"> {{ item.signature }}</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-body-title">
+                  <h5 class="card-title">{{ itemP.title }}</h5>
+                  <h5 class="card-title">{{ itemP.price }}Fcfa</h5>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-danger" (click)="openModal(itemP.id)" cButton>Voir plus<i class="fas fa-plus"></i></button>
+                  <div class="like-button" (click)="toggleLike(itemP)">
+                    <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
+                    <span class="like-count">{{ itemP.likes }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+
+        }
+      }
 
     }
 

@@ -5,6 +5,7 @@ import { CategorieService } from 'src/app/Photographe/service/Categorie/categori
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CommonModule } from '@angular/common';
+import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
 
 @Component({
   selector: 'app-dashboard-client',
@@ -23,16 +24,17 @@ export class DashboardClientComponent implements OnInit {
   page: number = 1;
   categories : any;
   images: any;
+  photographes : any;
   pageSize: number = 8
 
-  constructor(private route: ActivatedRoute ,private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
+  constructor(private servicePhotographe:  PhotographeService, private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
 
   @ViewChild(ModalComponent) photoModal!: ModalComponent;
   @ViewChild('likeIcon', { static: true }) likeIconRef!: ElementRef<HTMLElement>;
 
   ngOnInit(): void {
 
-
+    this.getDataPhotographe()
     this.getDataCategorie()
     this.getDataPhoto()
 
@@ -54,6 +56,13 @@ export class DashboardClientComponent implements OnInit {
         isLiked: false,
       }));
     });
+  }
+
+  getDataPhotographe(){
+    this.servicePhotographe.getData().subscribe(res=>{
+      console.log("Photographe", res)
+      this.photographes = res
+    })
   }
 
   //Modal

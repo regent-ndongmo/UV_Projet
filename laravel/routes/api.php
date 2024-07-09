@@ -121,3 +121,11 @@ Route::prefix('commentaires')->group(function () {
     Route::put('/{commentaire}', [CommentaireController::class, 'update']);
     Route::delete('/{commentaire}', [CommentaireController::class, 'destroy']);
 });
+
+// Routes pour les commentaires
+Route::prefix('contact')->group(function () {
+    Route::get('/', [CommentaireController::class, 'index']);
+    Route::post('/', [CommentaireController::class, 'store']);
+    Route::put('/{contact}', [CommentaireController::class, 'update']);
+    Route::delete('/{contact}', [CommentaireController::class, 'destroy']);
+});

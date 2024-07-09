@@ -12,12 +12,12 @@ import { iconSubset } from './icons/icon-subset';
   imports: [RouterOutlet]
 })
 export class AppComponent implements OnInit {
-  title = 'CoreUI Angular Admin Template';
+  title = 'uv_projet';
 
   constructor(
     private router: Router,
     private titleService: Title,
-    private iconSetService: IconSetService
+    private iconSetService: IconSetService,
   ) {
     this.titleService.setTitle(this.title);
     // iconSet singleton

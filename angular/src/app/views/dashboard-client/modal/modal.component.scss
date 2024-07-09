@@ -83,7 +83,7 @@
   // max-width: 200px; /* Définissez la largeur souhaitée pour l'image dégradée */
   height: auto;
   image-rendering: pixelated; /* Cette propriété dégrade la qualité de l'image */
-  filter: blur(2px); /* Ajoutez un flou pour adoucir l'effet */
+  // filter: blur(2px); /* Ajoutez un flou pour adoucir l'effet */
 }
 
 .card-footer{
@@ -93,4 +93,96 @@
 .card-body-title{
   display: flex;
   justify-content: space-between;
+}
+
+
+
+//filigrane
+.image-container {
+  position: relative;
+}
+
+.image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.watermark {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+  font-weight: bold;
+  pointer-events: none;
+  transform: rotate(-30deg);
+}
+
+.watermark1 {
+  top: 5%;
+  left: 5%;
+}
+
+.watermark2 {
+  top: 5%;
+  right: 5%;
+}
+
+.watermark3 {
+  top: 25%;
+  left: 25%;
+  transform: rotate(30deg);
+}
+
+.watermark4 {
+  top: 25%;
+  right: 25%;
+  transform: rotate(30deg);
+}
+
+.watermark5 {
+  top: 50%;
+  left: 5%;
+}
+
+.watermark6 {
+  top: 50%;
+  right: 5%;
+}
+
+.watermark7 {
+  top: 75%;
+  left: 25%;
+  transform: rotate(-30deg);
+}
+
+.watermark8 {
+  top: 75%;
+  right: 25%;
+  transform: rotate(-30deg);
+}
+
+.watermark9 {
+  bottom: 25%;
+  left: 5%;
+  transform: rotate(30deg);
+}
+
+.watermark10 {
+  bottom: 25%;
+  right: 5%;
+  transform: rotate(30deg);
+}
+
+.watermark11 {
+  bottom: 5%;
+  left: 25%;
+}
+
+.watermark12 {
+  bottom: 5%;
+  right: 25%;
+}
+.watermark13 {
+  bottom: 50%;
+  right: 50%;
 }

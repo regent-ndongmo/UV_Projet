@@ -9,7 +9,25 @@
         <hr class="mt-0 mb-4">
         <div class="col-12 mt-3">
           <div class="card">
-            <img [src]="'data:image/png;base64,' + dataDemo.url" class="card-img-top" [alt]="dataDemo.title" oncontextmenu="return false;">
+            <div class="gallery">
+              <div class="image-container">
+                <img [src]="'data:image/png;base64,' + dataDemo.url" class="card-img-top" oncontextmenu="return false;" [alt]="dataDemo.title">
+
+                <div class="watermark watermark1">{{ photographe.signature }}</div>
+                <div class="watermark watermark2">{{ photographe.signature }}</div>
+                <div class="watermark watermark3">{{ photographe.signature }}</div>
+                <div class="watermark watermark4">{{ photographe.signature }}</div>
+                <div class="watermark watermark5">{{ photographe.signature }}</div>
+                <div class="watermark watermark6">{{ photographe.signature }}</div>
+                <div class="watermark watermark7">{{ photographe.signature }}</div>
+                <div class="watermark watermark8">{{ photographe.signature }}</div>
+                <div class="watermark watermark9">{{ photographe.signature }}</div>
+                <div class="watermark watermark10">{{ photographe.signature }}</div>
+                <div class="watermark watermark11">{{ photographe.signature }}</div>
+                <div class="watermark watermark12">{{ photographe.signature }}</div>
+                <div class="watermark watermark13"> {{ photographe.signature }}</div>
+              </div>
+            </div>
             <div class="card-body">
               <div class="card-body-title">
                 <h5 class="card-title">{{ dataDemo.title }}</h5>

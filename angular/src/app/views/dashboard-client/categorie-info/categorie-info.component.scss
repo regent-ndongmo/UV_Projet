@@ -52,3 +52,31 @@
 .categorie_item{
   color: red;
 }
+
+
+//filigrane
+.image-container {
+  position: relative;
+}
+
+.watermark {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.3);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  // z-index: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.watermark.middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-image: linear-gradient(to top right, transparent 0%, transparent 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 100%); */
+}
+
+.watermark.rotated {
+  transform: translate(-50%, -50%) rotate(-15deg);
+}

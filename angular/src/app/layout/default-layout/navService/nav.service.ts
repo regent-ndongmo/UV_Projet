@@ -18,7 +18,7 @@ export class NavService {
       }
     },
     {
-      name: 'Galerie',
+      name: 'Categorie',
       url: '/galerie',
       iconComponent: { name: 'cil-puzzle' },
       badge: {
@@ -88,7 +88,7 @@ export class NavService {
       }
     },
     {
-      name: 'Galerie',
+      name: 'Categorie',
       url: '/galerie',
       iconComponent: { name: 'cil-puzzle' },
       badge: {

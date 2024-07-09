@@ -5,6 +5,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Subscription, from, mergeMap, toArray } from 'rxjs';
 import { CategorieService } from 'src/app/Photographe/service/Categorie/categorie.service';
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
+import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
 
 @Component({
   selector: 'app-categorie-info',
@@ -24,9 +25,10 @@ export class CategorieInfoComponent implements OnInit{
   data: any[] = [];
   images: any[] = [];
   page: number = 1;
-  pageSize: number = 8
+  pageSize: number = 8;
+  photographes: any;
 
-  constructor(private route: ActivatedRoute, private router: Router,private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
+  constructor(private servicePhotographe: PhotographeService, private route: ActivatedRoute, private router: Router,private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
 
 
   ngOnInit(): void {
@@ -41,6 +43,7 @@ export class CategorieInfoComponent implements OnInit{
     this.getAllId(this.name);
 
     this.getPhoto()
+    this.getDataPhotographe()
 
   }
 
@@ -71,6 +74,12 @@ export class CategorieInfoComponent implements OnInit{
         console.log("Tous les résultats récupérés : ", this.data);
       });
     });
+  }
+  getDataPhotographe(){
+    this.servicePhotographe.getData().subscribe(res=>{
+      console.log("Photographe", res)
+      this.photographes = res
+    })
   }
 
   getPhoto(){

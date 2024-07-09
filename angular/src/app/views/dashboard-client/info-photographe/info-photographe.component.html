@@ -1,5 +1,5 @@
 @if (photographe) {
-  <div class="container">
+  <div class="">
     <main id="main">
       <section class="photographer">
         <div class="photographer-information">
@@ -47,7 +47,12 @@
             <ng-container>
               <div  class="col-3 mt-3">
                 <div class="card">
-                  <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
+                  <div class="gallery">
+                    <div class="image-container">
+                      <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
+                      <div class="watermark middle rotated"> {{ photographe.signature }}</div>
+                    </div>
+                  </div>
                   <div class="card-body">
                     <div class="card-body-title">
                       <h5 class="card-title">{{ itemP.title }}</h5>

@@ -1,10 +1,10 @@
 <app-picture-modal app-galerie-modal [title]="'Publier une nouvelle photo'" (closed)="onModalClosed()"></app-picture-modal>
 
 
-<div class="position-absolute top-5 end-0">
+<div class="btn-new-picture position-absolute top-5">
   <div class="btn btn-primary new-picture" (click)="openModalPicture()">
     <i class="fas fa-plus fa-2x"></i>
-    <span class="picture-text">Add new picture</span>
+    <span class="picture-text">Nouvelle publication</span>
   </div>
 </div>
 
@@ -12,13 +12,13 @@
 <div class="picture">
   @for (item of data; track $index) {
     <div class="picture-card">
-      <div class="card" style="width: 19.3rem;">
+      <div class="card" style="width: 25rem;">
         <img class="card-img-top" [src]="'data:image/png;base64,' + item.url" alt="Card image cap">
         <div class="card-body">
           <div class="card-body-left">
             <h5 class="card-title">{{ item.title }}</h5>
             <span class="card-text">{{ item.price }} Fcfa</span>
-            <span class="card-text">{{ item.description }}lorembdjkwbjnejbckjbev ejv cejlvjjhrbv</span>
+            <span class="card-text">{{ item.description }}</span>
           </div>
           <div>
             <div><i class="fas fa-pencil btn btn-info mb-2" (click)="updateImage(item.id)"></i></div>
@@ -35,7 +35,6 @@
 
 
 <br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div>
   Le role du photographe connecte est :
   {{ role }}
