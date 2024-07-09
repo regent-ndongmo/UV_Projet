@@ -84,8 +84,9 @@
 //
 .picture{
   padding-top: 6%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: space-between;
 }
@@ -98,8 +99,7 @@
 }
 .picture-card{
   padding-top: 7%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  
 }
 
 

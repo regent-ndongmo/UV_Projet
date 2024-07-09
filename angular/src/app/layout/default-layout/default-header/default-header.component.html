@@ -5,7 +5,7 @@
         [cSidebarToggle]="sidebarId"
         cHeaderToggler
         class="btn"
-        toggle="visible"
+       
         style="margin-inline-start: -14px;"
       >
         <svg cIcon name="cilMenu" size="lg"></svg>
@@ -49,19 +49,19 @@
     </c-container>
   </ng-container>
 }@else{
-  <ng-container>
+  <ng-container id="client">
     <c-container [fluid]="true" class="border-bottom px-4">
       <button
         [cSidebarToggle]="sidebarId"
         cHeaderToggler
         class="btn"
-        toggle="visible"
         style="margin-inline-start: -14px;"
+        class="menu-button"
       >
         <svg cIcon name="cilMenu" size="lg"></svg>
       </button>
       <c-header-nav class="d-none d-md-flex">
-        <c-nav-item>
+        <c-nav-item class="">
           <a cNavLink routerLink="/dashboard" routerLinkActive="active">Bienvenue sur la plateforme de l'art</a>
         </c-nav-item>
 
@@ -107,34 +107,7 @@
       />
     </button>
     <ul cDropdownMenu class="pt-0 w-auto">
-      <!-- <li>
-        <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2 rounded-top">
-          Account
-        </h6>
-      </li>
-      <li>
-        <a cDropdownItem routerLink="">
-          <svg cIcon class="me-2" name="cilBell"></svg>
-          Updates
-          <c-badge class="ms-2 float-end" color="info"> 42</c-badge>
-        </a>
-      </li>
-      <li>
-        <a cDropdownItem routerLink="/apps/email/inbox">
-          <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
-          Messages
-          <c-badge class="ms-2 float-end" color="success">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a cDropdownItem routerLink="">
-          <svg cIcon class="me-2" name="cilCommentSquare"></svg>
-          Comments
-          <c-badge class="ms-auto" color="warning"> 42</c-badge>
-        </a>
-      </li> -->
+
       <li>
         <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2">
           Settings

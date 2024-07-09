@@ -3,7 +3,7 @@
   class="d-print-none sidebar sidebar-fixed border-end"
   colorScheme="dark"
   id="sidebar1"
-  visible
+  visible="false"
 >
   <c-sidebar-header class="border-bottom">
     <c-sidebar-brand [routerLink]="[]">
@@ -36,10 +36,8 @@
                       position="sticky"
                       sidebarId="sidebar1" />
   <!--app-body-->
-  <div class="body flex-grow-1">
-    <c-container breakpoint="lg" class="h-auto px-4 position-relative">
-      <router-outlet />
-    </c-container>
+  <div class="body flex-grow-1 h-auto px-4 position-relative">
+    <router-outlet />
   </div>
   <!--app footer-->
   <app-default-footer />

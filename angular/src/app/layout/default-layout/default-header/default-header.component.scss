@@ -50,3 +50,13 @@
     display: inline;
   }
 }
+
+
+.menu-button{
+  // display: none;
+}
+@media (max-width: 900px){
+  .menu-button{
+    display: flex;
+  }
+}
