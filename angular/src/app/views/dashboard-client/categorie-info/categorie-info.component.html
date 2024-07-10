@@ -3,7 +3,7 @@
 <div class="">
   <div class="container-fluid">
     <div class="row">
-      @for (itemP of (images | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
+      @for (itemP of (data | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
         @for (item of photographes; track $index) {
           @if (itemP.photographeId == item.id) {
             <ng-container class="col-md-3 col-sm-6 mb-4 position-relative">
@@ -25,11 +25,8 @@
                 </div>
               </div>
             </ng-container>
-
           }
-
         }
-
       }
     </div>
 

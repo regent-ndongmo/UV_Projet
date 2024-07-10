@@ -116,16 +116,19 @@ export class ProfileComponent implements OnInit{
     formData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
+    if(confirm("Voulez vous appliquer ces modification ? ")){
+      this.service.changeProfile(this.photographe.user_id, formData).subscribe(
+        (response: any) => {
+          // console.log(response);
+          alert("Votre profil a ete mis a jour avec succes")
+          this.service.changeImage(this.imgURL);
+        },
+        (error: any) => {
+          console.error('Error:', error);
+        }
+      );
+    }
 
-    this.service.changeProfile(this.photographe.user_id, formData).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.service.changeImage(this.imgURL);
-      },
-      (error: any) => {
-        console.error('Error:', error);
-      }
-    );
   }
 
 }

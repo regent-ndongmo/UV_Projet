@@ -58,12 +58,15 @@ export class AuthService {
 
   // Méthode pour se déconnecter
   logout() {
-    this.changeState(false);
-    localStorage.removeItem('user');
-    // localStorage.removeItem('user_id');
-    localStorage.removeItem("headerVisible");
-    localStorage.removeItem('categorie_id')
-    this.router.navigate(['/dasboard'])
+    if(confirm("Voulez vous vous deconnecter de tout vos compte ? ")){
+      this.changeState(false);
+      localStorage.removeItem('user');
+      // localStorage.removeItem('user_id');
+      localStorage.removeItem("headerVisible");
+      localStorage.removeItem('categorie_id')
+      this.router.navigate(['/dasboard'])
+    }
+
   }
 
   //Profile
