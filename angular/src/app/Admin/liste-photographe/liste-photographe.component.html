@@ -1,53 +1,53 @@
 
-<div>
-  <div class="pt-5">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Email</th>
-                <th scope="col">numero</th>
-                <th scope="col">Pays</th>
-                <th scope="col">Photo</th>
-                <th scope="col">Siganature</th>
-                <th scope="col">role</th>
-                <th scope="col">Option</th>
-
-            </tr>
-        </thead>
-        <tbody>
-          @for (item of data; track $index) {
-            <tr>
-              <th scope="row">{{item.id}}</th>
-              <th scope="row">{{item.user.name}}</th>
-              <td>{{ item.user.email }}</td>
-              <td>{{ item.numero }}</td>
-              <td>{{ item.pays }}</td>
-              <td>{{ item.photo }}</td>
-              <td>{{ item.signature }}</td>
-              <td>
-                <select name="" id="">
-                  <option value="1">{{ item.user.role }}</option>
-                  @if (item.user.role == "photographe") {
-                    <option value="1">admin</option>
-                  }@else {
-                    <option value="1">photographe</option>
-                  }
-
-                </select>
-              </td>
-              <td>
-                <button>Appliquer</button>
-                <button>Annuler</button>
-              </td>
-            </tr>
-
-          }
-
-
-            <!-- Ajoutez plus de lignes ici -->
-        </tbody>
+  <div class="container table-container">
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Email</th>
+          <th scope="col">Numéro</th>
+          <th scope="col">Pays</th>
+          <th scope="col">Photo</th>
+          <th scope="col">Signature</th>
+          <th scope="col">Rôle</th>
+          <th scope="col">Status</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of data; track $index) {
+          <tr>
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.user.name }}</td>
+            <td>{{ item.user.email }}</td>
+            <td>{{ item.numero }}</td>
+            <td>{{ item.pays }}</td>
+            <td>
+              <img [src]="item.imgURL" alt="" class="img-thumbnail rounded-circle small-image">
+            </td>
+            <td>{{ item.signature }}</td>
+            <td>
+              <select [(ngModel)]="item.user.role" (change)="onRoleChange($event)" class="custom-select">
+                <option [value]="item.user.role">{{ item.user.role }}</option>
+                <option *ngIf="item.user.role === 'photographe'" value="admin">admin</option>
+                <option *ngIf="item.user.role !== 'photographe'" value="photographe">photographe</option>
+                <option value="bloquer">Bloquer</option>
+              </select>
+            </td>
+            <td>
+              @if (item.user.role == "photographe" || item.user.role == "admin") {
+                En activite
+              }@else {
+                Bloque
+              }
+            </td>
+            <td>
+              <button class="btn btn-apply" (click)="Appliquer(item.id, selectedRole)">Appliquer</button>
+              <button class="btn btn-cancel">Annuler</button>
+            </td>
+          </tr>
+        }
+      </tbody>
     </table>
-</div>
-</div>
+  </div>
