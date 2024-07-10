@@ -1,3 +1,4 @@
+<app-modal (closed)="onModalClosedPhoto()"></app-modal>
 @if (photographe) {
   <div class="">
     <main id="main">
@@ -44,26 +45,20 @@
         <div class="row my-5">
 
           @for (itemP of (images | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
-            <ng-container>
+            <ng-container class="col-md-3 col-sm-6 mb-4 position-relative">
               <div  class="col-3 mt-3">
-                <div class="card">
+                <div class="">
                   <div class="gallery">
-                    <div class="image-container">
-                      <img [src]="'data:image/png;base64,' + itemP.url" class="card-img-top" oncontextmenu="return false;" [alt]="itemP.title">
-                      <div class="watermark middle rotated"> {{ photographe.signature }}</div>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div class="card-body-title">
-                      <h5 class="card-title">{{ itemP.title }}</h5>
-                      <h5 class="card-title">{{ itemP.price }}Fcfa</h5>
-                    </div>
-                    <div class="card-footer">
-                      <button class="btn btn-danger" cButton>Acheter l'image</button>
-                      <div class="like-button" (click)="toggleLike(itemP)">
-                        <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
-                        <span class="like-count">{{ itemP.likes }}</span>
+                    <div class="image-container position-relative">
+                      <div class="icon-container ">
+                        <div class="like-button" (click)="toggleLike(itemP)">
+                          <i class="fas fa-heart" [class.liked]="itemP.isLiked"></i>
+                        </div>
+                        <i class="fas fa-ellipsis-v" (click)="openModalPhoto(itemP.id)"></i>
                       </div>
+
+                      <img (click)="openModalPhoto(itemP.id)" [src]="'data:image/png;base64,' + itemP.url" class="card-img-top img-fluid" oncontextmenu="return false;" [alt]="itemP.title">
+                      <div class="watermark middle rotated"> {{ itemP.signature }}</div>
                     </div>
                   </div>
                 </div>

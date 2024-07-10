@@ -6,15 +6,17 @@ import { CategorieService } from 'src/app/Photographe/service/Categorie/categori
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
 import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
 import { environment } from 'src/environments/environment.development';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-info-photographe',
   standalone: true,
-  imports: [NgxPaginationModule, FormsModule, ReactiveFormsModule],
+  imports: [NgxPaginationModule, FormsModule, ReactiveFormsModule, ModalComponent],
   templateUrl: './info-photographe.component.html',
   styleUrl: './info-photographe.component.scss'
 })
 export class InfoPhotographeComponent implements OnInit {
+  @ViewChild(ModalComponent) photoModal!: ModalComponent;
   @ViewChild('likeIcon', { static: true }) likeIconRef!: ElementRef<HTMLElement>;
 
   id: any;
@@ -73,6 +75,15 @@ export class InfoPhotographeComponent implements OnInit {
       console.log("Image : ", res)
       this.images = res;
     })
+  }
+
+  openModalPhoto(id: any) {
+    console.log("l'id de la photo est : ", id)
+    this.photoModal.openModal(id)
+
+  }
+  onModalClosedPhoto() {
+    console.log('La modale a été fermée');
   }
 
   openModal() {
