@@ -12,8 +12,10 @@ use Illuminate\Support\Facades\Validator;
 class PhotographeController extends Controller
 {
     public function index(){
-        return Photographe::all();
+        // return Photographe::all();
+        return response()->json(Photographe::with(["user"])->get());
     }
+
 
     // POST function to create a new photographe
     //Creation d'un photographe

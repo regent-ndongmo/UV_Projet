@@ -129,3 +129,7 @@ Route::prefix('contact')->group(function () {
     Route::put('/{contact}', [CommentaireController::class, 'update']);
     Route::delete('/{contact}', [CommentaireController::class, 'destroy']);
 });
+
+
+// Routes pour les users
+Route::get('/photographes', [PhotographeController::class, 'index']);

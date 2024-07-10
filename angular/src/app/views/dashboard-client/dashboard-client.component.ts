@@ -100,9 +100,9 @@ export class DashboardClientComponent implements OnInit {
 
 
   decrementLikes(image: any) {
-    // this.servicePhoto.decrementLikes(image.id).subscribe(res => {
-    //   image.likes--;
-    // });
+    this.servicePhoto.decrementeLikes(image.id).subscribe(res => {
+      image.likes--;
+    });
   }
 
   animateLike(id: number) {

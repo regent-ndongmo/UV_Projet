@@ -1,7 +1,41 @@
-.no-container{
-  padding: 0;
-  margin: 0;
+//////
+///
+.content{
+  background-color: rgb(0, 0, 0);
+
 }
+.navbar1{
+  color:white;
+}
+.section-div{
+color: blue;
+}
+.p1{
+  font-size: 50px;
+  margin-top: 80px;
+}
+.form-control1{
+  align-items: center;
+ width: 800px;
+ margin-left: 300px;
+}
+
+.img-list:hover{
+  box-shadow: 0px 2px 2px 1px;
+  color: rgb(48, 7, 7);
+  margin-bottom: 5px;
+}
+.categorie:hover{
+  box-shadow: 0px 1px 1px 1px;
+  color: rgb(49, 45, 97);
+  padding-bottom: 10px;
+
+}
+
+
+
+
+////
 
 .navBar-container{
   display: flex;
@@ -52,3 +86,4 @@
 .categorie_item{
   color: red;
 }
+

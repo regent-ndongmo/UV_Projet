@@ -1,3 +1,4 @@
+import { ListePhotographeComponent } from './Admin/liste-photographe/liste-photographe.component';
 import { CategorieInfoComponent } from './views/dashboard-client/categorie-info/categorie-info.component';
 import { LayoutComponent } from './views/dashboard-client/layout/layout.component';
 import { InfoPhotographeComponent } from './views/dashboard-client/info-photographe/info-photographe.component';
@@ -68,7 +69,8 @@ export const routes: Routes = [
       },
       {
         path: 'messages',
-        loadChildren: () => import('./views/charts/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/charts/routes').then((m) => m.routes),
+        canActivate: [authGuardGuard],
       },
       {
         path: 'register',
@@ -129,6 +131,11 @@ export const routes: Routes = [
       {
         path: 'admin',
         component: DashboardComponent,
+        canActivate: [adminGuardGuard],
+      },
+      {
+        path: 'listePhotographe',
+        component: ListePhotographeComponent,
         canActivate: [adminGuardGuard],
       }
     ]

@@ -153,7 +153,7 @@ export class NavService {
 
         {
           name: 'Liste des photoghaphes',
-          url: '/base/cards',
+          url: '/listePhotographe',
           icon: 'nav-icon-bullet'
         },
         {
@@ -209,15 +209,6 @@ export class NavService {
       }
     },
     {
-      name: 'Messages',
-      url: '/messages',
-      iconComponent: { name: 'cilEnvelopeOpen' },
-      badge: {
-        color: 'info',
-        text: 'NEW'
-      }
-    },
-    {
       name: 'login',
       url: '/login',
       iconComponent: { name: 'cil-user' },
@@ -245,7 +236,7 @@ export class NavService {
     switch (role) {
       case 'photographe':
         return this.photographerItems;
-      case 'Admin':
+      case 'admin':
         return this.adminItems;
       case 'superAdmin':
         return this.superAdminItems;

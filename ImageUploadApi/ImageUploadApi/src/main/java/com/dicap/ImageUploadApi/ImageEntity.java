@@ -13,8 +13,8 @@ import org.hibernate.annotations.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "photos")
-@SQLDelete(sql = "UPDATE photos SET deleted = true WHERE id=?")
+@Table(name = "photo")
+@SQLDelete(sql = "UPDATE photo SET deleted = true WHERE id=?")
 
 @FilterDef(
         name = "deleteImageFilter",

@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthentificationController extends Controller
 {
+    public function index(){
+        $user = User::all();
+        return response()->json([$user], 200);
+    }
     public function login(Request $request)
     {
         // return "Login";

@@ -29,6 +29,10 @@ export class ImageService {
     return this.http.patch<Photo>(`${this.apiUrl}/${id}/like`, {});
   }
 
+  decrementeLikes(id: number): Observable<Photo> {
+    return this.http.patch<Photo>(`${this.apiUrl}/${id}/unlike`, {});
+  }
+
   getImage(id: number): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/${id}`, { responseType: 'blob' });
   }

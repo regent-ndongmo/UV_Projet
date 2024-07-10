@@ -1,15 +1,36 @@
-<div class="no-container">
-  <div class="row" id="div2">
-    <nav class="navbar navbar-expand-lg">
-      <div class="navBar-container">
-        @for (item of categories; track $index) {
-          <ng-container>
-            <a class="btn btn-link mx-2" (click)="openCategorie(item.categorie)">#{{ item.categorie }}</a>
-          </ng-container>
-        }
-      </div>
-    </nav>
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col">
+      <p class="text-center pt-5 text-light p1">
+        Bienvenue sur notre site!
+      </p>
+        <form class="d-flex py-5 " role="search">
+          <input class="form-control me-2 form-control1 rounded-5" type="search" placeholder="Rechercher des images" aria-label="Search">
+          <button class="btn btn-outline-success rounded-5" type="submit">Search <i class="fa f"></i></button>
+        </form>
+
+    </div>
   </div>
+  <section class="section1">
+    <div class="container-fluid section-div">
+        <div class="row pt-5">
+      <div class="col">
+          <nav class="navbar navbar-expand-lg">
+              <div class="collapse navbar-collapse text-center" id="navbarNav">
+                <ul class="navbar-nav  ">
+                  @for (item of categories; track $index) {
+                    <li class="nav-item">
+                      <a class=" btn nav-link mx-1 text-dark categorie" (click)="openCategorie(item.categorie)">#{{ item.categorie }}</a>
+                    </li>
+                  }
+
+                </ul>
+              </div>
+          </nav>
+      </div>
+  </div>
+    </div>
+  </section>
 
   <router-outlet></router-outlet>
 
