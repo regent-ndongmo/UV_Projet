@@ -50,19 +50,21 @@
   </ng-container>
 }@else{
   <ng-container id="client">
-    <c-container [fluid]="true" class="border-bottom px-4">
+    <c-container [fluid]="true" class="border-bottom">
       <button
         [cSidebarToggle]="sidebarId"
         cHeaderToggler
-        class="btn"
-        style="margin-inline-start: -14px;"
+        style="margin-inline-start: 0px;"
         class="menu-button"
       >
         <svg cIcon name="cilMenu" size="lg"></svg>
       </button>
       <c-header-nav class="d-none d-md-flex">
-        <c-nav-item class="">
-          <a cNavLink routerLink="/dashboard" routerLinkActive="active">Bienvenue sur la plateforme de l'art</a>
+        <c-nav-item class="Nav-left navbar navbar-expand-md ">
+          <a cNavLink routerLink="/dashboard" routerLinkActive="active"><img class="logo" src="assets/logo.jpeg" alt=""></a>
+          <div class="col">
+            <a class="btn btn-outline-success col" [routerLink]="['/dashboard']">Accueil</a>
+          </div>
         </c-nav-item>
 
 

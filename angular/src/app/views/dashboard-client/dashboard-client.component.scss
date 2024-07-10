@@ -13,15 +13,6 @@
   height: 15rem;
   object-fit: cover;
 }
-.card-footer{
-  display: flex;
-  justify-content: space-between;
-}
-
-.card-body-title{
-  display: flex;
-  justify-content: space-between;
-}
 
 
 //Like
@@ -55,6 +46,7 @@
 
 ////////////
 
+
 .content{
   background-color: rgb(0, 0, 0);
 
@@ -74,28 +66,15 @@ color: blue;
  width: 800px;
  margin-left: 300px;
 }
-/*.img1{
-  position: relative;
-  top: -80px;
-  height: 350px;
-  width: auto;
-}*/
-.img-list:hover{
-  box-shadow: 0px 2px 2px 1px;
-  color: rgb(48, 7, 7);
-  margin-bottom: 5px;
-}
-.categorie:hover{
-  box-shadow: 0px 1px 1px 1px;
-  color: rgb(49, 45, 97);
-  padding-bottom: 10px;
-
+.form-control2{
+  align-items: center;
+ width: 800px;
+ margin-left: 300px;
 }
 
 
 
 
-//filigrane
 .image-container {
   position: relative;
 }
@@ -122,3 +101,56 @@ color: blue;
   transform: translate(-50%, -50%) rotate(-15deg);
 }
 
+
+/* styles.css */
+body {
+  background-color: #f8f9fa;
+}
+
+.container-fluid {
+  margin-top: 30px;
+  padding: 0;
+}
+
+.img-fluid {
+  border-radius: 0;
+  transition: transform 0.2s;
+  display: block;
+  width: 100%;
+}
+
+.img-fluid:hover {
+  transform: scale(1.05);
+}
+
+.position-relative {
+  position: relative;
+}
+
+.icon-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.icon-container i {
+  color: rgb(100, 34, 34);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.icon-container i:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.position-relative:hover .icon-container {
+  opacity: 4;
+  z-index: 1;
+}

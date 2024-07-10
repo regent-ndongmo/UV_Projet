@@ -80,7 +80,7 @@ export class NavService {
   private adminItems: INavData[] = [
     {
       name: 'Accueil',
-      url: '/photographe',
+      url: '/admin',
       iconComponent: { name: 'cil-home' },
       badge: {
         color: 'info',
@@ -146,23 +146,32 @@ export class NavService {
 
     },
     {
-      name: 'Photographes',
-      url: '/base',
-      iconComponent: { name: 'cil-puzzle' },
-      children: [
-
-        {
-          name: 'Liste des photoghaphes',
-          url: '/listePhotographe',
-          icon: 'nav-icon-bullet'
-        },
-        {
-          name: 'Liste de client',
-          url: '/base/tables',
-          icon: 'nav-icon-bullet'
-        },
-      ]
+      name: 'Photoghaphes',
+      url: '/listePhotographe',
+      iconComponent: { name: 'cil-list' },
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
     },
+    // {
+    //   name: 'Photographes',
+    //   url: '/base',
+    //   iconComponent: { name: 'cil-puzzle' },
+    //   children: [
+
+    //     {
+    //       name: 'Liste des photoghaphes',
+    //       url: '/listePhotographe',
+    //       icon: 'nav-icon-bullet'
+    //     },
+    //     {
+    //       name: 'Liste de client',
+    //       url: '/base/tables',
+    //       icon: 'nav-icon-bullet'
+    //     },
+    //   ]
+    // },
 
 
   ];

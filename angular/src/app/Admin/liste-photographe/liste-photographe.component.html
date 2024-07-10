@@ -1,30 +1,46 @@
 
 <div>
-  <div class="container pt-5">
+  <div class="pt-5">
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nom Client</th>
-                <th scope="col">Status</th>
-                <th scope="col">Contrat</th>
-                <th scope="col">Date</th>
-                <th scope="col">Lieu</th>
-                <th scope="col">Heure Debut</th>
-                <th scope="col">Heure Fin</th>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">numero</th>
+                <th scope="col">Pays</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Siganature</th>
+                <th scope="col">role</th>
+                <th scope="col">Option</th>
+
             </tr>
         </thead>
         <tbody>
           @for (item of data; track $index) {
             <tr>
               <th scope="row">{{item.id}}</th>
-              <td>{{ item.nom_client }}</td>
-              <td>{{ item.status }}</td>
-              <td>{{ item.contrat.libelle }}</td>
-              <td>{{ item.date }}</td>
-              <td>{{ item.lieux }}</td>
-              <td>{{ item.heure_debut }}</td>
-              <td>{{ item.heure_fin }}</td>
+              <th scope="row">{{item.user.name}}</th>
+              <td>{{ item.user.email }}</td>
+              <td>{{ item.numero }}</td>
+              <td>{{ item.pays }}</td>
+              <td>{{ item.photo }}</td>
+              <td>{{ item.signature }}</td>
+              <td>
+                <select name="" id="">
+                  <option value="1">{{ item.user.role }}</option>
+                  @if (item.user.role == "photographe") {
+                    <option value="1">admin</option>
+                  }@else {
+                    <option value="1">photographe</option>
+                  }
+
+                </select>
+              </td>
+              <td>
+                <button>Appliquer</button>
+                <button>Annuler</button>
+              </td>
             </tr>
 
           }

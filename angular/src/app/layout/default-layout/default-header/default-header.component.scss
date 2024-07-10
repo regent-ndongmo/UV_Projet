@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
+.Nav-left{
+  display: flex;
+}
+
 .search-container {
   display: flex;
   justify-content: center;
@@ -56,10 +60,22 @@
   color: #142727;
 }
 .menu-button{
-  // display: none;
+  display: none;
+}
+
+.logo{
+  height: 50px;
 }
 @media (max-width: 900px){
   .menu-button{
     display: flex;
   }
+  .logo{
+   display: none;
+  }
+}
+
+.btn_menu{
+  display: none;
+  // opacity: 0;
 }
