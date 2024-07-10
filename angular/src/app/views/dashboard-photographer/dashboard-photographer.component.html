@@ -8,8 +8,47 @@
   </div>
 </div>
 
+<div class="pt-4 pb-5">
+  <div class="container-fluid">
+    <div class="row">
+      @for (item of (data | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
+        <ng-container class="col-md-3 col-sm-6 mb-4 position-relative" routerLinkActive="router-link-active" >
+          <div  class="col-3 mt-3">
+            <div class="">
+              <div class="gallery">
+                <div class="image-container position-relative">
 
-<div class="picture">
+                  <img [src]="'data:image/png;base64,' + item.url" class="card-img-top img-fluid" oncontextmenu="return false;" [alt]="item.title">
+                  <div class="watermark middle rotated"> {{ item.signature }}</div>
+                  <div class="card-body">
+                    <div class="card-body-left">
+                      <h5 class="card-title">{{ item.title }}</h5>
+                      <span class="card-text">{{ item.price }} Fcfa</span>
+                      <span class="card-text">{{ item.description }}</span>
+                    </div>
+                    <div>
+                      <div><i class="fas fa-pencil btn mb-2" (click)="updateImage(item.id)"></i></div>
+                      <div><i class="fas fa-trash btn btn-dark" (click)="deleteImage(item.id)"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      }
+      @empty {
+        <div class="picture-card">Vos photos s'afficherons ici</div>
+      }
+    </div>
+  </div>
+</div>
+
+<pagination-controls id="my-pagination-id" (pageChange)="page = $event"></pagination-controls>
+
+
+
+<!-- <div class="picture">
   @for (item of data; track $index) {
     <div class="picture-card">
       <div class="card" style="width: 25rem;">
@@ -31,7 +70,7 @@
   @empty {
     <div class="picture-card">Vos photos s'afficherons ici</div>
   }
-</div>
+</div> -->
 
 
 <br><br><br><br><br><br><br>

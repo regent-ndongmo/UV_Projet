@@ -1,77 +1,16 @@
-.navBar-container{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
-.btn-link{
-  text-decoration: none;
-  border: 1px solid #f2f2f2;
-}
-
-.card-img-top{
-  height: 15rem;
+.img-fluid{
+  height: 25rem;
   object-fit: cover;
-}
-
-
-//Like
-.like-button {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.like-button .fa-heart {
-  font-size: 24px;
-  color: #ccc;
-  transition: color 0.3s, transform 0.3s;
-}
-
-.like-button .fa-heart.liked {
-  color: #ff0000;
-  transform: scale(1.2);
-}
-
-.like-button .like-count {
-  margin-left: 5px;
-  font-size: 16px;
-}
-
-//
-.categorie_item{
-  color: red;
-}
-
-
-////////////
-
-
-.content{
-  background-color: rgb(0, 0, 0);
 
 }
-.navbar1{
-  color:white;
-}
-.section-div{
-color: blue;
-}
-.p1{
-  font-size: 50px;
-  margin-top: 80px;
-}
-.form-control1{
-  align-items: center;
- width: 800px;
- margin-left: 300px;
-}
-.form-control2{
-  align-items: center;
- width: 800px;
- margin-left: 300px;
-}
+.card-footer{
+  text-align: center;
+  // align-items: center;
+  // justify-content: center;
+  // justify-self: center;
+  background-color: #f2f5f4;
 
+}
 
 //
 
@@ -154,3 +93,4 @@ body {
   opacity: 4;
   z-index: 1;
 }
+

@@ -1,3 +1,4 @@
+import { PhotographeListComponent } from './views/dashboard-client/photographe-list/photographe-list.component';
 import { ListePhotographeComponent } from './Admin/liste-photographe/liste-photographe.component';
 import { CategorieInfoComponent } from './views/dashboard-client/categorie-info/categorie-info.component';
 import { LayoutComponent } from './views/dashboard-client/layout/layout.component';
@@ -43,6 +44,10 @@ export const routes: Routes = [
             data: {
               title: 'categorie'
             }
+          },
+          {
+            path: 'listPhotographe',
+            component: PhotographeListComponent
           },
         ]
       },

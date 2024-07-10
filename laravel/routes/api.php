@@ -133,3 +133,5 @@ Route::prefix('contact')->group(function () {
 
 // Routes pour les users
 Route::get('/photographes', [PhotographeController::class, 'index']);
+Route::post('/photographes/modifyRole', [AuthentificationController::class, 'updateUserRole']);
+

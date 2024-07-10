@@ -32,7 +32,7 @@
                 <option [value]="item.user.role">{{ item.user.role }}</option>
                 <option *ngIf="item.user.role === 'photographe'" value="admin">admin</option>
                 <option *ngIf="item.user.role !== 'photographe'" value="photographe">photographe</option>
-                <option value="bloquer">Bloquer</option>
+                <option value="bloquer">bloquer</option>
               </select>
             </td>
             <td>
@@ -43,7 +43,7 @@
               }
             </td>
             <td>
-              <button class="btn btn-apply" (click)="Appliquer(item.id, selectedRole)">Appliquer</button>
+              <button class="btn btn-apply" (click)="Appliquer(item.id, photo.newRole)">Appliquer</button>
               <button class="btn btn-cancel">Annuler</button>
             </td>
           </tr>

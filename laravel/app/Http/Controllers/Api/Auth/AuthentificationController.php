@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AuthentificationController extends Controller
 {
@@ -13,6 +14,38 @@ class AuthentificationController extends Controller
         $user = User::all();
         return response()->json([$user], 200);
     }
+
+    public function updateUserRole(Request $request)
+    {
+        $userId = $request->input('userId');
+        $newRole = $request->input('newRole');
+
+        // Valider les entrées
+        $validator = Validator::make(
+            ['userId' => $userId, 'newRole' => $newRole],
+            [
+                'userId' => 'required|integer|exists:users,id',
+                'newRole' => 'string|in:admin,photographe,bloquer', // Adapté aux rôles disponibles
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        try {
+            $user = User::findOrFail($userId);
+            $user->role = $newRole;
+            $user->save();
+
+            return response()->json(['message' => 'User role updated successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to update user role', 'details' => $e->getMessage()], 500);
+        }
+    }
+
+
+
     public function login(Request $request)
     {
         // return "Login";

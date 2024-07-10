@@ -14,4 +14,8 @@ export class GestionPhotographeService {
   getAllUser(){
     return this.httpClient.get<any>(`${this.apiUrl}`);
   }
+
+  modifyRole(data: any){
+    return this.httpClient.post<any>(`${this.apiUrl}/modifyRole`, data);
+  }
 }

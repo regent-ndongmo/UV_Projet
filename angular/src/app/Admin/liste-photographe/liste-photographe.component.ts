@@ -5,7 +5,8 @@ import { environment } from 'src/environments/environment.development';
 import { CommonModule } from '@angular/common';
 
 class Photo {
-  photographeRole: any
+  userId: any
+  newRole: any
 }
 @Component({
   selector: 'app-liste-photographe',
@@ -43,11 +44,17 @@ export class ListePhotographeComponent implements OnInit{
   onRoleChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.selectedRole = selectElement.options[selectElement.selectedIndex].text;
+    this.photo.newRole = selectElement.options[selectElement.selectedIndex].text;
     console.log(this.selectedRole);
   }
 
   Appliquer(id: any, role: any){
-    console.log(id , role)
+    this.photo.userId = id
+    this.photo.newRole = role
+    console.log(this.photo)
+    this.servicePhotographe.modifyRole(this.photo).subscribe(res=>{
+      console.log(res)
+    })
   }
 
 }

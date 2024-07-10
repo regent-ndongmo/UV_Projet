@@ -1,13 +1,14 @@
 import { PictureModalComponent } from './../../Photographe/picture-modal/picture-modal.component';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthService } from 'src/app/Auth/service/auth.service';
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
 
 @Component({
   selector: 'app-dashboard-photographer',
   standalone: true,
-  imports: [RouterModule, PictureModalComponent],
+  imports: [RouterModule, PictureModalComponent, NgxPaginationModule],
   templateUrl: './dashboard-photographer.component.html',
   styleUrl: './dashboard-photographer.component.scss'
 })
@@ -17,11 +18,14 @@ export class DashboardPhotographerComponent implements OnInit{
 
   constructor(private service: AuthService, private router: Router, private service1 : ImageService){}
 
+  page: number = 1;
+  pageSize: number = 8
+  data : any;
+
   isAuthenticated: boolean = true;
   @Input() title!: string;
   isVisible = false;
   photographer_id : any;
-  data: any
   ngOnInit(): void {
     this.photographer_id = localStorage.getItem("user_id")
     console.log("l'Id du photographe connecte est: ", this.photographer_id)
