@@ -64,7 +64,7 @@ export class AuthService {
       // localStorage.removeItem('user_id');
       localStorage.removeItem("headerVisible");
       localStorage.removeItem('categorie_id')
-      this.router.navigate(['/dasboard'])
+      this.router.navigate(['/dashboard'])
     }
 
   }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Avoir;
@@ -82,3 +83,5 @@ Route::get('/avoir', function(){
     return Avoir::paginate(10);
 });
 
+Route::get("message", [MessageController::class,'formMessageGoogle']);
+Route::post("message", [MessageController::class,'sendMessageGoogle'])->name('send.message.google');

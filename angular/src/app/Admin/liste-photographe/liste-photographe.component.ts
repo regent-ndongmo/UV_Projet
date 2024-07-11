@@ -52,9 +52,13 @@ export class ListePhotographeComponent implements OnInit{
     this.photo.userId = id
     this.photo.newRole = role
     console.log(this.photo)
-    this.servicePhotographe.modifyRole(this.photo).subscribe(res=>{
-      console.log(res)
-    })
+
+    if(confirm("Voulez vous modifier le role de cet utilisateur ? ")){
+      this.servicePhotographe.modifyRole(this.photo).subscribe(res=>{
+        console.log(res)
+        alert("Role applique avec succes")
+      })
+    }
   }
 
 }

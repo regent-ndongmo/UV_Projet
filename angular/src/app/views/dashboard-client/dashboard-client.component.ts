@@ -25,7 +25,7 @@ export class DashboardClientComponent implements OnInit {
   categories : any;
   images: any;
   photographes : any;
-  pageSize: number = 8
+  pageSize: number = 12
 
   constructor(private servicePhotographe:  PhotographeService, private serviceCategorie: CategorieService, private servicePhoto: ImageService){}
 
