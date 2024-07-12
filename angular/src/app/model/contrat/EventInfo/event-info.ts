@@ -5,6 +5,5 @@ export class EventInfo {
   status: any;
   photographe_id: any;
   contrat_id: any;
-  nom_client: any;
   lieux: any;
 }

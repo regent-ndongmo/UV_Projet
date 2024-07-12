@@ -112,9 +112,9 @@ export const routes: Routes = [
       {
         path: 'corbeille',
         component: CorbeilleComponent,
-        canActivate: [authGuardGuard],
+        canActivate: [adminGuardGuard],
         data: {
-          title: 'Galerie'
+          title: 'Corbeille'
         }
       },
       {

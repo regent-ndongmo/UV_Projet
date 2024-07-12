@@ -22,11 +22,12 @@ class ContratController extends Controller
                 'libelle' => 'required|string',
                 'montant' => 'required|numeric',
                 'date' => 'required|date',
+                'nom_client' => 'required|string',
                 'photographe_id' => 'required|exists:photographes,id',
                 'status_paiement' => 'required|string',
             ]);
 
-
+            // return $request->all();
             $contrat = Contrat::create($request->all());
 
             return response()->json([
@@ -73,6 +74,7 @@ class ContratController extends Controller
                 'libelle' => 'required|string',
                 'montant' => 'required|numeric',
                 'date' => 'required|date',
+                'nom_client' => 'required|string',
                 'photographe_id' => 'required|exists:photographes,id',
                 'status_paiement' => 'required|string',
             ]);

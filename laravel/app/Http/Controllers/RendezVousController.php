@@ -26,7 +26,6 @@ class RendezVousController extends Controller
                 'status' => 'required|string',
                 'photographe_id' => 'required|exists:photographes,id',
                 'contrat_id' => 'required|exists:contrats,id',
-                'nom_client' => 'required|string',
                 'lieux' => 'required|string',
             ]);
 
@@ -82,7 +81,6 @@ class RendezVousController extends Controller
                 'status' => 'required|string',
                 'photographe_id' => 'required|exists:photographes,id',
                 'contrat_id' => 'required|exists:contrats,id',
-                'nom_client' => 'required|string',
                 'lieux' => 'required|string',
             ]);
 

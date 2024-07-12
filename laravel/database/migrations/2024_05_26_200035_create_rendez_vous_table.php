@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId("photographe_id")->constrained("photographes");
             $table->foreignId("contrat_id")->constrained("contrats");
             $table->date("date");
-            $table->string("nom_client");
             $table->time("heure_debut");
             $table->time("heure_fin");
             $table->string("lieux");

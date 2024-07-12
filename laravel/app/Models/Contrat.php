@@ -13,6 +13,7 @@ class Contrat extends Model
         'libelle',
         'montant',
         'date',
+        'nom_client',
         'status_paiement',
         'photographe_id',
     ];

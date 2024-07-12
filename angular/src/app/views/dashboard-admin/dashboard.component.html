@@ -1,19 +1,73 @@
+<app-picture-modal app-galerie-modal [title]="'Publier une nouvelle photo'" (closed)="onModalClosed()"></app-picture-modal>
 
-<h2 class="title">Voici les differents commentaires au fonctionnement du site</h2>
-<main class="container">
-@for (item of image; track $index){
-  <div class="context">
-    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-       Veniam, recusandae ipsa? Nobis, aut praesentium voluptatem repellat,
-       labore autem dignissimos mollitia
-       sit cumque totam inventore aliquid commodi accusamus tenetur suscipit asperiores.</div>
-    <div class="card-footer">
-      <span><button class="btn btn-primary">Supprimer <i class="fas fa-trash"></i></button></span>
+
+<div class="btn-new-picture position-absolute top-5">
+  <div class="btn btn-primary new-picture" (click)="openModalPicture()">
+    <i class="fas fa-plus fa-2x"></i>
+    <!-- <span class="picture-text">Nouvelle publication</span> -->
+  </div>
+</div>
+
+<div class="pt-4 pb-5">
+  <div class="container-fluid">
+    <div class="row">
+      @for (item of (data | paginate: { itemsPerPage: pageSize, currentPage: page, id: 'my-pagination-id' }); track $index) {
+        <ng-container hidden class="col-md-3 col-sm-6 mb-4 position-relative" routerLinkActive="router-link-active" >
+          <div  class="col-3 mt-3">
+            <div class="">
+              <div class="gallery">
+                <div class="image-container position-relative">
+
+                  <img [src]="'data:image/png;base64,' + item.url" class="card-img-top img-fluid" oncontextmenu="return false;" [alt]="item.title">
+                  <div class="watermark middle rotated"> {{ item.signature }}</div>
+                  <div class="card-body">
+                    <div class="card-body-left">
+                      <h5 class="card-title">{{ item.title }}</h5>
+                      <span class="card-text">{{ item.price }} Fcfa</span><br>
+                      <span class="card-text">{{ item.description }}</span>
+                    </div>
+                    <div>
+                      <div><i class="fas fa-pencil btn mb-2" (click)="updateImage(item.id)"></i></div>
+                      <div><i class="fas fa-trash btn btn-dark" (click)="deleteImage(item.id)"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      }
+      @empty {
+        <div class="picture-card">Vos photos s'afficherons ici</div>
+      }
     </div>
   </div>
+</div>
 
-}@empty {
-  <a>Aucune photo</a>
-}
-</main>
+<pagination-controls id="my-pagination-id" (pageChange)="page = $event"></pagination-controls>
 
+
+
+<!-- <div class="picture">
+  @for (item of data; track $index) {
+    <div class="picture-card">
+      <div class="card" style="width: 25rem;">
+        <img class="card-img-top" [src]="'data:image/png;base64,' + item.url" alt="Card image cap">
+        <div class="card-body">
+          <div class="card-body-left">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <span class="card-text">{{ item.price }} Fcfa</span>
+            <span class="card-text">{{ item.description }}</span>
+          </div>
+          <div>
+            <div><i class="fas fa-pencil btn btn-info mb-2" (click)="updateImage(item.id)"></i></div>
+            <div><i class="fas fa-trash btn btn-dark" (click)="deleteImage(item.id)"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  @empty {
+    <div class="picture-card">Vos photos s'afficherons ici</div>
+  }
+</div> -->

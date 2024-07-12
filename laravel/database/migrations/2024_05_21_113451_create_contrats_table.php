@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId("photographe_id")->constrained("photographes");
             $table->double("montant");
             $table->date("date");
+            $table->string("nom_client");
             $table->string("status_paiement");
             $table->timestamps();
         });

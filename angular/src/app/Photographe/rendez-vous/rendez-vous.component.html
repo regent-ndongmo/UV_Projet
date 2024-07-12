@@ -26,7 +26,7 @@
           @for (item of data; track $index) {
             <tr>
               <th scope="row">{{item.id}}</th>
-              <td>{{ item.nom_client }}</td>
+              <td>{{ item.contrat.nom_client }}</td>
               <td>{{ item.status }}</td>
               <td>{{ item.contrat.libelle }}</td>
               <td>{{ item.date }}</td>

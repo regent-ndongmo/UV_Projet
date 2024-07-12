@@ -1,34 +1,128 @@
-:host {
-  .legend {
-    small {
-      font-size: x-small;
+.picture-container{
+  display: flex;
+  position: absolute;
+  right: 10%;
+  .new-picture{
+    display: flex;
+
+    .picture-text{
+      margin: 3px 2px 0 8px;
     }
   }
 }
 
-.header{
-  // text-align: right;
-  justify-content: left;
-  span{
-    margin: 0 10px 0 10px;
+.modall {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modall-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+.modall-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+
+.close-button {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modall-body {
+  padding: 1rem 0;
+  .input{
+    padding: 5%;
+    font-size: 1.3rem;
   }
-
 }
 
-.title{
-  margin: 10px;
-  text-align: center;
+.modall-footer {
+  border-top: 1px solid #e9ecef;
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
-main{
-  display: grid;
-  grid-template-columns: auto auto auto;
-  .context{
-    margin: 30px;
+.button-modall {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.button-modall:hover {
+  background-color: #0056b3;
+}
+
+
+.image-container {
+  position: relative;
+  &:hover{
+    border: 1px solid #000;
   }
 }
 
-.card-footer{
-  display: grid;
-  grid-template-columns: auto auto auto auto;
+.watermark.rotated {
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+
+/* styles.css */
+body {
+  background-color: #f8f9fa;
+}
+
+.container-fluid {
+  margin-top: 30px;
+  padding: 0;
+
+}
+
+.img-fluid {
+  border-radius: 0;
+  transition: transform 0.2s;
+  display: block;
+  width: 100%;
+}
+
+.position-relative {
+  position: relative;
+}
+
+
+.card-body{
+  background-color: #f2f5f4;
+  display: flex;
+  justify-content: space-between;
+
+}
+.card-img-top{
+  height: 15rem;
+  object-fit: cover;
 }
