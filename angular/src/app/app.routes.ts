@@ -1,3 +1,4 @@
+import { VerificationCodeComponent } from './Auth/register/verification-code/verification-code.component';
 import { PhotographeListComponent } from './views/dashboard-client/photographe-list/photographe-list.component';
 import { ListePhotographeComponent } from './Admin/liste-photographe/liste-photographe.component';
 import { CategorieInfoComponent } from './views/dashboard-client/categorie-info/categorie-info.component';
@@ -85,6 +86,11 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent
       },
+      {
+        path: 'verified_code',
+        component: VerificationCodeComponent
+      },
+
       {
         path: 'profile',
         component: ProfileComponent,

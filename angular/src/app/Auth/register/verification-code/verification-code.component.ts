@@ -1,46 +1,57 @@
-import { Cprofile } from './../../model/photographe/cprofile';
-import { Router } from '@angular/router';
-import { AuthService } from '../service/auth.service';
-import { Register } from './../../model/register';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../service/auth.service';
+import { Cprofile } from 'src/app/model/photographe/cprofile';
+import { Router, RouterModule } from '@angular/router';
 
+class Code{
+  verification_code: any;
+}
 @Component({
-  selector: 'app-register',
+  selector: 'app-verification-code',
   standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
+  templateUrl: './verification-code.component.html',
+  styleUrl: './verification-code.component.scss'
 })
-export class RegisterComponent implements OnInit {
+export class VerificationCodeComponent {
 
-  errors = new Register
-  register = new Register
+  code = new Code()
+  errors = new Code()
 
-  @Input() user_id: number | undefined;
+  verificationForm: FormGroup;
 
-  constructor(private service: AuthService, private router: Router){
-  }
-  onSubmit(){
-    console.log(this.register)
-    console.log(this.user_id);
-
-    this.service.register(this.register).subscribe((res: any) => {
-      console.log(res);
-      this.user_id = res.id;
-      this.photographe.user_id = this.user_id;
-      // this.changeProfile();  
-
-      this.router.navigate(['/verified_code']);
-
-    },
-    (err)=>{
-      this.errors = err.error.errors;
-
+  constructor(private fb: FormBuilder, private service1: AuthService, private service: AuthService, private router: Router) {
+    this.verificationForm = this.fb.group({
+      code: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
     });
+  }
 
-  };
+  onSubmit() {
+    if (this.verificationForm.valid) {
+      const code = this.verificationForm.get('code')?.value;
+      console.log('Verification code entered:', code);
+      this.code.verification_code= code
+      this.service1.verify(this.code).subscribe(res => {
+        console.log("Verification avec succes.")
+        // if(res.me)
+        this.changeProfile();
+        this.router.navigate(['/login'])
+      }),
+      ((err: any) =>{
+        this.errors = err.error.errors;
+
+      });
+
+      // Add your verification logic here
+    }
+  }
+
+
+  //
+
+  // @Input() user_id: number | undefined;
 
 
 
@@ -62,6 +73,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.imgURL = this.defaultImageUrl;
     this.photographe.photo = this.defaultImageUrl;
+    this.photographe.user_id = localStorage.getItem("user_id")
   }
   triggerFileInput(): void {
     this.fileInput.nativeElement.click();
@@ -92,6 +104,7 @@ export class RegisterComponent implements OnInit {
   changeProfile(): void {
     console.log(this.file);
     console.log(this.file?.name);
+    console.log(this.photographe.user_id);
     console.log(this.photographe);
 
     const formData = new FormData();

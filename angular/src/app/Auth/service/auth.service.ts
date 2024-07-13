@@ -44,6 +44,10 @@ export class AuthService {
   register(data: Register) {
     return this.httpClient.post(`${this.apiUrl}/register`, data);
   }
+  //
+  verify(data: any) {
+    return this.httpClient.post(`${this.apiUrl}/verify`, data);
+  }
 
   // Méthode pour vérifier si l'utilisateur est authentifié
   isAuthenticated(): boolean {
