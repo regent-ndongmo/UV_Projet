@@ -8,6 +8,23 @@ import { PhotographeService } from 'src/app/Photographe/service/photographe.serv
 import { environment } from 'src/environments/environment.development';
 import { ModalComponent } from '../modal/modal.component';
 
+// class Commentaire{
+//   photographe_id: any;
+//   nom_client : any;
+//   ville_client: any;
+//   description: any;
+//   email_client: any;
+// }
+
+class Message{
+  photographe_id : any;
+  nom_client : any;
+  ville_client : any;
+  libelle : any;
+  email_client : any
+  numero_telephone : any;
+}
+
 @Component({
   selector: 'app-info-photographe',
   standalone: true,
@@ -33,7 +50,16 @@ export class InfoPhotographeComponent implements OnInit {
     private service: PhotographeService,
     private service1: ImageService,
     private service2: CategorieService,
-    private formBuilder: FormBuilder){
+    private formBuilder: FormBuilder,
+    private fb: FormBuilder){
+
+      this.contactForm = this.fb.group({
+        photographe_id: ['', Validators.required],
+        nom_client: ['', Validators.required],
+        ville_client: ['', Validators.required],
+        description: ['', Validators.required],
+        email_client: ['', [Validators.required, Validators.email]]
+      });
 
   }
   ngOnInit(): void {
@@ -46,6 +72,14 @@ export class InfoPhotographeComponent implements OnInit {
     this.getPhotographe(this.id);
     this.getCategorie(this.id);
     this.getPhoto(this.id);
+
+    this.contactForm.patchValue({
+      photographe_id: this.id
+    });
+
+    this.message.photographe_id = this.id
+
+    this.getComment(this.id)
   }
 
   getPhotographe(id : any){
@@ -144,6 +178,66 @@ export class InfoPhotographeComponent implements OnInit {
     // }
   }
 
+  message = new Message()
+  messages: any
 
+  sendMessage(){
+    console.log(this.message)
+    this.service.EnvoyerMessage(this.message).subscribe(res => {
+      console.log(res)
+      this.messages = res
+    })
+  }
+
+
+
+
+
+
+  isVisible : boolean = false
+  // commentaire = new Commentaire()
+  contactForm: FormGroup;
+  comments: any;
+  displayedComments: any;
+  remainingComments: any;
+
+  openContactForm(): void {
+    this.isVisible = true
+  }
+  closeModall(): void {
+    this.isVisible = false
+  }
+
+  getComment(id: any){
+    this.service.getCommentByPhotographe(id).subscribe(res =>{
+      console.log(res)
+      this.comments = res
+      this.loadInitialComments();
+    })
+  }
+
+  loadInitialComments() {
+    this.displayedComments = this.comments.slice(0, 6); // Affiche initialement les 4 premiers commentaires
+    this.remainingComments = this.comments.slice(6); // Garde les commentaires restants à charger
+  }
+
+  loadMoreComments() {
+    this.displayedComments = [...this.displayedComments, ...this.remainingComments.slice(0, 4)];
+    this.remainingComments = this.remainingComments.slice(4);
+  }
+
+  onSubmit(): void {
+    if (this.contactForm.valid) {
+      const formData = this.contactForm.value;
+      console.log('Form Data:', formData);
+      this.service.EnvoyerCommentaire(formData).subscribe(res =>{
+        console.log(res)
+        this.ngOnInit()
+        this.closeModall();
+      })
+
+      // Envoyer les données du formulaire au serveur
+    }
+  }
 
 }

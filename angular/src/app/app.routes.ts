@@ -1,3 +1,5 @@
+import { ResetPasswordComponent } from './Auth/login/forgot-password/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './Auth/login/forgot-password/forgot-password.component';
 import { VerificationCodeComponent } from './Auth/register/verification-code/verification-code.component';
 import { PhotographeListComponent } from './views/dashboard-client/photographe-list/photographe-list.component';
 import { ListePhotographeComponent } from './Admin/liste-photographe/liste-photographe.component';
@@ -89,6 +91,14 @@ export const routes: Routes = [
       {
         path: 'verified_code',
         component: VerificationCodeComponent
+      },
+      {
+        path: 'forgot_password',
+        component: ForgotPasswordComponent
+      },
+      {
+        path: 'reset_password',
+        component: ResetPasswordComponent
       },
 
       {

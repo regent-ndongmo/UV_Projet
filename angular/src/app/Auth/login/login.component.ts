@@ -60,4 +60,8 @@ export class LoginComponent implements OnInit{
     const passwordInput = document.getElementById('form2Example27') as HTMLInputElement;
     passwordInput.type = this.showPassword ? 'text' : 'password';
   }
+
+  goToForgotPassword(){
+    this.router.navigate(['/forgot_password'])
+  }
 }

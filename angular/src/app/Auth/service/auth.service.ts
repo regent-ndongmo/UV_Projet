@@ -49,6 +49,15 @@ export class AuthService {
     return this.httpClient.post(`${this.apiUrl}/verify`, data);
   }
 
+  verifyResetCode(data: any) {
+    return this.httpClient.post(`${this.apiUrl}/verify-reset-code`, data);
+  }
+
+  resetPassword(data: any) {
+    return this.httpClient.post(`${this.apiUrl}/reset-password`, data);
+  }
+
+
   // Méthode pour vérifier si l'utilisateur est authentifié
   isAuthenticated(): boolean {
     return !!localStorage.getItem('user');
@@ -76,5 +85,10 @@ export class AuthService {
   //Profile
   registerProfile(data : any){
     return this.httpClient.post(`${this.apiUrl}/registerPhotographe`, data);
+  }
+
+  //
+  forgotPassword(data: { email: string }): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}/forgot-password`, data);
   }
 }

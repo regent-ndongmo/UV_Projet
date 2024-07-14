@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthService } from 'src/app/Auth/service/auth.service';
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
+import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
 
 @Component({
   selector: 'app-dashboard-photographer',
@@ -16,7 +17,7 @@ export class DashboardPhotographerComponent implements OnInit{
 
   @ViewChild(PictureModalComponent) pictureModal!: PictureModalComponent;
 
-  constructor(private service: AuthService, private router: Router, private service1 : ImageService){}
+  constructor(private service: AuthService, private router: Router, private service1 : ImageService, private service2: PhotographeService){}
 
   page: number = 1;
   pageSize: number = 8
@@ -88,4 +89,27 @@ export class DashboardPhotographerComponent implements OnInit{
       })
     }
   }
+
+  comments: any;
+  displayedComments: any;
+  remainingComments: any;
+
+  getComment(id: any){
+    this.service2.getCommentByPhotographe(id).subscribe(res =>{
+      console.log(res)
+      this.comments = res
+      this.loadInitialComments();
+    })
+  }
+
+  loadInitialComments() {
+    this.displayedComments = this.comments.slice(0, 6); // Affiche initialement les 4 premiers commentaires
+    this.remainingComments = this.comments.slice(6); // Garde les commentaires restants à charger
+  }
+
+  loadMoreComments() {
+    this.displayedComments = [...this.displayedComments, ...this.remainingComments.slice(0, 4)];
+    this.remainingComments = this.remainingComments.slice(4);
+  }
+
 }

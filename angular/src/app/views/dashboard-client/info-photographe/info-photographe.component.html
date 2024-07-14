@@ -13,6 +13,7 @@
                 <span class="hashtag">#{{item.categorie}}</span>
               }
             </div>
+            <button class="contact_button" (click)="openContactForm()">Envoyer un commentaire</button>
 
           </div>
           <div class="photograph-header">
@@ -69,6 +70,32 @@
         </div>
       </div>
 
+      <h3 class="align-items-center">Commentaires</h3>
+      <div class="comments">
+        @for (item of displayedComments; track $index) {
+          <div >
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.nom_client }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ item.ville_client }}</h6>
+                <p class="card-text"><small class="text-muted">{{ item.email_client }}</small></p>
+                <p class="card-text">{{ item.description }}</p>
+
+              </div>
+            </div>
+            <br>
+          </div>
+        }
+      </div>
+
+      @if (remainingComments.length > 0) {
+        <button class="btn btn-link mb-3" (click)="loadMoreComments()">
+          Voir plus de commentaires
+        </button>
+      }
+
+
+
       <pagination-controls id="my-pagination-id" (pageChange)="page = $event"></pagination-controls>
 
       @if (showModal) {
@@ -86,27 +113,27 @@
                     <div class="card mb-4">
                       <div class="card-header">Contacter le photographe</div>
                       <div class="card-body">
-                        <form>
-                          <input type="text"  name="userID" hidden>
+                        <form (ngSubmit)="sendMessage()" >
+                          <input type="text"  name="userID" [(ngModel)]="message.photographe_id" hidden>
                           <div class="row gx-3 mb-3">
                             <div class="col-md-12">
                               <label class="small mb-1" for="name">Entrez votre nom</label>
-                              <input class="form-control" name="name"  id="name" type="text" placeholder="Entrez votre nom" required>
+                              <input class="form-control" name="name" [(ngModel)]="message.nom_client"  id="name" type="text" placeholder="Entrez votre nom" required>
                             </div>
 
                             <div class="col-md-12">
-                              <label class="small mb-1" for="email">Entrez votre nom</label>
-                              <input class="form-control" name="email"  id="email" type="email" placeholder="regent@gmail.com" required>
+                              <label class="small mb-1" for="email">Entrez votre email</label>
+                              <input class="form-control" name="email" [(ngModel)]="message.email_client" id="email" type="email" placeholder="regent@gmail.com" required>
                             </div>
 
                             <div class="col-md-12">
                               <label class="small mb-1" for="tel">Entrez votre numero de telephone</label>
-                              <input class="form-control" name="tel"  id="tel" type="number" min="000000000" placeholder="678 254 254" required>
+                              <input class="form-control" name="tel"  id="tel" [(ngModel)]="message.numero_telephone" type="number" min="000000000" placeholder="678 254 254" required>
                             </div>
 
                             <div class="col-md-12">
                               <label class="small mb-1" for="ville">Entrez votre ville</label>
-                              <input class="form-control" name="name"  id="ville" type="text" placeholder="Dschang" required>
+                              <input class="form-control" name="name" [(ngModel)]="message.ville_client" id="ville" type="text" placeholder="Dschang" required>
                             </div>
 
                             <!-- <div class="col-md-12">
@@ -116,10 +143,17 @@
 
                             <div class="col-md-12">
                               <label class="small mb-1" for="message">Entrez votre message</label>
-                              <textarea name="message" id="message" class="form-control" placeholder="Entrer le contenu de votre message ici"></textarea>
+                              <textarea name="message" id="message" class="form-control"[(ngModel)]="message.libelle" placeholder="Entrer le contenu de votre message ici"></textarea>
                             </div>
 
                           </div>
+
+                          @if (messages) {
+
+                            <div class="alert alert-success">{{ messages.message }}</div>
+
+                          }
+
 
                           <button class="btn btn-primary" type="submit" >Envoyer</button>
                         </form>
@@ -142,3 +176,37 @@
   </div>
 }
 
+@if (isVisible) {
+  <div class="modall">
+    <div class="modal-content">
+      <span class="close" (click)="closeModall()">&times;</span>
+      <h2>Formulaire de Contact</h2>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+          <div class="form-group" hidden>
+              <label for="photographe_id">ID Photographe:</label>
+              <input type="text" id="photographe_id" value="1" formControlName="photographe_id" required>
+          </div>
+          <div class="form-group">
+              <label for="nom_client">Nom Client:</label>
+              <input type="text" id="nom_client" formControlName="nom_client" required>
+          </div>
+          <div class="form-group">
+              <label for="ville_client">Ville Client:</label>
+              <input type="text" id="ville_client" formControlName="ville_client" required>
+          </div>
+          <div class="form-group">
+            <label for="email_client">Email Client:</label>
+            <input type="email" id="email_client" formControlName="email_client" required>
+        </div>
+          <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea id="description" formControlName="description" required></textarea>
+          </div>
+
+          <button type="submit">Envoyer</button>
+      </form>
+    </div>
+  </div>
+
+
+}

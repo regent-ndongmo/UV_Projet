@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment.development';
 export class PhotographeService{
 
   private apiUrl = `${environment.apiUrl}/photographe`;
+  private apiCommentaire = `${environment.apiUrl}/commentaires`;
+  private apiMessage = `${environment.apiUrl}/messages`;
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -53,6 +56,17 @@ export class PhotographeService{
   changeProfile(id: Photographe, data: any): Observable<any> {
     const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
     return this.httpClient.post<any>(`${this.apiUrl}/${id}`, data, { headers });
+  }
+
+  EnvoyerCommentaire(data: any){
+    return this.httpClient.post(`${this.apiCommentaire}`, data);
+  }
+  getCommentByPhotographe(id : any){
+    return this.httpClient.get<any>(`${this.apiCommentaire}/photographer/${id}`);
+  }
+
+  EnvoyerMessage(data: any){
+    return this.httpClient.post<any>(`${this.apiMessage}`, data);
   }
 
 }

@@ -126,3 +126,16 @@ body {
   height: 15rem;
   object-fit: cover;
 }
+
+.align-items-center{
+  align-items: center;
+  text-align: center;
+}
+//
+//
+.comments{
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 10px;
+  margin: 10px;
+}
