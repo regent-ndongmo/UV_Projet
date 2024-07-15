@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from './service/google-analytics.service';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -18,11 +19,13 @@ export class AppComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private iconSetService: IconSetService,
+    private service: GoogleAnalyticsService
   ) {
     this.titleService.setTitle(this.title);
     // iconSet singleton
     this.iconSetService.icons = { ...iconSubset };
   }
+
 
   ngOnInit(): void {
     this.router.events.subscribe((evt) => {

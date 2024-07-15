@@ -73,8 +73,9 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/routes').then((m) => m.routes)
+        path: 'parametre',
+        loadChildren: () => import('./views/widgets/routes').then((m) => m.routes),
+        canActivate: [authGuardGuard],
       },
       {
         path: 'messages',
