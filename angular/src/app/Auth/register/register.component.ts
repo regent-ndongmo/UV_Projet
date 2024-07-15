@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
 
   radioForm: FormGroup;
   submitted = false;
+  checkboxSelected = false;
 
   errors = new Register
   register = new Register
@@ -28,12 +29,21 @@ export class RegisterComponent implements OnInit {
       option: ['', Validators.required]
     });
   }
+  onCheckboxChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.checkboxSelected = true;
+    } else {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      this.checkboxSelected = Array.from(checkboxes).some(checkbox => (checkbox as HTMLInputElement).checked);
+    }
+  }
   onSubmit(){
     this.submitted = true;
     console.log(this.register)
     console.log(this.user_id);
 
-    if (this.radioForm.valid) {
+    if (this.checkboxSelected) {
       console.log('Selected option:', this.radioForm.value.option);
       this.service.register(this.register).subscribe((res: any) => {
         console.log(res);
@@ -42,7 +52,7 @@ export class RegisterComponent implements OnInit {
         // this.changeProfile();
 
         localStorage.setItem('email', res.email);
-        localStorage.setItem('user_id', res.id);
+        // localStorage.setItem('user_id', res.id);
         this.router.navigate(['/verified_code']);
 
       },
@@ -52,7 +62,7 @@ export class RegisterComponent implements OnInit {
       });
 
     } else {
-      alert('Veuillez sélectionner une option avant de soumettre.');
+      alert("Veuillez accepter les termes et contition d'utilisation du site avant de soumettre.");
     }
 
   };

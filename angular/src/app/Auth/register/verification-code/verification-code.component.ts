@@ -38,8 +38,9 @@ export class VerificationCodeComponent implements OnInit {
       const code = this.verificationForm.get('code')?.value;
       console.log('Verification code entered:', code);
       this.code.verification_code= code
-      this.service1.verify(this.code).subscribe(res => {
+      this.service1.verify(this.code).subscribe((res: any) => {
         console.log("Verification avec succes.")
+        this.photographe.user_id = res.user_id;
         // if(res.me)
         this.changeProfile();
         this.router.navigate(['/login'])
@@ -79,7 +80,7 @@ export class VerificationCodeComponent implements OnInit {
   ngOnInit(): void {
     this.imgURL = this.defaultImageUrl;
     this.photographe.photo = this.defaultImageUrl;
-    this.photographe.user_id = localStorage.getItem("user_id")
+    // this.photographe.user_id = localStorage.getItem("user_id")
     this.email = localStorage.getItem("email")
     console.log(this.email)
 

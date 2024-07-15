@@ -17,11 +17,16 @@ export class DashboardPhotographerComponent implements OnInit{
 
   @ViewChild(PictureModalComponent) pictureModal!: PictureModalComponent;
 
-  constructor(private service: AuthService, private router: Router, private service1 : ImageService, private service2: PhotographeService){}
+  constructor(private service: AuthService,
+    private router: Router,
+    private service1 : ImageService,
+    private service2: PhotographeService,
+  ){}
 
   page: number = 1;
   pageSize: number = 8
   data : any;
+  id:any
 
   isAuthenticated: boolean = true;
   @Input() title!: string;
@@ -35,6 +40,18 @@ export class DashboardPhotographerComponent implements OnInit{
 
     this.service1.refresh$.subscribe(() => {
       this.getData();
+    });
+    this.id = localStorage.getItem('user_id');
+    console.log(this.id);
+    // this.service.changeImage(this.imgURL);
+    this.getPhotographe();
+  }
+
+  getPhotographe() {
+    this.service2.getPhotographeById(this.id).subscribe((res: any) => {
+        // this.data = res;
+        localStorage.setItem("user_id", res.id)
+        console.log("La data est : ",res)
     });
   }
 

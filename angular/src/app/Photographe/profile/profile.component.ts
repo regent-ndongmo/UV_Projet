@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit{
       console.log(this.id);
       // this.service.changeImage(this.imgURL);
       this.getData();
+
       this.photographe.user_id = +this.id
     }
 
@@ -95,29 +96,30 @@ export class ProfileComponent implements OnInit{
   changeProfile(): void {
     console.log(this.file);
     console.log(this.file?.name);
-    console.log('Données du formulaire :');
+    console.log('Données du formulaire :', this.photographe);
 
     const formData = new FormData();
+
 
     if (this.file) {
       formData.append('photo', this.file, this.file.name);  // Use 'photo' instead of 'file'
     } else {
       formData.append('photo', new Blob(), '');  // Empty file to indicate no file selected
     }
-    formData.append('user_id', this.photographe.user_id.toString());
+    formData.append('user_id', this.id);
     formData.append('nom', this.photographe.nom);
     formData.append('ville', this.photographe.ville);
     formData.append('pays', this.photographe.pays);
     formData.append('numero', this.photographe.numero);
     formData.append('signature', this.photographe.signature);
     formData.append('description', this.photographe.description);
-
     console.log("Les data se presente comme suit", formData)
     formData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
+    // alert("Bonjour"+ this.id)
     if(confirm("Voulez vous appliquer ces modification ? ")){
-      this.service.changeProfile(this.photographe.user_id, formData).subscribe(
+      this.service.changeProfile(this.id, formData).subscribe(
         (response: any) => {
           // console.log(response);
           alert("Votre profil a ete mis a jour avec succes")

@@ -94,8 +94,13 @@ class RegisterController extends Controller
 
         // Delete the temp user record
         $tempUser->delete();
+        return response()->json([
+            'message' => 'Your email has been verified successfully',
+            'user_id'=>$user->id,
+            'user'=>$user
+        ], 200);
 
-        return response()->json(['message' => 'Your email has been verified successfully'], 200);
+
     }
 
     public function resendVerification(Request $request)

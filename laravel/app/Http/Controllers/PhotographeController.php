@@ -89,7 +89,9 @@ class PhotographeController extends Controller
         // return $request;
         try {
             // Trouver le photographe par son ID
-            $photographe = Photographe::findOrFail($id);
+            $photographe = Photographe::where('user_id', $id)->first();
+
+
 
             // Récupérer uniquement les données nécessaires
             $data = $request->only('user_id', 'nom', 'ville', 'pays', 'numero', 'photo', 'signature', 'description');
@@ -111,6 +113,8 @@ class PhotographeController extends Controller
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
+
+            // return $photographe;
 
             // Traiter le téléchargement de la photo
             $photoPath = $photographe->photo; // Valeur par défaut, garder l'ancienne photo
@@ -150,12 +154,13 @@ class PhotographeController extends Controller
     // GET function to retrieve a photographe by ID
     public function show($id)
     {
-        $photographe = Photographe::findOrFail($id);
-
+        // $photographe = Photographe::findOrFail($id);
+        $photographe = Photographe::where('user_id', $id)->first();
         // Assurez-vous que l'URL de l'image est correcte
-        if ($photographe->photo) {
-            $photographe->photo = $photographe->photo;
-        }
+        // return $photographe;
+        // if ($photographe->photo) {
+        //     $photographe->photo = $photographe->photo;
+        // }
 
         return response()->json($photographe, 200);
     }
