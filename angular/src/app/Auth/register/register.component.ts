@@ -1,46 +1,59 @@
 import { Cprofile } from './../../model/photographe/cprofile';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { Register } from './../../model/register';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit {
+
+  radioForm: FormGroup;
+  submitted = false;
 
   errors = new Register
   register = new Register
 
   @Input() user_id: number | undefined;
 
-  constructor(private service: AuthService, private router: Router){
+  constructor(private service: AuthService, private router: Router, private fb: FormBuilder){
+    this.radioForm = this.fb.group({
+      option: ['', Validators.required]
+    });
   }
   onSubmit(){
+    this.submitted = true;
     console.log(this.register)
     console.log(this.user_id);
 
-    this.service.register(this.register).subscribe((res: any) => {
-      console.log(res);
-      this.user_id = res.id;
-      this.photographe.user_id = this.user_id;
-      // this.changeProfile();
+    if (this.radioForm.valid) {
+      console.log('Selected option:', this.radioForm.value.option);
+      this.service.register(this.register).subscribe((res: any) => {
+        console.log(res);
+        this.user_id = res.id;
+        this.photographe.user_id = this.user_id;
+        // this.changeProfile();
 
-      localStorage.setItem('email', res.email);
-      localStorage.setItem('user_id', res.id);
-      this.router.navigate(['/verified_code']);
+        localStorage.setItem('email', res.email);
+        localStorage.setItem('user_id', res.id);
+        this.router.navigate(['/verified_code']);
 
-    },
-    (err)=>{
-      this.errors = err.error.errors;
+      },
+      (err)=>{
+        this.errors = err.error.errors;
 
-    });
+      });
+
+    } else {
+      alert('Veuillez sélectionner une option avant de soumettre.');
+    }
 
   };
 

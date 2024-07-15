@@ -9,7 +9,7 @@
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                <form (ngSubmit)="onSubmit()" class="mx-1 mx-md-4">
+                <form (ngSubmit)="onSubmit()" [formGroup]="radioForm" class="mx-1 mx-md-4">
                   @if (errors.name) {
                     <p class="text-danger pl-1" >{{ errors.name }}</p>
                   }
@@ -61,10 +61,13 @@
 
 
                   <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                    <input class="form-check-input me-2" type="checkbox" value="" formControlName="option" id="form2Example3c" />
                     <label class="form-check-label" for="form2Example3">
-                      I agree all statements in <a href="#!">Terms of service</a>
+                      J'accepte les <a [routerLink]="['/terms_condition']" routerLinkActive="router-link-active" >termes et condition</a>
                     </label>
+                  </div>
+                  <div *ngIf="submitted && !radioForm.get('option')!.value">
+                    <p style="color: red;">Veuillez sélectionner une option avant de soumettre.</p>
                   </div>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">

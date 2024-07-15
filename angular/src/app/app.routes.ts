@@ -1,3 +1,4 @@
+import { TermsConditionComponent } from './Auth/register/terms-condition/terms-condition.component';
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ResetPasswordComponent } from './Auth/login/forgot-password/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './Auth/login/forgot-password/forgot-password.component';
@@ -85,6 +86,10 @@ export const routes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'terms_condition',
+        component: TermsConditionComponent
       },
       {
         path: 'login',

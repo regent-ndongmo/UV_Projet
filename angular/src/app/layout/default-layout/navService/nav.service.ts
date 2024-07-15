@@ -137,7 +137,7 @@ export class NavService {
     },
     {
       name: 'Parametre',
-      url: '/widgets',
+      url: '/parametre',
       iconComponent: { name: 'cil-settings' },
       badge: {
         color: 'info',
