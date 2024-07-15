@@ -13,9 +13,11 @@ class Commentaire extends Model
         'nom_client',
         'ville_client',
         'description',
+        'email_client',
     ];
 
     public function photographe(){
         return $this->belongsTo(Photographe::class);
     }
+
 }

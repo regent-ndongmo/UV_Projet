@@ -22,6 +22,7 @@
         Code must be 6 digits
       </small>
     </div>
+    <a class="small text-muted text-decoration-underline" (click)="ResendVerificationCode()">Renvoyer le code</a>
     <button type="submit" class="submit-button" [disabled]="verificationForm.invalid">Verify</button>
   </form>
 </div>
@@ -29,7 +30,7 @@
 
 
 <!-- Profile -->
-<div class="container-xl px-4 mt-4" hidden>
+<div class="container-xl px-4 mt-4" hidden >
   <hr class="mt-0 mb-4">
   <div class="row">
     <div class="col-xl-4">
@@ -77,7 +78,7 @@
               <label class="small mb-1" for="inputEmailAddress">Description</label>
               <input class="form-control" name="description" [(ngModel)]="photographe.description" id="inputEmailAddress" type="text" placeholder="Enter your description message">
             </div>
-            <!-- <button class="btn btn-primary" type="button" (click)="changeProfile()">Save changes</button> -->
+            <button class="btn btn-primary" type="button" (click)="changeProfile()">Save changes</button>
           </form>
         </div>
       </div>

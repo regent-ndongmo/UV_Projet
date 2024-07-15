@@ -20,14 +20,14 @@ class ContratController extends Controller
         try {
             $request->validate([
                 'libelle' => 'required|string',
+                'nom_client' => 'required|string',
                 'montant' => 'required|numeric',
                 'date' => 'required|date',
-                'nom_client' => 'required|string',
                 'photographe_id' => 'required|exists:photographes,id',
                 'status_paiement' => 'required|string',
             ]);
 
-            // return $request->all();
+
             $contrat = Contrat::create($request->all());
 
             return response()->json([
@@ -74,7 +74,6 @@ class ContratController extends Controller
                 'libelle' => 'required|string',
                 'montant' => 'required|numeric',
                 'date' => 'required|date',
-                'nom_client' => 'required|string',
                 'photographe_id' => 'required|exists:photographes,id',
                 'status_paiement' => 'required|string',
             ]);
@@ -146,5 +145,8 @@ class ContratController extends Controller
 // {
 //     "montant": 100.50,
 //     "date": "2024-06-30",
-//     "status_paiement": "en attente"
+//     "status_paiement": "confirmé",
+//     "libelle":"pour le mariage",
+//     "nom_client":"john",
+//     "photographe_id":1
 //   }

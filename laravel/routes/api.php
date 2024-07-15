@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthentificationController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\AvoirController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PhotographeController;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Definition des differente routes pour notre API
 Route::get('/photo', [PhotoController::class, "index"]);
+Route::get('/photo/search', [PhotoController::class, 'search']); // Recherche de photos
 Route::get("photo/{id}", [PhotoController::class, "getPhotoById"] );
 Route::post("photo/", [PhotoController::class, "create"] );
 Route::put("photo/{id}", [PhotoController::class, "updatePut"] );
@@ -34,12 +36,20 @@ Route::patch("photo/{id}", [PhotoController::class, "updatePatch"] );
 Route::delete("photo/{id}", [PhotoController::class, "delete"] );
 
 Route::get('/photographe', [PhotographeController::class, "index"]);
+Route::get('/photographe/search', [PhotographeController::class, 'search']); // Recherche de photographes
 
 
 Route::group(["ramespace"=>"Api\Auth"], function(){
-    Route::post("/login", [AuthentificationController::class, "login"]);
+    Route::post('/register', [RegisterController::class, 'register']);
+    Route::post('/verify', [RegisterController::class, 'verify']);
+    Route::post('/resend-verification', [RegisterController::class, 'resendVerification']);
+    Route::post('/login', [AuthentificationController::class, 'login']);
+    Route::post('/forgot-password', [AuthentificationController::class,'forgotPassword']);
+    Route::post('/verify-reset-code', [AuthentificationController::class, 'verifyResetCode']);
+    Route::post('/reset-password', [AuthentificationController::class, 'resetPassword']);
+
     Route::post("/logout", [AuthentificationController::class, "logout"])->middleware('auth:api');
-    Route::post("/register", [RegisterController::class, "register"]);
+
 
     Route::post('/registerPhotographe', [PhotographeController::class, 'register']);
     Route::post('/photographe/{id}', [PhotographeController::class, 'update']);
@@ -72,6 +82,8 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ContratController;
 use App\Http\Controllers\DisponibiliteController;
+use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RendezVousController;
 
 // Routes pour les categories
@@ -88,13 +100,14 @@ Route::patch('categories/{id}', [CategorieController::class, 'update']);
 Route::delete('categories/{id}', [CategorieController::class, 'destroy']);
 // Récupère les catégories par ID de photographe
 Route::get('categories/photographes/{photographe_id}', [CategorieController::class, 'getByPhotographe']);
-
+//  fonction de recherche sur les categories
+Route::get('/categories/search', [CategorieController::class, 'search'])->name('categories.search');
 
 // Routes pour les rendez vous
 Route::get('/rendez-vous', [RendezVousController::class, "index"]);
 Route::get("rendez-vous/{id}", [RendezVousController::class, "show"] );
-Route::get("rendez-vousByPhotographe/{id}", [RendezVousController::class, "getByPhotographe"] );
-Route::post("rendez-vous", [RendezVousController::class, "store"] );
+//Route::get("rendez-vousByPhotographe/{id}", [RendezVousController::class, "getByPhotographe"] );
+Route::post("rendez-vous", [RendezVousController::class, "create"] );
 Route::put("rendez-vous/{id}", [RendezVousController::class, "update"] );
 Route::delete("rendez-vous/{id}", [RendezVousController::class, "destroy"] );
 
@@ -120,18 +133,30 @@ Route::prefix('commentaires')->group(function () {
     Route::post('/', [CommentaireController::class, 'store']);
     Route::put('/{commentaire}', [CommentaireController::class, 'update']);
     Route::delete('/{commentaire}', [CommentaireController::class, 'destroy']);
+    Route::get('photographer/{photographe_id}', [CommentaireController::class, 'findAllByIdPhotographe']);
 });
 
-// Routes pour les commentaires
-Route::prefix('contact')->group(function () {
-    Route::get('/', [CommentaireController::class, 'index']);
-    Route::post('/', [CommentaireController::class, 'store']);
-    Route::put('/{contact}', [CommentaireController::class, 'update']);
-    Route::delete('/{contact}', [CommentaireController::class, 'destroy']);
+// Route pour les messsages
+Route::prefix('messages')->group(function () {
+    Route::get('/', [MessageController::class, 'index']);
+    Route::get('/{id}', [MessageController::class, 'getByPhotographe']);
+    Route::post('/', [MessageController::class, 'store']);
+    Route::put('/{message}', [MessageController::class, 'update']);
+    Route::delete('/{message}', [MessageController::class, 'destroy']);
 });
+
+// Route pour la table pivot
+Route::post('associer-photographe-categorie', [AvoirController::class, 'associerPhotographeACategorie']);
+Route::delete('desassocier-photographe-categorie', [AvoirController::class, 'desassocierPhotographeDeCategorie']);
+Route::get('photographes-par-categorie/{categorie_id}', [AvoirController::class, 'photographesParCategorie']);
+Route::get('categories-par-photographe/{photographe_id}', [AvoirController::class, 'categoriesParPhotographe']);
+
+// routes pour l'authentification google
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
+
+Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
 
 // Routes pour les users
 Route::get('/photographes', [PhotographeController::class, 'index']);
 Route::post('/photographes/modifyRole', [AuthentificationController::class, 'updateUserRole']);
-

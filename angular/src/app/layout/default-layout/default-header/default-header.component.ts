@@ -24,7 +24,7 @@ import {
 
 } from '@coreui/angular';
 import { NgStyle, NgTemplateOutlet, CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IconDirective } from '@coreui/icons-angular';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay, filter, map, tap } from 'rxjs/operators';
@@ -91,6 +91,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   constructor(
     private service: AuthService,
     private service1: PhotographeService,
+    private router: Router
   ) {
     super();
 
@@ -235,6 +236,10 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   logout(){
     this.service.logout();
+  }
+
+  goToUserGuide(){
+    this.router.navigate(['/user-guide'])
   }
 
 }

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\sfrc;
 use Illuminate\Http\Request;
-
+use App\Mail\ContactFormMail;
+use Illuminate\Support\Facades\Mail;
 class Administrateur extends Controller
 {
     /**
@@ -14,6 +15,20 @@ class Administrateur extends Controller
     {
         //
     }
+
+public function sendEmail()
+{
+    $details = [
+        'name' => 'John Doe',
+        'email' => 'john.doe@example.com',
+        'message' => 'This is a test email from Laravel.',
+    ];
+
+    Mail::to('franclaintomayo45@gmail.com')->send(new ContactFormMail($details));
+
+    return 'Email sent successfully!';
+}
+
 
     /**
      * Show the form for creating a new resource.

@@ -1,0 +1,55 @@
+.user-guide {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.user-guide h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-guide section {
+  margin-bottom: 20px;
+}
+
+.user-guide ul, .user-guide ol {
+  padding-left: 20px;
+}
+
+.user-guide pre {
+  background-color: #f5f5f5;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow-x: auto;
+}
+
+.user-guide code {
+  font-family: 'Courier New', Courier, monospace;
+  color: #d14;
+  font-size: 5rem;
+  font-weight: 5rem;
+}
+
+.user-guide dl {
+  margin: 0;
+}
+
+.user-guide dt {
+  font-weight: bold;
+}
+
+.user-guide dd {
+  margin: 0 0 10px 20px;
+}
+
+.user-guide a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.user-guide a:hover {
+  text-decoration: underline;
+}
+li{
+  margin: 10px 0 10px 0;
+}

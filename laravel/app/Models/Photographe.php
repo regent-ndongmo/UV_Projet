@@ -27,6 +27,9 @@ class Photographe extends Model
     public function commentaire(){
         return $this->hasMany(Commentaire::class);
     }
+    public function message(){
+        return $this->hasMany(Message::class);
+    }
 
     public function disponibilite(){
         return $this->hasMany(Disponibilite::class);

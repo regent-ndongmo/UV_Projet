@@ -2,7 +2,7 @@ import { ApiResponse } from './../../interface/api-response';
 import { Login } from './../../model/login';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from './../service/auth.service';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit, OnDestroy{
   login = new Login;
   showPassword: boolean = false;
 
@@ -21,6 +21,11 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
 
+  }
+  ngOnDestroy(): void {
+    // Suppression de l'élément du localStorage lors de la destruction de la composante
+    localStorage.removeItem("email");
+    console.log('Élément supprimé du localStorage.');
   }
 
   onSubmit(){

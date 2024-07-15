@@ -20,7 +20,7 @@ class MessageGoogle extends Mailable
 
     public function build()
     {
-        return $this->from("jauressndongmo5287@gmail.com") // L'expéditeur
+        return $this->from("franclaintomayo45@gmail.com") // L'expéditeur
                     ->subject("Message via le SMTP Google") // Le sujet
                     ->view('emails.message-google'); // La vue
     }

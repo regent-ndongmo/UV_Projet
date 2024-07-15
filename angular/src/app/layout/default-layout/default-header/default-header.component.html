@@ -28,7 +28,7 @@
           <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
         </a>
         <div class="col">
-          <i class="far fa-circle-question me-1 btn"></i>
+          <i class="far fa-circle-question me-1 btn" (click)="goToUserGuide()"></i>
         </div>
       </c-header-nav>
 
@@ -90,7 +90,7 @@
                 <a class="btn btn-success me-1 mx-2" [routerLink]="['/register']">S'inscrire</a>
               </div>
               <div class="col">
-                <i class="far fa-circle-question me-3 mx-2 btn"></i>
+                <i class="far fa-circle-question me-3 mx-2 btn" (click)="goToUserGuide()"></i>
               </div>
           </nav>
         </div>

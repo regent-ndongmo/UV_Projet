@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Validator;
 class CommentaireController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the comments.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -22,15 +24,25 @@ class CommentaireController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of comments by photographer ID.
+     *
+     * @param int $photographe_id
+     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function findAllByIdPhotographe($photographe_id)
     {
-        //
+        // Find comments by photographer ID
+        $comments = Commentaire::where('photographe_id', $photographe_id)->get();
+
+        // Return comments as JSON response
+        return response()->json($comments);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created comment in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -38,6 +50,7 @@ class CommentaireController extends Controller
             'photographe_id' => 'required|exists:photographes,id',
             'nom_client' => 'required|string',
             'ville_client' => 'required|string',
+            'email_client' => 'required|string|email',
             'description' => 'required|string',
         ]);
 
@@ -54,31 +67,37 @@ class CommentaireController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Commentaire $commentaire)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Commentaire $commentaire)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified comment in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Commentaire  $commentaire
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Commentaire $commentaire)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            // 'nom_client' => 'nullable|string',
+            // 'ville_client' => 'nullable|string',
+            'description' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        try {
+            $commentaire->update($request->all());
+            return response()->json(['message' => 'la modification de votre commentaire a été prise en compte!', 'comment' => $commentaire], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'erreur lors de la modification de votre comment veuillez ressayer!', 'error' => $e->getMessage()], 500);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified comment from storage.
+     *
+     * @param  \App\Models\Commentaire  $commentaire
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Commentaire $commentaire)
     {
@@ -92,9 +111,12 @@ class CommentaireController extends Controller
 }
 
 
+
+
 // {
-//     "photographe_id": 2,
-//     "nom_client": "John Doe",
+//     "photographe_id": 1,
+//     "nom_client": "John ",
 //     "ville_client": "Paris",
-//     "description": "je vous conseille ce photographe! !"
+//     "description": "excelent!",
+//     "email_client":"franclain@gmail.com"
 //   }

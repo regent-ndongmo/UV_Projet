@@ -2,137 +2,154 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RendezVousProcheEvent;
 use App\Models\RendezVous;
+use App\Services\GoogleCalendarService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 
 class RendezVousController extends Controller
 {
+
+    protected $calendarService;
+
+    public function __construct(GoogleCalendarService $calendarService)
+    {
+        $this->calendarService = $calendarService;
+    }
+
     public function index()
     {
-        // return response()->json(Photo::with(["photographe", "categorie"])->paginate(2000), 200);
-        // return RendezVous::all();
-        return response()->json(RendezVous::with(["contrat"])->get());
+        $rendezVous = RendezVous::all();
+
+        return response()->json($rendezVous, 200);
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        try {
-            $validatedData = $request->validate([
-                'date' => 'required|date',
-                'heure_debut' => 'required|date_format:H:i',
-                'heure_fin' => 'required|date_format:H:i',
-                'status' => 'required|string',
-                'photographe_id' => 'required|exists:photographes,id',
-                'contrat_id' => 'required|exists:contrats,id',
-                'lieux' => 'required|string',
-            ]);
+        // Valider les données du formulaire
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date',
+            'heure_debut' => 'required|date_format:H:i',
+            'heure_fin' => 'required|date_format:H:i|after:heure_debut',
+            'status' => 'required|string',
+            'photographe_id' => 'required|exists:photographes,id',
+            'contrat_id' => 'required|exists:contrats,id',
+            'lieux' => 'required|string',
+        ]);
 
-            $rendezVous = RendezVous::create($validatedData);
-
-            return response()->json([
-                'message' => 'Le rendez-vous a été créé avec succès.',
-                'rendezVous' => $rendezVous,
-            ], 201);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'message' => 'Impossible de créer le rendez-vous.',
-                'errors' => $e->validator->errors(),
-            ], 400);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'message' => 'Impossible de trouver le photographe ou le contrat correspondant.',
-            ], 404);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Une erreur est survenue lors de la création du rendez-vous.',
-                'error' => $e->getMessage(),
-            ], 500);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
+
+        // Créer le rendez-vous
+        $rendezVous = RendezVous::create($request->all());
+
+        // Déclencher l'événement si le rendez-vous est proche
+        if ($this->rendezVousEstProche($rendezVous)) {
+            event(new RendezVousProcheEvent($rendezVous));
+        }
+        // Créer l'événement dans Google Calendar
+        $calendarService = new GoogleCalendarService();
+        $eventId = $calendarService->createEvent(
+            'Rendez-vous avec ' . $rendezVous->nom_client,
+            $rendezVous->lieux,
+            'Rendez-vous avec ' . $rendezVous->nom_client,
+            $rendezVous->date . 'T' . $rendezVous->heure_debut . ':00',
+            $rendezVous->date . 'T' . $rendezVous->heure_fin . ':00'
+        );
+
+        // Enregistrer l'ID de l'événement dans votre modèle si nécessaire
+        $rendezVous->google_calendar_event_id = $eventId;
+        $rendezVous->save();
+
+        return response()->json($rendezVous, 201);
     }
 
-    public function show($id)
+    private function rendezVousEstProche($rendezVous)
     {
-        try {
-            $rendezVous = RendezVous::findOrFail($id);
-            return response()->json([
-                'rendezVous' => $rendezVous,
-            ]);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'message' => 'Rendez-vous non trouvé.',
-            ], 404);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Une erreur est survenue lors de la recherche du rendez-vous.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+        // Logique pour déterminer si le rendez-vous est proche (par exemple, dans les 24 heures à venir)
+        return $rendezVous->date <= now()->addDay()->endOfDay() && $rendezVous->date >= now();
     }
 
+    /**
+     * Mettre à jour un rendez-vous existant.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request, $id)
     {
-        try {
-            $validatedData = $request->validate([
-                'date' => 'required|date',
-                'heure_debut' => 'required|date_format:H:i',
-                'heure_fin' => 'required|date_format:H:i',
-                'status' => 'required|string',
-                'photographe_id' => 'required|exists:photographes,id',
-                'contrat_id' => 'required|exists:contrats,id',
-                'lieux' => 'required|string',
-            ]);
+        // Valider les données du formulaire
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date',
+            'heure_debut' => 'required|date_format:H:i',
+            'heure_fin' => 'required|date_format:H:i|after:heure_debut',
+            'status' => 'required|string',
+            'photographe_id' => 'required|exists:photographes,id',
+            'contrat_id' => 'required|exists:contrats,id',
+            'nom_client' => 'required|string',
+            'lieux' => 'required|string',
+        ]);
 
-            $rendezVous = RendezVous::findOrFail($id);
-            $rendezVous->update($validatedData);
-
-            return response()->json([
-                'message' => 'Le rendez-vous a été mis à jour avec succès.',
-                'rendezVous' => $rendezVous,
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'message' => 'Impossible de mettre à jour le rendez-vous.',
-                'errors' => $e->validator->errors(),
-            ], 400);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'message' => 'Rendez-vous non trouvé.',
-            ], 404);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Une erreur est survenue lors de la mise à jour du rendez-vous.',
-                'error' => $e->getMessage(),
-            ], 500);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
+
+        // Trouver et mettre à jour le rendez-vous
+        $rendezVous = RendezVous::findOrFail($id);
+        $rendezVous->update($request->all());
+
+        // Mettre à jour l'événement dans Google Calendar
+        $calendarService = new GoogleCalendarService();
+        $calendarService->updateEvent(
+            $rendezVous->google_calendar_event_id,
+            'Rendez-vous avec ' . $rendezVous->nom_client,
+            $rendezVous->lieux,
+            'Rendez-vous avec ' . $rendezVous->nom_client,
+            $rendezVous->date . 'T' . $rendezVous->heure_debut . ':00',
+            $rendezVous->date . 'T' . $rendezVous->heure_fin . ':00'
+        );
+
+        return response()->json($rendezVous, 200);
     }
 
-    public function destroy($id)
+    /**
+     * Supprimer un rendez-vous.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete($id)
     {
-        try {
-            $rendezVous = RendezVous::findOrFail($id);
-            $rendezVous->delete();
+        $rendezVous = RendezVous::findOrFail($id);
 
-            return response()->json([
-                'message' => 'Le rendez-vous a été supprimé avec succès.',
-            ]);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'message' => 'Rendez-vous non trouvé.',
-            ], 404);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Une erreur est survenue lors de la suppression du rendez-vous.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+        // Supprimer l'événement dans Google Calendar
+        $calendarService = new GoogleCalendarService();
+        $calendarService->deleteEvent($rendezVous->google_calendar_event_id);
+
+        $rendezVous->delete();
+
+        return response()->json(null, 204);
     }
 
-    public function getByPhotographe($photographe_id)
+    /**
+     * Afficher les détails d'un rendez-vous.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id)
     {
-        $rendezVous = RendezVous::with(["contrat"])->where('photographe_id', $photographe_id)->get();
-        return response()->json($rendezVous);
+        $rendezVous = RendezVous::findOrFail($id);
+
+        // Récupérer l'événement dans Google Calendar si nécessaire
+        $calendarService = new GoogleCalendarService();
+        $eventSummary = $calendarService->getEvent($rendezVous->google_calendar_event_id);
+
+        return response()->json($rendezVous, 200);
     }
 }
 

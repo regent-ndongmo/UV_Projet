@@ -5,18 +5,18 @@
         <div class="commentaire-list">
           <div class="commentaire card mb-3">
             <div class="card-header d-flex justify-content-between">
-              <span class="photographe-id">Photographe ID: 4</span>
-              <span class="nom-client">Nom du client: Regent</span>
-              <span class="ville-client">Ville du client: dddde</span>
+              <span class="photographe-id">Photographe: {{ item.photographe.nom }}</span>
+              <span class="nom-client">Nom du client: {{ item.nom_client }}t</span>
+              <span class="ville-client">Ville du client: {{ item.ville_client }}</span>
             </div>
             <div class="card-body">
-              <p class="card-text">Email: 1354684464</p>
-              <p class="card-text">Téléphone: 54687465468</p>
+              <p class="card-text">Email: {{ item.email_client }}</p>
+              <p class="card-text">Téléphone: {{ item.numero_telephone }}</p>
               <p class="card-text">Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
             <div class="card-footer d-flex justify-content-between">
-              <span class="created-at">Créé le: </span>
-              <span class="updated-at">Modifié le: </span>
+              <span class="created-at">Créé le: {{ item.created_at }} </span>
+              <span class="updated-at">Modifié le: {{ item.updated_at }}</span>
             </div>
           </div>
         </div>

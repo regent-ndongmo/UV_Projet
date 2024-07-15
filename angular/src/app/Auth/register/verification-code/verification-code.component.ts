@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Cprofile } from 'src/app/model/photographe/cprofile';
@@ -8,6 +8,10 @@ import { Router, RouterModule } from '@angular/router';
 class Code{
   verification_code: any;
 }
+class ResendCode{
+  email: any
+}
+
 @Component({
   selector: 'app-verification-code',
   standalone: true,
@@ -15,7 +19,7 @@ class Code{
   templateUrl: './verification-code.component.html',
   styleUrl: './verification-code.component.scss'
 })
-export class VerificationCodeComponent {
+export class VerificationCodeComponent implements OnInit {
 
   code = new Code()
   errors = new Code()
@@ -30,6 +34,7 @@ export class VerificationCodeComponent {
 
   onSubmit() {
     if (this.verificationForm.valid) {
+
       const code = this.verificationForm.get('code')?.value;
       console.log('Verification code entered:', code);
       this.code.verification_code= code
@@ -69,12 +74,30 @@ export class VerificationCodeComponent {
   id: any;
   data: any;
   public imgPath: any;
+  email: any
 
   ngOnInit(): void {
     this.imgURL = this.defaultImageUrl;
     this.photographe.photo = this.defaultImageUrl;
     this.photographe.user_id = localStorage.getItem("user_id")
+    this.email = localStorage.getItem("email")
+    console.log(this.email)
+
+    this.resendCode.email = this.email
   }
+
+  resendCode = new ResendCode()
+
+  ResendVerificationCode(){
+    console.log(this.resendCode)
+    this.service.resendVerificationCode(this.resendCode).subscribe(res=>{
+      console.log(res)
+    })
+  }
+
+
+
+
   triggerFileInput(): void {
     this.fileInput.nativeElement.click();
   }
@@ -122,6 +145,10 @@ export class VerificationCodeComponent {
     formData.append('signature', this.photographe.signature);
     formData.append('description', this.photographe.description);
 
+    console.log("Les data se presente comme suit", formData)
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
     this.service.registerProfile(formData).subscribe(
       (response: any) => {
         console.log(response);

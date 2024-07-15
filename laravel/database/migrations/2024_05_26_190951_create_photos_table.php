@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId("photographe_id")->constrained("photographes");
             $table->string("titre");
             $table->string("url_image");
-            $table->integer("nombre_likes");
+            $table->string('description');
+            $table->decimal('prix');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

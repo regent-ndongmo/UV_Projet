@@ -48,6 +48,9 @@ export class AuthService {
   verify(data: any) {
     return this.httpClient.post(`${this.apiUrl}/verify`, data);
   }
+  resendVerificationCode(data: any) {
+    return this.httpClient.post(`${this.apiUrl}/resend-verification`, data);
+  }
 
   verifyResetCode(data: any) {
     return this.httpClient.post(`${this.apiUrl}/verify-reset-code`, data);

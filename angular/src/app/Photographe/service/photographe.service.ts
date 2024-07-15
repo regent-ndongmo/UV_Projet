@@ -69,4 +69,8 @@ export class PhotographeService{
     return this.httpClient.post<any>(`${this.apiMessage}`, data);
   }
 
+  getMessageByPhotograhe(id: any){
+    return this.httpClient.get<any>(`${this.apiMessage}/${id}`);
+  }
+
 }

@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('rendez_vous', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("photographe_id")->constrained("photographes");
-            $table->foreignId("contrat_id")->constrained("contrats");
-            $table->date("date");
-            $table->time("heure_debut");
-            $table->time("heure_fin");
-            $table->string("lieux");
-            $table->string("status");
+            $table->date('date');
+            $table->time('heure_debut');
+            $table->time('heure_fin');
+            $table->string('status');
+            $table->foreignId('photographe_id')->constrained('photographes');
+            $table->foreignId('contrat_id')->constrained('contrats');
+            $table->string('lieux');
+            $table->string('google_calendar_event_id')->nullable(); // Pour stocker l'ID de l'événement Google Calendar
             $table->timestamps();
+
+            $table->unique(['date', 'heure_debut', 'heure_fin', 'photographe_id']); // Assure l'unicité des rendez-vous par photographe à une heure donnée
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

@@ -14,7 +14,8 @@ class Photo extends Model
         'photographe_id',
         'titre',
         'url_image',
-        'nombre_likes',
+        'description',
+        'prix',
     ];
 
     public function photographe(){

@@ -1,3 +1,4 @@
+import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ResetPasswordComponent } from './Auth/login/forgot-password/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './Auth/login/forgot-password/forgot-password.component';
 import { VerificationCodeComponent } from './Auth/register/verification-code/verification-code.component';
@@ -158,6 +159,10 @@ export const routes: Routes = [
         path: 'listePhotographe',
         component: ListePhotographeComponent,
         canActivate: [adminGuardGuard],
+      },
+      {
+        path: 'user-guide',
+        component: UserGuideComponent
       }
     ]
   },

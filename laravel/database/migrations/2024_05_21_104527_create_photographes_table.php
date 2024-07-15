@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('photographes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained("users")->unique();
-            $table->string("nom");
-            $table->string("ville");
-            $table->string("pays");
-            $table->string("numero");
-            $table->string("photo");
-            $table->string("signature");
-            $table->string("description");
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string("nom")->nullable();
+            $table->string("ville")->nullable();
+            $table->string("pays")->nullable();
+            $table->string("numero")->nullable();
+            $table->string("photo")->nullable();
+            $table->string("signature")->nullable();
+            $table->string("description")->nullable();
             $table->timestamps();
         });
 

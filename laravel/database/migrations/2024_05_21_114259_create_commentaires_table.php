@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string("ville_client");
             $table->string("description");
             $table->string('email_client');
-            $table->string('numero_telephone');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

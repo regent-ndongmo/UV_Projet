@@ -30,8 +30,10 @@ export class RegisterComponent implements OnInit {
       console.log(res);
       this.user_id = res.id;
       this.photographe.user_id = this.user_id;
-      // this.changeProfile();  
+      // this.changeProfile();
 
+      localStorage.setItem('email', res.email);
+      localStorage.setItem('user_id', res.id);
       this.router.navigate(['/verified_code']);
 
     },
