@@ -1,2 +1,2 @@
 laravel/.env
-laravel/client_secret.json
+laravel/app/client_secret.json
