@@ -7,6 +7,7 @@ import { ImageService } from 'src/app/Photographe/service/image/image.service';
 import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
 import { environment } from 'src/environments/environment.development';
 import { ModalComponent } from '../modal/modal.component';
+import { ClientService } from '../service/client.service';
 
 // class Commentaire{
 //   photographe_id: any;
@@ -43,14 +44,19 @@ export class InfoPhotographeComponent implements OnInit {
   showModal = false;
   imgURL: any;
   page: number = 1;
-  pageSize: number = 8
+  pageSize: number = 8;
+  connectionForm : FormGroup;
+  email_client: any
+  client_id: any;
+  isConnection: boolean = false
+  errorMessage: string = '';
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private service0 : ClientService,
     private service: PhotographeService,
     private service1: ImageService,
     private service2: CategorieService,
-    private formBuilder: FormBuilder,
     private fb: FormBuilder){
 
       this.contactForm = this.fb.group({
@@ -61,8 +67,16 @@ export class InfoPhotographeComponent implements OnInit {
         email_client: ['', [Validators.required, Validators.email]]
       });
 
+      this.connectionForm = this.fb.group({
+        // name: ['', Validators.required],
+        password_client: ['', Validators.required],
+        email_client: ['', [Validators.required, Validators.email]]
+      });
+
   }
   ngOnInit(): void {
+    this.client_id = localStorage.getItem('client_id');
+    this.email_client = localStorage.getItem('client_email');
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id')!;
@@ -81,6 +95,49 @@ export class InfoPhotographeComponent implements OnInit {
 
     this.getComment(this.id)
   }
+
+  openModalConnection(){
+    this.isVisible = true
+  }
+
+  closeModalConnection(){
+    this.isVisible = false
+  }
+
+  onSubmitConnection(): void {
+    console.log(this.email_client);
+
+    if (this.contactForm.valid) {
+      const formData = this.contactForm.value;
+      console.log('Form Data:', formData)
+
+      this.service0.loginClient(formData).subscribe(res => {
+        console.log('Login successful', res);
+        localStorage.setItem("client_name", res.name)
+        localStorage.setItem("client_email", res.email_client)
+        localStorage.setItem("client_id", res.id)
+        this.isVisible =false
+        this.ngOnInit()
+      },
+      (error: any) => {
+        console.log('Error:', error.message);
+        this.errorMessage = error.error.message;
+      })
+      // this.service.register(formData).subscribe(res=> {
+
+
+      // },
+      // (error: any) => {
+      //   console.log('Error:', error.message);
+      //   this.errorMessage = error.error.message;
+      // })
+      // Envoyer les données du formulaire au serveur
+    }
+    else{
+      alert("Vueillez remplir les information correcte")
+    }
+  }
+
 
   getPhotographe(id : any){
     this.service.getPhotographeById(id).subscribe(res =>{
@@ -106,9 +163,14 @@ export class InfoPhotographeComponent implements OnInit {
   }
   getPhoto(id: any){
     this.service1.getAllByPhotographeId(id).subscribe(res => {
-      console.log("Image : ", res)
-      this.images = res;
-    })
+      // Ajouter la propriété isLiked pour chaque image
+      this.getUserLikes().then((likes: any) => {
+        this.images = res.map((image: any) => ({
+          ...image,
+          isLiked: likes.some((like: any) => like.photo_id === image.id)
+        }));
+      });
+    });
   }
 
   openModalPhoto(id: any) {
@@ -133,27 +195,59 @@ export class InfoPhotographeComponent implements OnInit {
   likedId: number = 0;
 
   toggleLike(image: any) {
-    image.isLiked = !image.isLiked;
-    if (image.isLiked) {
-      this.incrementLikes(image);
-    } else {
-      this.decrementLikes(image);
+    if(this.email_client){
+      image.isLiked = !image.isLiked;
+      if (image.isLiked) {
+        this.incrementLikes(image);
+      } else {
+        this.decrementLikes(image);
+      }
     }
+    else{
+      this.openModalConnection()
+    }
+
   }
 
 
   incrementLikes(image: any) {
     this.service1.incrementLikes(image.id).subscribe(res => {
       image.likes++;
+      this.service0.likePhoto(this.client_id, image.id).subscribe(res=>{
+        console.log(res);
+
+      })
       console.log("incrementation du like ", image.id)
     });
+
   }
 
 
   decrementLikes(image: any) {
-    // this.servicePhoto.decrementLikes(image.id).subscribe(res => {
-    //   image.likes--;
-    // });
+
+    this.service1.decrementeLikes(image.id).subscribe(res => {
+      image.likes--;
+      this.service0.unlikePhoto(this.client_id, image.id).subscribe(res=>{
+        console.log(res)
+      })
+    });
+  }
+
+  getUserLikes() {
+    return new Promise((resolve, reject) => {
+      if (this.client_id) {
+        this.service0.getUserLikes(this.client_id).subscribe(
+          res => {
+            resolve(res);
+          },
+          err => {
+            reject(err);
+          }
+        );
+      } else {
+        resolve([]);
+      }
+    });
   }
 
   animateLike(id: number) {

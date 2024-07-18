@@ -20,6 +20,9 @@
 
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
 
+                  <div *ngIf="errorMessage" class="error-message text-danger pl-1">
+                    {{ errorMessage }}
+                  </div>
                   <div data-mdb-input-init class="form-outline mb-4">
                     <input name="login" type="email" id="form2Example17" class="form-control form-control-lg" [(ngModel)]="login.email"/>
                     <label class="form-label" for="form2Example17">Email address</label>

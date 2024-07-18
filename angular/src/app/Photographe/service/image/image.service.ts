@@ -56,6 +56,10 @@ export class ImageService {
     return this.http.get<any[]>(`${this.apiUrl}/${id}`);
   }
 
+  getZipBYid(id: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/${id}`, { responseType: 'blob' });
+  }
+
 
 
   // photos non suprimmées d'une categorie

@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy{
     console.log('Élément supprimé du localStorage.');
   }
 
+  errorMessage : any
   onSubmit(){
     console.log("bonsoir")
     console.log(this.login);
@@ -56,6 +57,10 @@ export class LoginComponent implements OnInit, OnDestroy{
         this.router.navigate(['/dashboard'])
         alert("Votre compte a ete bloque")
       }
+    },
+    (error: any) => {
+      console.log('Error:', error.message);
+      this.errorMessage = error.error.message;
     })
   }
 

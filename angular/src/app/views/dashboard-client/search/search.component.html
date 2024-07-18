@@ -1,1 +1,10 @@
-<p>search works!</p>
+<div *ngIf="results">
+  <h3>Résultats de recherche</h3>
+  <div *ngFor="let result of results.users">
+    <p>Administrateur: {{ result.name }}</p>
+  </div>
+  <div *ngFor="let result of results.categories">
+    <p>Photo: {{ result.categorie }}</p>
+  </div>
+  <!-- Ajoutez d'autres sections pour les autres modèles si nécessaire -->
+</div>

@@ -9,13 +9,19 @@ class Like extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'client_id',
+        'photo_id',
+    ];
 
-    public function photo(){
-        return $this->belongsTo(Photo::class);
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 
-    public function client(){
-        return $this->belongsTo(Client::class);
+    public function photo()
+    {
+        return $this->belongsTo(Photo::class);
     }
 
 }

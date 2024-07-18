@@ -1,3 +1,6 @@
+import { RegisterClientComponent } from './views/dashboard-client/register/register.component';
+import { NotFoundComponent } from './views/dashboard-client/search/not-found/not-found.component';
+import { SearchComponent } from './views/dashboard-client/search/search.component';
 import { TermsConditionComponent } from './Auth/register/terms-condition/terms-condition.component';
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ResetPasswordComponent } from './Auth/login/forgot-password/reset-password/reset-password.component';
@@ -39,7 +42,7 @@ export const routes: Routes = [
         component: LayoutComponent,
         children: [
           {
-            path: 'dashboard',
+            path: '',
             component: DashboardClientComponent
 
           },
@@ -53,6 +56,21 @@ export const routes: Routes = [
           {
             path: 'listPhotographe',
             component: PhotographeListComponent
+          },
+          {
+            path: 'search',
+            component: SearchComponent
+          },
+          {
+            path: 'register-client',
+            component: RegisterClientComponent
+          },
+          {
+            path: '404',
+            component: NotFoundComponent,
+            data: {
+              title: 'Page 404'
+            }
           },
         ]
       },
@@ -76,7 +94,7 @@ export const routes: Routes = [
       {
         path: 'parametre',
         loadChildren: () => import('./views/widgets/routes').then((m) => m.routes),
-        canActivate: [authGuardGuard],
+        canActivate: [adminGuardGuard],
       },
       {
         path: 'messages',
@@ -172,13 +190,7 @@ export const routes: Routes = [
       }
     ]
   },
-  // {
-  //   path: '404',
-  //   loadComponent: () => import('./views/pages/page404/page404.component').then(m => m.Page404Component),
-  //   data: {
-  //     title: 'Page 404'
-  //   }
-  // },
+
   // {
   //   path: '500',
   //   loadComponent: () => import('./views/pages/page500/page500.component').then(m => m.Page500Component),

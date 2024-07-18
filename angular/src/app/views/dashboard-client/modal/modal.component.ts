@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, ThemeDirective } from '@coreui/angular';
+// import { saveAs } from 'file-saver';
+// import * as JSZip from 'jszip';
 import { ImageService } from 'src/app/Photographe/service/image/image.service';
 import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-modal',
@@ -24,7 +27,12 @@ export class ModalComponent implements OnInit{
   isVisible = false;
   photographe: any
 
-  constructor(private servicePhoto: ImageService, private router: Router, private servicePhotographe: PhotographeService){}
+  constructor(
+    private servicePhoto: ImageService,
+    private router: Router,
+    private servicePhotographe: PhotographeService,
+    private http : HttpClient
+  ){}
 
   ngOnInit(): void {
 
@@ -47,6 +55,24 @@ export class ModalComponent implements OnInit{
 
     })
   }
+
+  // downloadImage(image: any): void {
+  //   const apiUrl = `${environment.SpringURL}`;
+  //   this.http.get(`${apiUrl}/${image.id}`, { responseType: 'blob' })
+  //   .subscribe(
+  //     (blob: Blob) => {
+  //       console.log(image)
+  //       JSZip.loadAsync(blob)
+  //         .then(zip => {
+  //           return zip.file(`${image.title}.jpg`)!.async('blob');
+  //         })
+  //         .then(content => {
+  //           saveAs(content, `${image.title}.zip`);
+  //         });
+  //     },
+  //     error => console.error('Download error:', error)
+  //   );
+  // }
 
   getDataPhotographe(id: any){
     this.servicePhotographe.getPhotographeById(id).subscribe(res=>{

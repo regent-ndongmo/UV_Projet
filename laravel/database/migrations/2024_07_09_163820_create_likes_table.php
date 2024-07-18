@@ -9,21 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("client_id")->constrained("clients");
-            $table->foreignId("photo_id")->constrained("photos");
-            $table->integer("nombre_likes")->default(0);
+            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
+            $table->Integer('photo_id');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('likes');
     }

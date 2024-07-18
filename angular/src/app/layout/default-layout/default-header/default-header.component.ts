@@ -32,6 +32,8 @@ import { AuthService } from 'src/app/Auth/service/auth.service';
 import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
 import { Photographe } from 'src/app/model/photographe/photographe';
 import { environment } from 'src/environments/environment.development';
+import { SearchService } from 'src/app/views/dashboard-client/search/service/search.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-default-header',
@@ -39,6 +41,7 @@ import { environment } from 'src/environments/environment.development';
   styleUrl: './default-header.component.scss',
   standalone: true,
   imports: [
+    FormsModule,
     ContainerComponent,
     HeaderTogglerDirective,
     SidebarToggleDirective,
@@ -91,7 +94,8 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   constructor(
     private service: AuthService,
     private service1: PhotographeService,
-    private router: Router
+    private router: Router,
+    private serviceSearch: SearchService
   ) {
     super();
 
@@ -230,7 +234,14 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     { id: 2, title: 'SSD 1 Usage', value: 90, color: 'danger', details: '243GB/256GB' }
   ];
 
+  inputSearch : any
   onSubmit(){
+
+    this.serviceSearch.setValue(this.inputSearch)
+    console.log(this.inputSearch);
+
+    // this.search.onSearch(this.inputSearch);
+    this.router.navigate(['/search'])
 
   }
 

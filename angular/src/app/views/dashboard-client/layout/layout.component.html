@@ -4,8 +4,8 @@
       <p class="text-center pt-5 text-light p1">
         Bienvenue sur notre site!
       </p>
-        <form class="d-flex py-5 " role="search">
-          <input class="form-control me-2 form-control1 rounded-5" type="search" placeholder="Rechercher des images" aria-label="Search">
+        <form (ngSubmit)="onSubmit()"  class="d-flex py-5 " role="search">
+          <input class="form-control me-2 form-control1 rounded-5" name="search" [(ngModel)]="inputSearch" type="search" placeholder="Rechercher des images" aria-label="Search">
           <button class="btn btn-outline-success rounded-5" type="submit">Search <i class="fa f"></i></button>
         </form>
 

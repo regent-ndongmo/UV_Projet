@@ -79,12 +79,15 @@ Route::get('profile/{fileName}', function ($fileName) {
 
 //Definitio des routes pour la migration categorie
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ContratController;
 use App\Http\Controllers\DisponibiliteController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RendezVousController;
+use App\Http\Controllers\SearchController;
 
 // Routes pour les categories
 Route::get('categories', [CategorieController::class, 'index']);
@@ -160,3 +163,19 @@ Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallba
 // Routes pour les users
 Route::get('/photographes', [PhotographeController::class, 'index']);
 Route::post('/photographes/modifyRole', [AuthentificationController::class, 'updateUserRole']);
+
+
+//Pour la recherche
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+
+//Client
+Route::get('/clients/{id}', [ClientController::class, 'show']);
+Route::post('/clients', [ClientController::class, 'store']);
+Route::put('/clients/{id}', [ClientController::class, 'update']);
+Route::post('/clients/login', [ClientController::class, 'login']);
+
+//Likes
+Route::post('/likes', [LikeController::class, 'store']);
+Route::get('/clients/{client_id}/likes', [LikeController::class, 'getUserLikes']);
+Route::delete('/likes', [LikeController::class, 'destroy']);

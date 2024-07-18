@@ -34,3 +34,40 @@
 </div>
 
 <pagination-controls id="my-pagination-id" (pageChange)="page = $event"></pagination-controls>
+
+
+
+@if (isVisible) {
+  <div class="modall">
+    <div class="modal-content">
+      <span class="close" (click)="closeModall()">&times;</span>
+      <h2>Se connecter pour bénéficier des avantages du site</h2>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <!-- <div class="form-group">
+          <label for="nom_client">Nom :</label>
+          <input type="text" id="nom_client" formControlName="name" required>
+        </div> -->
+        <div class="form-group">
+          <label for="email_client">Email Client:</label>
+          <input type="email" id="email_client" formControlName="email_client" required>
+          <div *ngIf="errorMessage" class="error-message text-danger pl-1">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe:</label>
+          <input type="password" id="password" formControlName="password_client" required>
+        </div>
+        <span routerLink="/register-client" class="btn-link mb-4 text-info pl-1">J'ai pas encore de compte</span><br>
+
+        <button class="btn btn-primary" type="submit">Se connecter</button>
+
+      </form>
+
+      <!-- <button class="btn btn-info pl-4 mt-3" (click)="Login()">Se connecter</button> -->
+    </div>
+
+  </div>
+
+
+}

@@ -76,8 +76,8 @@
       <c-header-nav class="d-md-flex ms-auto ">
         <div class="row">
           <nav class="navbar navbar-expand-md  ">
-              <form class="d-flex me-5" role="search">
-                <input class="form-control me-2 form-control1 rounded-5 search-input" type="search" placeholder="Rechercher des images" aria-label="Search">
+              <form (ngSubmit)="onSubmit()"  class="d-flex me-5" role="search">
+                <input class="form-control me-2 form-control1 rounded-5 search-input" name="inputSearch" [(ngModel)]="inputSearch" type="search" placeholder="Rechercher des images" aria-label="Search">
                 <button class="btn btn-outline-success rounded-5" type="submit">Search</button>
               </form>
               <div class="col me-3">
