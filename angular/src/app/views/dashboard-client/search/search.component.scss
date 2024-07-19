@@ -1,0 +1,99 @@
+//photographe
+.img-fluid{
+  height: 25rem;
+  object-fit: cover;
+
+}
+.card-footer{
+  text-align: center;
+  // align-items: center;
+  // justify-content: center;
+  // justify-self: center;
+  background-color: #f2f5f4;
+
+}
+
+//
+
+.image-container {
+  width: 50%;
+}
+
+.watermark {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.3);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  // z-index: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.watermark.middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-image: linear-gradient(to top right, transparent 0%, transparent 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 100%); */
+}
+
+.watermark.rotated {
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+
+/* styles.css */
+body {
+  background-color: #f8f9fa;
+}
+
+.container-fluid {
+  margin-top: 30px;
+  padding: 0;
+}
+
+.img-fluid {
+  border-radius: 0;
+  transition: transform 0.2s;
+  display: block;
+  width: 100%;
+  height: 10rem;
+}
+
+.img-fluid:hover {
+  transform: scale(1.05);
+}
+
+.position-relative {
+  position: relative;
+}
+
+.icon-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.icon-container i {
+  color: rgb(100, 34, 34);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.icon-container i:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.position-relative:hover .icon-container {
+  opacity: 4;
+  z-index: 1;
+}
+
+

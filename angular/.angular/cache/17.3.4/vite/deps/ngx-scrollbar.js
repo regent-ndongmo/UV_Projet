@@ -4,12 +4,12 @@ import {
   coerceElement,
   coerceNumberProperty,
   getRtlScrollAxisType
-} from "./chunk-H6YKZX5K.js";
+} from "./chunk-XHAFL7P6.js";
 import {
   DOCUMENT,
   NgIf,
   isPlatformBrowser
-} from "./chunk-Z7GKBTTO.js";
+} from "./chunk-CEW2EBYN.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -63,13 +63,13 @@ import {
   ɵɵqueryRefresh,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-WA5BNMZF.js";
-import "./chunk-SAVXX6OM.js";
+} from "./chunk-EOWI63OI.js";
 import {
   animationFrameScheduler,
   fromEvent,
   merge
 } from "./chunk-SG3BCSKH.js";
+import "./chunk-SAVXX6OM.js";
 import {
   BehaviorSubject,
   EMPTY,
@@ -95,7 +95,7 @@ import {
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-UQ2RIRR7.js";
+} from "./chunk-PEQT6LCE.js";
 
 // node_modules/@angular/cdk/fesm2022/bidi.mjs
 var DIR_DOCUMENT = new InjectionToken("cdk-dir-doc", {

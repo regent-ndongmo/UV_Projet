@@ -8,6 +8,7 @@ import { PhotographeService } from 'src/app/Photographe/service/photographe.serv
 import { environment } from 'src/environments/environment.development';
 import { ModalComponent } from '../modal/modal.component';
 import { ClientService } from '../service/client.service';
+import { CommonModule } from '@angular/common';
 
 // class Commentaire{
 //   photographe_id: any;
@@ -29,7 +30,7 @@ class Message{
 @Component({
   selector: 'app-info-photographe',
   standalone: true,
-  imports: [NgxPaginationModule, FormsModule, ReactiveFormsModule, ModalComponent],
+  imports: [NgxPaginationModule, FormsModule, ReactiveFormsModule, ModalComponent, CommonModule],
   templateUrl: './info-photographe.component.html',
   styleUrl: './info-photographe.component.scss'
 })

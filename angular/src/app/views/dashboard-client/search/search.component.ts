@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { SearchService } from './service/search.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
@@ -28,16 +29,23 @@ export class SearchComponent implements OnInit{
   }
 
   onSearch(query: any) {
-    if(query){
-      console.log("La valeur recherche est", query)
+    console.log("La valeur recherche est", query)
       this.service.globalSearch(query).subscribe(data => {
         console.log("La data de recherche est", data)
         this.results = data;
+        this.results.photographes.forEach((item : any) => {
+          if (item.photo) {
+            // alert("ndjndjn"+ item.photo)
+            item.imgURL = `${environment.baseUrl}/${item.photo}`;
+          }
+        });
       });
-    }
-    else{
-      this.router.navigate(['/404'])
-    }
+  }
+
+
+  goToProfile(id: any){
+    console.log("l'id est : ", id);
+    this.router.navigate(["/info-photographe", id])
 
   }
 

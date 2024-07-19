@@ -1,8 +1,33 @@
 //////
 ///
 .content{
-  background-color: rgb(0, 0, 0);
+  // background-color: rgb(0, 0, 0);
+  animation: backgroundChange 20s infinite linear;
+  background-image: url('/assets/logo1.jpeg'),
+  url('/assets/logo5.jpeg'),
+  url('/assets/logo3.jpeg');
+  background-size: 400px 150px;
+  width: 100%;
 
+}
+
+@keyframes backgroundChange {
+  0% {
+    background-image: url('/assets/logo1.jpeg');
+  }
+  33.33% {
+    background-image: url('/assets/logo3.jpeg');
+  }
+  66.66% {
+    background-image: url('/assets/logo5.jpeg');
+  }
+  100% {
+    background-image: url('/assets/logo1.jpeg');
+  }
+}
+
+.search-content{
+  margin: 100px;
 }
 .navbar1{
   color:white;
@@ -86,4 +111,5 @@ color: blue;
 .categorie_item{
   color: red;
 }
+
 

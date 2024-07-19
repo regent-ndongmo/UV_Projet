@@ -57,7 +57,7 @@ class AuthentificationController extends Controller
         // return "Login";
         $this->validate($request, [
             'email' => 'required|max:255',
-            'password' => 'required|max:8',
+            'password' => 'required|max:14',
         ]);
 
         $credentials = $request->only('email', 'password');

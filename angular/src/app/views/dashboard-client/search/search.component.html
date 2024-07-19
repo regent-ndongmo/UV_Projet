@@ -1,10 +1,71 @@
 <div *ngIf="results">
-  <h3>Résultats de recherche</h3>
-  <div *ngFor="let result of results.users">
-    <p>Administrateur: {{ result.name }}</p>
+  @if (results.users.length > 0 || results.categories.length > 0 || results.photographes.length > 0) {
+    <h1>Résultats de recherche</h1>
+    @if (results.users.length > 0 ) {
+      <h2>Nom d'utilisateur</h2>
+      <div *ngFor="let result of results.users">
+        <p>Utilisateur: {{ result.name }}</p>
+      </div>
+    }
+
+
+    @if (results.categories.length > 0) {
+      <h2>Categorie d'images</h2>
+      <div *ngFor="let result of results.categories">
+        <p>Photo: {{ result.categorie }}</p>
+      </div>
+    }
+
+
+    @if (results.photographes.length > 0) {
+      <h2>Photographes</h2>
+      <div class="container-fluid">
+        <div class="row">
+          <div *ngFor="let item of results.photographes">
+            <ng-container class="col-md-3 col-sm-6 mb-4" routerLinkActive="router-link-active" >
+              <div  class="col-3 mt-3">
+                <div class="">
+                  <div class="gallery">
+                    <div class="image-container position-relative" (click)="goToProfile(item.id)">
+
+                      <img [src]="item.imgURL" class="card-img-top img-fluid rounded-circle" oncontextmenu="return false;" [alt]="item.title">
+                      <div class="watermark middle rotated"> {{ item.signature }}</div>
+                      <div class="card-footer">
+                        <h5 class="card-title">{{ item.nom }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <!-- Ajout d'autres informations ici si nécessaire -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    }
+
+
+  }
+  @else {
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+
+  <div class="page-wrap d-flex flex-row align-items-center">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-12 text-center">
+                  <span class="display-1 d-block">404</span>
+                  <div class="mb-4 lead">L'element echerche n'existe pas</div>
+                  <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active"  class="btn btn-link">Back to Home</a>
+              </div>
+          </div>
+      </div>
   </div>
-  <div *ngFor="let result of results.categories">
-    <p>Photo: {{ result.categorie }}</p>
-  </div>
+
+  }
+
   <!-- Ajoutez d'autres sections pour les autres modèles si nécessaire -->
 </div>

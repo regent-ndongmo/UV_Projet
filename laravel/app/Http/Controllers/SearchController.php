@@ -16,40 +16,22 @@ class SearchController extends Controller
     {
         $query = $request->input('query');
 
-        // $administrateurs = Administrateur::where('name', 'LIKE', "%{$query}%")->get();
-        // $avoirs = Avoir::where('name', 'LIKE', "%{$query}%")->get();
         $categories = Categorie::where('categorie', 'LIKE', "%{$query}%")->get();
-        // $clients = Client::where('name', 'LIKE', "%{$query}%")->get();
-        // $commentaires = Commentaire::where('content', 'LIKE', "%{$query}%")->get();
-        // $contrats = Contrat::where('title', 'LIKE', "%{$query}%")->get();
-        // $disponibilites = Disponibilite::where('day', 'LIKE', "%{$query}%")->get();
-        // $likes = Like::where('user_id', 'LIKE', "%{$query}%")->get();
-        // $messages = Message::where('content', 'LIKE', "%{$query}%")->get();
-        // $photos = Photo::where('title', 'LIKE', "%{$query}%")->get();
-        $photographes = Photographe::where('nom', 'LIKE', "%{$query}%")->get();
-        $photographes = Photographe::where('ville', 'LIKE', "%{$query}%")->get();
-        $photographes = Photographe::where('signature', 'LIKE', "%{$query}%")->get();
-        $photographes = Photographe::where('pays', 'LIKE', "%{$query}%")->get();
-        $photographes = Photographe::where('description', 'LIKE', "%{$query}%")->get();
-        // $rendezVous = RendezVous::where('date', 'LIKE', "%{$query}%")->get();
-        // $tempUsers = TempUser::where('name', 'LIKE', "%{$query}%")->get();
-        $users = User::where('name', 'LIKE', "%{$query}%")->get();
-        $users = User::where('email', 'LIKE', "%{$query}%")->get();
+
+        $photographes = Photographe::where('nom', 'LIKE', "%{$query}%")
+            ->orWhere('ville', 'LIKE', "%{$query}%")
+            ->orWhere('signature', 'LIKE', "%{$query}%")
+            ->orWhere('pays', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->get();
+
+        $users = User::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('email', 'LIKE', "%{$query}%")
+            ->get();
 
         return response()->json([
-            // 'administrateurs' => $administrateurs,
-            // 'avoirs' => $avoirs,
             'categories' => $categories,
-            // 'clients' => $clients,
-            // 'commentaires' => $commentaires,
-            // 'contrats' => $contrats,
-            // 'disponibilites' => $disponibilites,
-            // 'likes' => $likes,
-            // 'messages' => $messages,
-            // 'photos' => $photos,
             'photographes' => $photographes,
-            // 'rendezVous' => $rendezVous,
-            // 'tempUsers' => $tempUsers,
             'users' => $users,
         ]);
     }
