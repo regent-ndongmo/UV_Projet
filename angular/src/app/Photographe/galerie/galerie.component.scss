@@ -1,18 +1,9 @@
 .galerie{
 
-  // display: grid;
-  // grid-template-columns: auto auto auto auto auto;
-  // padding: 10px;
-  // margin: 10px;
-
   .folder{
     margin-right: 25%;
     color: #464664;
     cursor: pointer;
-    // position: absolute;
-    // display: flex;
-    // flex-direction: column;
-
     &:hover{
       color: #333342;
     }

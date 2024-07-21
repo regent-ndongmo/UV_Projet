@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class SearchService {
 
-  private value: any;
+  private value : string = '';
 
   getValue(){
     return this.value;

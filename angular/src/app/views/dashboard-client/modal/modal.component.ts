@@ -56,23 +56,19 @@ export class ModalComponent implements OnInit{
     })
   }
 
-  // downloadImage(image: any): void {
-  //   const apiUrl = `${environment.SpringURL}`;
-  //   this.http.get(`${apiUrl}/${image.id}`, { responseType: 'blob' })
-  //   .subscribe(
-  //     (blob: Blob) => {
-  //       console.log(image)
-  //       JSZip.loadAsync(blob)
-  //         .then(zip => {
-  //           return zip.file(`${image.title}.jpg`)!.async('blob');
-  //         })
-  //         .then(content => {
-  //           saveAs(content, `${image.title}.zip`);
-  //         });
-  //     },
-  //     error => console.error('Download error:', error)
-  //   );
-  // }
+  getZippedImage(id: any){
+    this.servicePhoto.getZippedImage(id).subscribe(res=>{
+      // console.log(res)
+      const url = window.URL.createObjectURL(res);
+      const a = document.createElement('a');
+      a.href= url;
+      a.download = `image-${id}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url)
+    })
+  }
 
   getDataPhotographe(id: any){
     this.servicePhotographe.getPhotographeById(id).subscribe(res=>{

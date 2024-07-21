@@ -1,3 +1,4 @@
+import { LoginClientComponent } from './login-client/login-client.component';
 import { ClientService } from './service/client.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
@@ -9,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { PhotographeService } from 'src/app/Photographe/service/photographe.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { error } from 'jquery';
+import { AuthService } from 'src/app/Auth/service/auth.service';
+import { LoginComponent } from 'src/app/Auth/login/login.component';
 
 @Component({
   selector: 'app-dashboard-client',
@@ -19,7 +22,8 @@ import { error } from 'jquery';
     RouterModule,
     CommonModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    LoginClientComponent
   ],
   templateUrl: './dashboard-client.component.html',
   styleUrl: './dashboard-client.component.scss'
@@ -34,7 +38,6 @@ export class DashboardClientComponent implements OnInit {
   photographe: any;
   isVisible = false;
   imgURL: any;
-  contactForm: FormGroup;
   email_client: any
   client_id: any;
   visible: boolean = true
@@ -45,22 +48,17 @@ export class DashboardClientComponent implements OnInit {
     private serviceCategorie: CategorieService,
     private servicePhoto: ImageService,
     private service: ClientService,
-    private fb: FormBuilder){
-
-      this.contactForm = this.fb.group({
-        // name: ['', Validators.required],
-        password_client: ['', Validators.required],
-        email_client: ['', [Validators.required, Validators.email]]
-      });
-
-  }
+    private serviceAuth: AuthService
+  ){}
   @ViewChild(ModalComponent) photoModal!: ModalComponent;
 
   @ViewChild('likeIcon', { static: true }) likeIconRef!: ElementRef<HTMLElement>;
+  @ViewChild(LoginClientComponent) loginC!: LoginClientComponent;
 
   ngOnInit(): void {
     this.client_id = localStorage.getItem('client_id');
-    this.email_client = localStorage.getItem('client_email');
+    this.serviceAuth.currentClient.subscribe(state => this.email_client = state);
+    // this.email_client = localStorage.getItem('client_email');
     this.getDataPhotographe()
     this.getDataCategorie()
     this.getDataPhoto()
@@ -68,47 +66,9 @@ export class DashboardClientComponent implements OnInit {
   }
 
   openModall(){
-    this.isVisible = true
+    this.loginC.openModall()
   }
 
-  closeModall(){
-    this.isVisible = false
-  }
-
-  onSubmit(): void {
-    this.visible = true
-    console.log(this.email_client);
-
-    if (this.contactForm.valid) {
-      const formData = this.contactForm.value;
-      console.log('Form Data:', formData)
-
-      this.service.loginClient(formData).subscribe(res => {
-        console.log('Login successful', res);
-        localStorage.setItem("client_name", res.name)
-        localStorage.setItem("client_email", res.email_client)
-        localStorage.setItem("client_id", res.id)
-        this.isVisible =false
-        this.ngOnInit()
-      },
-      (error: any) => {
-        console.log('Error:', error.message);
-        this.errorMessage = error.error.message;
-      })
-      // this.service.register(formData).subscribe(res=> {
-
-
-      // },
-      // (error: any) => {
-      //   console.log('Error:', error.message);
-      //   this.errorMessage = error.error.message;
-      // })
-      // Envoyer les données du formulaire au serveur
-    }
-    else{
-      alert("Vueillez remplir les information correcte")
-    }
-  }
 
   getDataCategorie() {
     this.serviceCategorie.getAll().subscribe(res => {

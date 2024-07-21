@@ -3,7 +3,7 @@
     <div class="col search-content">
         <form (ngSubmit)="onSubmit()"  class="d-flex py-5 " role="search">
           <input class="form-control me-2 form-control1 rounded-5" name="search" [(ngModel)]="inputSearch" type="search" placeholder="Rechercher des images" aria-label="Search">
-          <button class="btn btn-outline-success rounded-5" type="submit">Search <i class="fa f"></i></button>
+          <button class="btn rounded-5" type="submit">Search <i class="fa f"></i></button>
         </form>
 
     </div>
@@ -16,7 +16,7 @@
               <div class="collapse navbar-collapse text-center" id="navbarNav">
                 <ul class="navbar-nav  ">
                   @for (item of categories; track $index) {
-                    <li class="nav-item">
+                    <li class="nav-ite">
                       <a class=" btn nav-link mx-1 text-dark categorie" (click)="openCategorie(item.categorie)">#{{ item.categorie }}</a>
                     </li>
                   }

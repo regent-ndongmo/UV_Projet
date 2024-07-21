@@ -3,26 +3,27 @@
 .content{
   // background-color: rgb(0, 0, 0);
   animation: backgroundChange 20s infinite linear;
-  background-image: url('/assets/logo1.jpeg'),
-  url('/assets/logo5.jpeg'),
-  url('/assets/logo3.jpeg');
-  background-size: 400px 150px;
-  width: 100%;
+  background-image: url('/assets/top/logo1.jpg'),
+  url('/assets/top/logo2.jpg'),
+  url('/assets/top/logo3.jpg'),
+  url('/assets/top/logo4.jpg'),;
+  // background-size: 400px 150px;
+  // width: 100%;
 
 }
 
 @keyframes backgroundChange {
   0% {
-    background-image: url('/assets/logo1.jpeg');
+    background-image: url('/assets/top/logo1.jpg');
   }
   33.33% {
-    background-image: url('/assets/logo3.jpeg');
+    background-image: url('/assets/top/logo2.jpg');
   }
   66.66% {
-    background-image: url('/assets/logo5.jpeg');
+    background-image: url('/assets/top/logo3.jpg');
   }
   100% {
-    background-image: url('/assets/logo1.jpeg');
+    background-image: url('/assets/top/logo4.jpg');
   }
 }
 
@@ -112,4 +113,11 @@ color: blue;
   color: red;
 }
 
+.btn{
+  border: 1px solid #b1c0ca;
+}
 
+.btn:hover{
+
+  background-color: #2199E8;;
+}

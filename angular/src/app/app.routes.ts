@@ -16,7 +16,6 @@ import { RendezVousComponent } from './Photographe/rendez-vous/rendez-vous.compo
 import { CategorieComponent } from './Photographe/galerie/categorie/categorie.component';
 import { CorbeilleComponent } from './Photographe/corbeille/corbeille.component';
 import { GalerieComponent } from './Photographe/galerie/galerie.component';
-import { routeGuard } from './Auth/Guard/route.guard';
 import { adminGuardGuard } from './Auth/Guard/admin-guard.guard';
 import { DashboardComponent } from './views/dashboard-admin/dashboard.component';
 import { ProfileComponent } from './Photographe/profile/profile.component';
@@ -33,9 +32,6 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
-    data: {
-      title: 'Home'
-    },
     children: [
       {
         path: '',
@@ -178,6 +174,9 @@ export const routes: Routes = [
         path: 'admin',
         component: DashboardComponent,
         canActivate: [adminGuardGuard],
+        data: {
+          title: 'Home'
+        }
       },
       {
         path: 'listePhotographe',

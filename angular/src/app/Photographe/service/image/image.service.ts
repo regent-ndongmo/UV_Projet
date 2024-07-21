@@ -86,6 +86,19 @@ export class ImageService {
   count(): Observable<number> {
     return this.http.get<number>(this.apiUrl+"/count");
   }
+
+  // restorer une photo suprimmée
+  restore(id: number): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+"/"+id+"/restore");
+  }
+
+
+
+  getZippedImage(id: number): Observable<Blob> {
+    console.log(id);
+
+    return this.http.get(`${this.apiUrl}/${id}/zip`, { responseType: 'blob' });
+  }
 }
 
 

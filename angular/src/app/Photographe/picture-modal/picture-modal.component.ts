@@ -107,7 +107,7 @@ export class PictureModalComponent implements OnInit {
       formData.append('file', new Blob(), '');  // Empty file to indicate no file selected
     }
     formData.append('price', this.image.price);
-    formData.append('phototographer_id', this.image.photographer_id);
+    formData.append('photographer_id', this.image.photographer_id);
     formData.append('title', this.image.title);
     formData.append('description', this.image.description);
     formData.append('category_id', this.image.category_id);

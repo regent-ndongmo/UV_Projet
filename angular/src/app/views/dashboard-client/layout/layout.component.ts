@@ -31,6 +31,7 @@ export class LayoutComponent {
 
   ngOnInit(): void {
 
+    this.inputSearch = ''
     this.getDataCategorie()
     // this.getDataPhoto()
 

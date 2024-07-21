@@ -84,3 +84,26 @@
   // border: 1px solid #f2f2f2;
   color: #836f6f;
 }
+
+
+//
+.avatar_client {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  background-color: #007bff; /* Background color */
+  border-radius: 50%; /* Makes the avatar circular */
+  color: white; /* Text color */
+  font-size: 18px; /* Text size */
+  font-weight: bold; /* Text weight */
+}
+
+.avatar-initials {
+  pointer-events: none; /* Ensures the initials are not interactive */
+}
+
+.btn:hover{
+  background-color: #2199E8;;
+}

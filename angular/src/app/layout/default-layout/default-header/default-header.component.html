@@ -1,130 +1,57 @@
 @if (isAuthenticated) {
-  <ng-container>
-    <c-container [fluid]="true" class="border-bottom px-4">
-      <button
-        [cSidebarToggle]="sidebarId"
-        cHeaderToggler
-        class="btn"
+<ng-container>
+  <c-container [fluid]="true" class="border-bottom px-4">
+    <button [cSidebarToggle]="sidebarId" cHeaderToggler class="btn" style="margin-inline-start: -14px;">
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+    <c-header-nav class="d-none d-md-flex">
+      <c-nav-item>
+        <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </c-nav-item>
 
-        style="margin-inline-start: -14px;"
-      >
-        <svg cIcon name="cilMenu" size="lg"></svg>
-      </button>
-      <c-header-nav class="d-none d-md-flex">
-        <c-nav-item>
-          <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-        </c-nav-item>
+    </c-header-nav>
 
-      </c-header-nav>
+    <c-header-nav class="d-none d-md-flex ms-auto navbar navbar-expand-md">
+      <a cNavLink>
+        <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
+      </a>
+      <a cNavLink>
+        <svg cIcon class="my-1" name="cilList" size="lg"></svg>
+      </a>
+      <a cNavLink>
+        <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
+      </a>
+      <div class="col">
+        <i class="far fa-circle-question me-1 btn" (click)="goToUserGuide()"></i>
+      </div>
+    </c-header-nav>
 
-      <c-header-nav class="d-none d-md-flex ms-auto navbar navbar-expand-md">
-        <a cNavLink>
-          <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
-        </a>
-        <a cNavLink>
-          <svg cIcon class="my-1" name="cilList" size="lg"></svg>
-        </a>
-        <a cNavLink>
-          <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
-        </a>
-        <div class="col">
-          <i class="far fa-circle-question me-1 btn" (click)="goToUserGuide()"></i>
-        </div>
-      </c-header-nav>
+    <c-header-nav class="ms-auto ms-md-0">
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+      <ng-container *ngTemplateOutlet="themeDropdown" />
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+    </c-header-nav>
 
-      <c-header-nav class="ms-auto ms-md-0">
-        <div class="nav-item py-1">
-          <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-        </div>
-        <ng-container *ngTemplateOutlet="themeDropdown" />
-        <div class="nav-item py-1">
-          <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-        </div>
-      </c-header-nav>
+    <c-header-nav class="mx-0">
+      <ng-container *ngTemplateOutlet="userDropdown" />
+    </c-header-nav>
 
-      <c-header-nav class="mx-0">
-        <ng-container *ngTemplateOutlet="userDropdown" />
-      </c-header-nav>
-
-    </c-container>
-    <c-container [fluid]="true" class="px-4">
-      <c-breadcrumb-router />
-    </c-container>
-  </ng-container>
-}@else{
-  <ng-container id="client">
-    <c-container [fluid]="true" class="border-bottom">
-      <button
-        [cSidebarToggle]="sidebarId"
-        cHeaderToggler
-        style="margin-inline-start: 0px;"
-        class="menu-button"
-      >
-        <svg cIcon name="cilMenu" size="lg"></svg>
-      </button>
-      <c-header-nav class="d-none d-md-flex">
-        <c-nav-item class="Nav-left navbar navbar-expand-md ">
-          <a cNavLink routerLink="/dashboard" routerLinkActive="active"><img class="logo" src="assets/logo.jpeg" alt=""></a>
-
-        </c-nav-item>
-
-
-      </c-header-nav>
-
-      <c-header-nav class="d-md-flex ms-auto ">
-        <div class="row">
-          <nav class="navbar navbar-expand-md  ">
-              <form (ngSubmit)="onSubmit()"  class="d-flex me-5" role="search">
-                <input class="form-control me-2 form-control1 rounded-5 search-input" name="inputSearch" [(ngModel)]="inputSearch" type="search" placeholder="Rechercher des images" aria-label="Search">
-                <button class="btn btn-outline-success rounded-5" type="submit">Search</button>
-              </form>
-              <div class="col me-3">
-                <a class="btn btn-outline-success col" [routerLink]="['/dashboard']">Accueil</a>
-              </div>
-
-              <div class="col me-3">
-                <a class="btn" [routerLink]="['/listPhotographe']">Photographe</a>
-              </div>
-              <div class="col">
-                  <a class="btn" [routerLink]="['/login']">Connexion</a>
-              </div>
-              <div class="col">
-                <a class="btn btn-success me-1 mx-2" [routerLink]="['/register']">S'inscrire</a>
-              </div>
-              <div class="col">
-                <i class="far fa-circle-question me-3 mx-2 btn" (click)="goToUserGuide()"></i>
-              </div>
-          </nav>
-        </div>
-
-      </c-header-nav>
-
-
-      <c-header-nav class="ms-auto ms-md-0">
-        <div class="nav-item py-1">
-          <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-        </div>
-        <ng-container *ngTemplateOutlet="themeDropdown" />
-      </c-header-nav>
-
-    </c-container>
-
-  </ng-container>
-}
-<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+  </c-container>
+  <c-container [fluid]="true" class="px-4">
+    <c-breadcrumb-router />
+  </c-container>
+</ng-container>
 
 <!--</c-header>-->
 
 <ng-template #userDropdown>
   <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
     <button [caret]="false" cDropdownToggle class="py-0 pe-0">
-      <c-avatar
-        shape="rounded-1"
-        [size]="'md'"
-        [src]="imgURL"
-        status="success"
-        textColor="primary"
-      />
+      <c-avatar shape="rounded-1" [size]="'md'" [src]="imgURL" status="success" textColor="primary" />
     </button>
     <ul cDropdownMenu class="pt-0 w-auto">
 
@@ -158,6 +85,189 @@
     </ul>
   </c-dropdown>
 </ng-template>
+}@else{
+<ng-container id="client">
+  <c-container [fluid]="true" class="border-bottom">
+
+
+    @if (isClient) {
+    <button [cSidebarToggle]="sidebarId" cHeaderToggler style="margin-inline-start: 0px;" class="menu-button">
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+    <c-header-nav class="d-none d-md-flex">
+      <c-nav-item class="Nav-left navbar navbar-expand-md ">
+        <a cNavLink routerLink="/dashboard" routerLinkActive="active"><img class="logo" src="assets/logo.jpeg"
+            alt=""></a>
+
+      </c-nav-item>
+
+
+    </c-header-nav>
+
+    <c-header-nav class="d-md-flex ms-auto ">
+      <div class="row">
+        <nav class="navbar navbar-expand-md  ">
+          <form (ngSubmit)="onSubmit()" class="d-flex me-5" role="search">
+            <input class="form-control me-2 form-control1 rounded-5 search-input" name="inputSearch"
+              [(ngModel)]="inputSearch" type="search" placeholder="Rechercher des images" aria-label="Search">
+            <button class="btn btn-outline-success rounded-5" type="submit">Search</button>
+          </form>
+          <div class="col me-3">
+            <a class="btn btn-outline-success col" [routerLink]="['/dashboard']">Accueil</a>
+          </div>
+
+          <div class="col me-3">
+            <a class="btn" [routerLink]="['/listPhotographe']">Photographe</a>
+          </div>
+          <div class="col">
+            <i class="far fa-circle-question me-3 mx-2 btn" (click)="goToUserGuide()"></i>
+          </div>
+        </nav>
+      </div>
+
+    </c-header-nav>
+
+
+    <c-header-nav class="ms-auto ms-md-0">
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+      <ng-container *ngTemplateOutlet="themeDropdown" />
+    </c-header-nav>
+    <!-- // -->
+    <c-header-nav class="mx-0">
+      <ng-container *ngTemplateOutlet="userDropdown" />
+    </c-header-nav>
+    <!-- // -->
+
+    <ng-template #userDropdown>
+      <c-dropdown variant="nav-item">
+        <button [caret]="false" cDropdownToggle class="py-0 pe-0">
+          <div class="avatar_client">
+            <span class="avatar-initials">{{ userInitials }}</span>
+          </div>
+        </button>
+        <ul cDropdownMenu class="pt-0 w-auto">
+
+          <li>
+            <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2">
+              Parametre
+            </h6>
+          </li>
+          <li></li>
+
+          <li>
+            <hr cDropdownDivider />
+          </li>
+          <li class="logout">
+            <a cDropdownItem (click)="logoutClient()">
+              <svg cIcon class="me-2" name="cilAccountLogout"></svg>
+              Se deconnecter
+            </a>
+          </li>
+        </ul>
+      </c-dropdown>
+    </ng-template>
+    }@else {
+    <button [cSidebarToggle]="sidebarId" cHeaderToggler style="margin-inline-start: 0px;" class="menu-button">
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+    <c-header-nav class="d-none d-md-flex">
+      <c-nav-item class="Nav-left navbar navbar-expand-md ">
+        <a cNavLink routerLink="/dashboard" routerLinkActive="active"><img class="logo" src="assets/logo.jpeg"
+            alt=""></a>
+
+      </c-nav-item>
+
+
+    </c-header-nav>
+
+    <c-header-nav class="d-md-flex ms-auto ">
+      <div class="row">
+        <nav class="navbar navbar-expand-md  ">
+          <form (ngSubmit)="onSubmit()" class="d-flex me-5" role="search">
+            <input class="form-control me-2 form-control1 rounded-5 search-input" name="inputSearch"
+              [(ngModel)]="inputSearch" type="search" placeholder="Rechercher des images" aria-label="Search">
+            <button class="btn btn-outline-success rounded-5" type="submit">Search</button>
+          </form>
+          <div class="col me-3">
+            <a class="btn col" [routerLink]="['/dashboard']">Accueil</a>
+          </div>
+
+          <div class="col me-3">
+            <a class="btn" [routerLink]="['/listPhotographe']">Photographe</a>
+          </div>
+          <div class="col">
+            <a class="btn" [routerLink]="['/login']">Connexion</a>
+          </div>
+          <div class="col">
+            <a class="btn me-1 mx-2" [routerLink]="['/register']">S'inscrire</a>
+          </div>
+          <div class="col">
+            <i class="far fa-circle-question me-3 mx-2 btn" (click)="goToUserGuide()"></i>
+          </div>
+        </nav>
+      </div>
+
+    </c-header-nav>
+
+
+    <c-header-nav class="ms-auto ms-md-0">
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+      <ng-container *ngTemplateOutlet="themeDropdown" />
+    </c-header-nav>
+    <!-- // -->
+    <c-header-nav class="mx-0">
+      <ng-container *ngTemplateOutlet="userDropdown" />
+    </c-header-nav>
+    <!-- // -->
+
+    <ng-template #userDropdown>
+      <c-dropdown variant="nav-item">
+        <button [caret]="false" cDropdownToggle class="py-0 pe-0">
+          <c-avatar shape="rounded-1" [size]="'md'" src="assets/account.png" status="danger" textColor="red" />
+        </button>
+        <ul cDropdownMenu class="pt-0 w-auto">
+
+              <li>
+                <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2">
+                  Parametre
+                </h6>
+              </li>
+              <li></li>
+
+              <li>
+                <hr cDropdownDivider />
+              </li>
+              <li class="logout">
+                <a cDropdownItem (click)="openModall()">
+                  <svg cIcon class="me-2" name="cilAccountLogin"></svg>
+                  Se connecter
+                </a>
+              </li>
+            </ul>
+      </c-dropdown>
+    </ng-template>
+
+    }
+
+    <c-container [fluid]="true" class="px-4">
+      <c-breadcrumb-router />
+    </c-container>
+
+
+
+
+  </c-container>
+
+</ng-container>
+
+
+}
+
+
 
 <ng-template #themeDropdown>
   <c-dropdown alignment="end" variant="nav-item">
@@ -166,17 +276,14 @@
     </button>
     <div cDropdownMenu>
       @for (mode of colorModes; track mode.name) {
-        <button
-          (click)="colorMode.set(mode.name)"
-          [active]="colorMode()===mode.name"
-          [routerLink]="[]"
-          cDropdownItem
-          class="d-flex align-items-center"
-        >
-          <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
-          {{ mode.text }}
-        </button>
+      <button (click)="colorMode.set(mode.name)" [active]="colorMode()===mode.name" [routerLink]="[]" cDropdownItem
+        class="d-flex align-items-center">
+        <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
+        {{ mode.text }}
+      </button>
       }
     </div>
   </c-dropdown>
 </ng-template>
+
+<app-login-client></app-login-client>

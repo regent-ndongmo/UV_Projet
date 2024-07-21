@@ -30,13 +30,12 @@
             <td>
               <select [(ngModel)]="item.user.role" (change)="onRoleChange($event)" class="custom-select">
                 <option [value]="item.user.role">{{ item.user.role }}</option>
-                <option *ngIf="item.user.role === 'photographe'" value="admin">admin</option>
-                <option *ngIf="item.user.role !== 'photographe'" value="photographe">photographe</option>
+                <!-- <option *ngIf="item.user.role === 'photographe'" value="admin">admin</option> -->
                 <option value="bloquer">bloquer</option>
               </select>
             </td>
             <td>
-              @if (item.user.role == "photographe" || item.user.role == "admin") {
+              @if (item.user.role == "photographe") {
                 En activite
               }@else {
                 Bloque

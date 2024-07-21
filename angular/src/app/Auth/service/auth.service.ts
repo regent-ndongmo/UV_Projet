@@ -18,10 +18,26 @@ export class AuthService {
   private componentState: BehaviorSubject<boolean>;
   currentState ;
 
+  private clientEmail: BehaviorSubject<boolean>;
+  currentEmail;
+
+  private client: BehaviorSubject<any>;
+  currentClient;
+
   constructor(private httpClient: HttpClient, private router: Router) {
     const savedState = localStorage.getItem('componentState');
     this.componentState = new BehaviorSubject<boolean>(savedState === 'true');
     this.currentState = this.componentState.asObservable();
+
+    //
+    const client = localStorage.getItem('client');
+    this.client = new BehaviorSubject<any>(this.getEmail())
+    this.currentClient = this.client.asObservable();
+
+    //
+    const client_email = localStorage.getItem('clientState');
+    this.clientEmail = new BehaviorSubject<boolean>(client_email === 'true')
+    this.currentEmail = this.clientEmail.asObservable();
   }
 
   changeState(state: boolean) {
@@ -29,13 +45,26 @@ export class AuthService {
     this.componentState.next(state);
   }
 
-
-  private buttonClicked = new BehaviorSubject<boolean>(false);
-  buttonClicked$ = this.buttonClicked.asObservable();
-
-  clickButton(): void {
-    this.buttonClicked.next(true);
+  changeEmail(state: boolean) {
+    localStorage.setItem('clientState', state.toString());
+    this.clientEmail.next(state);
   }
+
+  getEmail(){
+    return localStorage.getItem('client_email') || ''
+  }
+  changeClient(email: any) {
+    localStorage.setItem('client_email', email.toString());
+    this.clientEmail.next(email);
+  }
+
+
+  // private buttonClicked = new BehaviorSubject<boolean>(false);
+  // buttonClicked$ = this.buttonClicked.asObservable();
+
+  // clickButton(): void {
+  //   this.buttonClicked.next(true);
+  // }
 
   login(data: Login): Observable<ApiResponse>  {
     return this.httpClient.post<ApiResponse>(`${this.apiUrl}/login`, data);

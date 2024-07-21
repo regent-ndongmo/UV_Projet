@@ -3,12 +3,22 @@ package com.dicap.ImageUploadApi;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 
 @AllArgsConstructor
 @RestController
@@ -28,9 +38,9 @@ public class ImageController {
                                                    @RequestParam("description") String description,
                                                    @RequestParam("category_id") Long category_id,
                                                    @RequestParam("price") double price,
-                                                   @RequestParam("phototographer_id") Long phototographer_id,
+                                                   @RequestParam("photographer_id") Long photographer_id,
                                                    @RequestParam("title") String title) throws IOException {
-        ImageEntity image = imageSevice.saveImage(file,title,description,price,category_id,phototographer_id);
+        ImageEntity image = imageSevice.saveImage(file,title,description,price,category_id,photographer_id);
         return ResponseEntity.ok(image);
 
     }
@@ -93,4 +103,38 @@ public class ImageController {
     public void deleteAllImages() {
         imageSevice.deleteAllImages();
     }
+
+    @GetMapping("/{id}/zip")
+    public ResponseEntity<byte[]> getZippedImage(@PathVariable Long id) {
+        Optional<ImageEntity> image = imageSevice.getImage(id);
+
+        if (image == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        try {
+            byte[] compressedImage = compressImage(image.get().getUrl());
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", image.get().getTitle()+".zip");
+
+            return new ResponseEntity<>(compressedImage, headers, HttpStatus.OK);
+        }catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    private byte[] compressImage(byte[] imageData) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (ZipOutputStream zos = new ZipOutputStream(baos)) {
+            ZipEntry entry = new ZipEntry("image.jpg");
+            zos.putNextEntry(entry);
+            zos.write(imageData);
+            zos.closeEntry();
+        }
+        return baos.toByteArray();
+
+    }
+
 }

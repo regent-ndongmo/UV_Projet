@@ -70,11 +70,11 @@ body {
   width: auto;
   height: 70px;
   border: none;
-  background-color: #901C1C;
+  background-color: #2199E8;
   border-radius: 5px;
   cursor: pointer;
   &:hover{
-    background-color: #6b1919;
+    background-color: #226694;
   }
 }
 
@@ -83,14 +83,17 @@ h2 {
 }
 
 .hashtag-container{
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
 }
 .hashtag{
   border: 2px solid #f2f2f2;
   border-radius: 10px;
   padding: 0 5px 0 5px;
-  color: #901C1C;
+  color: none;
   margin-right: 10px;
+  margin-bottom: 10px;
 
 }
 
@@ -108,7 +111,7 @@ h2 {
 
   }
   h2 {
-    color: #D3573C;
+    color: none;
     font-size: 30px;
     font-size: 50px;
   }
@@ -119,12 +122,12 @@ h2 {
     object-fit: cover;
   }
   .tagline{
-    color: #1b0404;
+    color: none;
   }
 }
 
 h3 {
-  color: #bd4e35;
+  color: none;
   font-size: 15px;
   font-size: 20px;
 }
@@ -143,9 +146,9 @@ h3 {
     padding: 10px 0 10px 10px;
     margin: 0 10px 0 10px;
     font-size: 16px;
-    border: 1px solid #901C1C;
+    border: 1px solid #2199E8;
     border-radius: 5px;
-    background-color: #901C1C;
+    background-color: #2199E8;
     color: white;
     .option{
       padding: 5px;
@@ -159,7 +162,7 @@ h3 {
       outline: none;
     }
     &:hover{
-      border-color: #1b0404;
+      border-color: #226694;
     }
   }
 }
@@ -230,7 +233,7 @@ h3 {
 }
 
 .button-modall:hover {
-  background-color: #0056b3;
+  background-color: #226694;
 }
 
 .public-img{
